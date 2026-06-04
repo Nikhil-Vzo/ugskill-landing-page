@@ -180,7 +180,7 @@ export const HeroSection: React.FC = () => {
         <div className="relative w-[92%] md:w-[85%] max-w-5xl aspect-video overflow-hidden flex items-center justify-center">
           <video
             ref={videoRef}
-            src="/ug_skill_bot_intro.mp4"
+            src="/ug_bot_removed_bg.mp4"
             className="w-full h-full object-cover z-0"
             style={{
               maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 92%)',
