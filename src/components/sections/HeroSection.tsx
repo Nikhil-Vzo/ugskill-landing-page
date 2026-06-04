@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import React, { useRef, useState, useEffect } from 'react';
+import { motion, useMotionValue, useSpring, useTransform, useInView } from "framer-motion";
 import Link from 'next/link';
 import { ArrowRight, Volume2, VolumeX, Play, Pause } from "lucide-react";
 import { DashboardMockup } from "../ui/DashboardMockup";
@@ -9,8 +9,36 @@ import { TactileButton } from "../ui/TactileButton";
 
 export const HeroSection: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const section2Ref = useRef<HTMLDivElement>(null);
   const [isMuted, setIsMuted] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const isSection2InView = useInView(section2Ref, { amount: 0.3 });
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (isSection2InView) {
+      // Unmute and try to play
+      video.muted = false;
+      setIsMuted(false);
+      video.play().catch(err => {
+        console.log("Autoplay unmuted blocked, falling back to muted", err);
+        if (videoRef.current) {
+          videoRef.current.muted = true;
+          setIsMuted(true);
+          videoRef.current.play().catch(playErr => {
+            console.error("Muted play failed as well", playErr);
+          });
+        }
+      });
+      setIsPlaying(true);
+    } else {
+      video.pause();
+      setIsPlaying(false);
+    }
+  }, [isSection2InView]);
 
   // Mouse-based 3D Parallax Physics (hover only)
   const x = useMotionValue(0);
@@ -137,114 +165,45 @@ export const HeroSection: React.FC = () => {
         </div>
       </section>
 
-      {/* Section 2: Video companion */}
+      {/* Section 2: Video companion (Full-bleed Cinematic Portal) */}
       <motion.section
-        className="relative min-h-screen w-full flex items-center justify-center py-20 lg:py-24 bg-slate-50/50 border-t border-b border-slate-100 overflow-hidden"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-120px" }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        ref={section2Ref}
+        className="relative h-screen w-full bg-black overflow-hidden"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
       >
-        <div className="relative flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 px-6 max-w-7xl w-full mx-auto z-20">
-          {/* Left Column: Mascot Bot + Speech Bubble */}
-          <div className="flex flex-col items-center gap-4 max-w-[240px] order-1 lg:order-none">
-            {/* Speech Bubble */}
-            <div className="relative bg-white/95 border border-slate-200 shadow-[0_10px_25px_-5px_rgba(15,23,42,0.08)] rounded-2xl p-4 text-xs text-slate-600 font-medium leading-relaxed max-w-[220px]">
-              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-3.5 h-3.5 bg-white border-r border-b border-slate-200 rotate-45" />
-              <span className="text-[#58CC02] font-semibold block mb-1">UGSkill Companion:</span>
-              "Welcome! 🚀 I'm your learning guide. We connect your campus journey directly to career readiness. Watch this quick video to see how it works!"
-            </div>
+        <video
+          ref={videoRef}
+          src="/ug_skill_bot_intro.mp4"
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          loop
+          playsInline
+        />
 
-            {/* Bot Mascot */}
-            <motion.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-              className="w-24 md:w-28 drop-shadow-[0_8px_16px_rgba(88,204,2,0.12)] select-none"
-            >
-              <img
-                src="/195-removebg-preview.png"
-                alt="UGSkill Robot Mascot"
-                className="w-full h-auto object-contain"
-              />
-            </motion.div>
-          </div>
+        {/* Cinematic dark overlay to make controls look premium */}
+        <div className="absolute inset-0 bg-black/25 pointer-events-none z-10" />
 
-          {/* Middle Column: Video inside Browser Frame */}
-          <div className="relative w-full max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-[700px] rounded-xl bg-slate-900 border border-slate-200 shadow-2xl overflow-hidden flex flex-col order-2 lg:order-none">
-            {/* Browser Window Header */}
-            <div className="flex items-center justify-between px-4 py-2.5 bg-slate-50 border-b border-slate-200">
-              <div className="flex items-center gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-[#FF5F56] border border-[#E0443E]" />
-                <div className="w-3 h-3 rounded-full bg-[#FFBD2E] border border-[#DEA123]" />
-                <div className="w-3 h-3 rounded-full bg-[#27C93F] border border-[#1AAB29]" />
-              </div>
-              <div className="flex-1 max-w-[260px] mx-auto bg-slate-100 border border-slate-200 rounded-md py-1 px-3 text-center text-[10px] text-slate-500 font-mono tracking-wide truncate">
-                ugskill.com/intro
-              </div>
-              <div className="w-12" />
-            </div>
-
-            {/* Video Content */}
-            <div className="relative aspect-video w-full bg-slate-950 flex items-center justify-center">
-              <video
-                ref={videoRef}
-                src="/ug_skill_bot_intro.mp4"
-                className="w-full h-full object-cover"
-                autoPlay
-                muted={isMuted}
-                loop
-                playsInline
-              />
-              
-              {/* Custom Playback Controls Overlay */}
-              <div className="absolute bottom-4 right-4 flex items-center gap-2 z-30">
-                <button
-                  onClick={toggleMute}
-                  className="p-2.5 rounded-full bg-slate-900/85 hover:bg-slate-900 border border-slate-700/50 text-white transition-all transform active:scale-95"
-                  title={isMuted ? "Unmute" : "Mute"}
-                >
-                  {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-[#58CC02]" />}
-                </button>
-                <button
-                  onClick={togglePlay}
-                  className="p-2.5 rounded-full bg-slate-900/85 hover:bg-slate-900 border border-slate-700/50 text-white transition-all transform active:scale-95"
-                  title={isPlaying ? "Pause" : "Play"}
-                >
-                  {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 text-[#58CC02]" />}
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Happy Blob Card */}
-          <motion.div
-            whileHover={{ y: -5, scale: 1.02 }}
-            className="hidden lg:flex flex-col gap-3 w-[220px] bg-white/95 border border-slate-200/90 shadow-[0_10px_25px_-5px_rgba(15,23,42,0.08)] rounded-2xl p-3 order-3 lg:order-none transition-all duration-300"
+        {/* Custom Playback Controls Overlay */}
+        <div className="absolute bottom-8 right-8 z-30 flex items-center gap-3 bg-black/60 hover:bg-black/80 border border-white/10 px-4 py-2.5 rounded-full backdrop-blur-md transition-all shadow-lg">
+          <button
+            onClick={toggleMute}
+            className="p-2 rounded-full hover:bg-white/10 text-white transition-all transform active:scale-95"
+            title={isMuted ? "Unmute" : "Mute"}
           >
-            <div className="relative aspect-square w-full rounded-xl overflow-hidden border border-slate-100 shadow-inner bg-slate-50 flex items-center justify-center">
-              <div className="w-[85%] h-[85%] rounded-full overflow-hidden border border-slate-200/60 shadow-md">
-                <img
-                  src="/happy_blob.jpg"
-                  alt="Happy Blob Companion"
-                  className="w-full h-full object-cover scale-[1.48]"
-                />
-              </div>
-              <span className="absolute bottom-2 left-2 px-2 py-0.5 rounded-full bg-slate-950/80 text-[9px] text-white font-bold backdrop-blur-sm tracking-wider uppercase border border-slate-800">
-                MASCOT
-              </span>
-            </div>
-            <div className="flex flex-col gap-1">
-              <h4 className="text-xs font-extrabold text-slate-800 flex items-center gap-1.5">
-                Happy Blob
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
-              </h4>
-              <p className="text-[10px] text-slate-500 leading-normal font-medium">
-                Your AI study companion! Stays by your side to help you learn, track stats, and stay happy 24/7.
-              </p>
-            </div>
-          </motion.div>
+            {isMuted ? <VolumeX className="w-5 h-5 text-white/80" /> : <Volume2 className="w-5 h-5 text-[#58CC02]" />}
+          </button>
+          <button
+            onClick={togglePlay}
+            className="p-2 rounded-full hover:bg-white/10 text-white transition-all transform active:scale-95"
+            title={isPlaying ? "Pause" : "Play"}
+          >
+            {isPlaying ? <Pause className="w-5 h-5 text-white/80" /> : <Play className="w-5 h-5 text-[#58CC02]" />}
+          </button>
         </div>
       </motion.section>
+
 
       {/* Section 3: Dashboard mockup */}
       <motion.section
