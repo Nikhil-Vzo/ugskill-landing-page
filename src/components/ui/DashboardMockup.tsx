@@ -129,12 +129,24 @@ export const DashboardMockup: React.FC = () => {
 
       {/* --- Main Viewport (preserves 3D context) --- */}
       <div 
-        className="relative w-full aspect-[16/10] bg-slate-50 p-6 rounded-b-[14px] select-none"
+        className="relative w-full aspect-[16/10] bg-slate-50 p-6 rounded-b-[14px] select-none overflow-hidden"
         style={{ transformStyle: 'preserve-3d', perspective: 1200 }}
       >
-        {/* Ambient background glows */}
-        <div className="absolute -top-12 -left-12 h-64 w-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none glow-pulse" />
-        <div className="absolute -bottom-12 -right-12 h-64 w-64 bg-sky-500/5 rounded-full blur-3xl pointer-events-none glow-pulse" style={{ animationDelay: '2s' }} />
+        {/* Modern Grid Background inside Mockup Viewport */}
+        <div 
+          className="absolute inset-0 pointer-events-none z-0 opacity-70" 
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(226, 232, 240, 0.75) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(226, 232, 240, 0.75) 1px, transparent 1px)
+            `,
+            backgroundSize: '24px 24px'
+          }}
+        />
+
+        {/* Richer ambient background glows for contrast */}
+        <div className="absolute -top-12 -left-12 h-72 w-72 bg-emerald-500/16 rounded-full blur-3xl pointer-events-none glow-pulse" />
+        <div className="absolute -bottom-12 -right-12 h-72 w-72 bg-sky-500/16 rounded-full blur-3xl pointer-events-none glow-pulse" style={{ animationDelay: '2s' }} />
 
         {/* --- LAYER 1: Course LMS (Background panel, Z = 0) --- */}
         <div 
@@ -194,30 +206,45 @@ export const DashboardMockup: React.FC = () => {
             {/* LMS Main Pane */}
             <div className="flex flex-col gap-2.5 py-1 overflow-hidden" style={{ transform: 'translateZ(10px)' }}>
               <div>
-                <h4 className="text-xs font-bold text-deep-slate">Systems & Algorithms</h4>
-                <p className="text-[9px] text-slate-400">Section A: Graph Structures & Filters</p>
+                <h4 className="text-xs font-bold text-deep-slate leading-none">Systems & Algorithms</h4>
+                <p className="text-[9px] text-slate-400 mt-1">Section A: Graph Structures & Filters</p>
               </div>
 
               {/* Progress Container */}
-              <div className="rounded-xl bg-slate-50 border border-slate-200/50 p-2.5 flex flex-col justify-between h-[100px]">
+              <div className="rounded-xl bg-slate-50 border border-slate-200/50 p-2.5 flex flex-col justify-between h-[95px]">
                 <div className="flex items-center justify-between">
-                  <span className="text-[9px] font-bold text-slate-400">Weekly Target</span>
-                  <span className="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.2 rounded-full">65% Progress</span>
+                  <span className="text-[8px] font-bold text-slate-400 uppercase tracking-wide">Weekly Target</span>
+                  <span className="text-[8.5px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.2 rounded-full leading-none">65% Progress</span>
                 </div>
 
                 {/* Progress Nodes */}
-                <div className="flex items-center justify-center gap-2 py-1">
-                  <span className="h-5 w-5 rounded-full border border-emerald-500 bg-emerald-50 text-[9px] font-bold text-emerald-600 flex items-center justify-center shadow-xs">✓</span>
-                  <div className="h-0.5 w-6 bg-emerald-400" />
-                  <span className="h-5 w-5 rounded-full border border-emerald-500 bg-emerald-50 text-[9px] font-bold text-emerald-600 flex items-center justify-center shadow-xs">✓</span>
-                  <div className="h-0.5 w-6 bg-emerald-400" />
-                  <span className="h-5.5 w-5.5 rounded-full bg-emerald-500 text-[9px] font-bold text-white flex items-center justify-center shadow-xs animate-pulse">3</span>
-                  <div className="h-0.5 w-6 bg-slate-200" />
-                  <span className="h-5 w-5 rounded-full border border-slate-200 bg-white text-[9px] font-bold text-slate-400 flex items-center justify-center">4</span>
+                <div className="flex items-center justify-center gap-1.5 py-0.5">
+                  <span className="h-4.5 w-4.5 rounded-full border border-emerald-500 bg-emerald-50 text-[8.5px] font-bold text-emerald-600 flex items-center justify-center shadow-xs">✓</span>
+                  <div className="h-0.5 w-5 bg-emerald-400" />
+                  <span className="h-4.5 w-4.5 rounded-full border border-emerald-500 bg-emerald-50 text-[8.5px] font-bold text-emerald-600 flex items-center justify-center shadow-xs">✓</span>
+                  <div className="h-0.5 w-5 bg-emerald-400" />
+                  <span className="h-5 w-5 rounded-full bg-emerald-500 text-[8.5px] font-bold text-white flex items-center justify-center shadow-xs animate-pulse">3</span>
+                  <div className="h-0.5 w-5 bg-slate-200" />
+                  <span className="h-4.5 w-4.5 rounded-full border border-slate-200 bg-white text-[8.5px] font-bold text-slate-400 flex items-center justify-center">4</span>
                 </div>
 
-                <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                <div className="w-full bg-slate-200 h-1 rounded-full overflow-hidden">
                   <div className="bg-emerald-500 h-full w-[65%] transition-all duration-1000" />
+                </div>
+              </div>
+
+              {/* Next Syllabus Modules to fill space */}
+              <div className="flex flex-col gap-1.5 mt-0.5">
+                <span className="text-[7.5px] font-bold text-slate-400 uppercase tracking-wider">Up Next in syllabus</span>
+                <div className="flex flex-col gap-1.5">
+                  <div className="flex items-center justify-between border border-slate-100/80 bg-slate-50/50 rounded-lg p-2 hover:bg-slate-50 transition-colors">
+                    <span className="text-[8.5px] font-bold text-slate-700 truncate leading-none">08. DFS & BFS Graph Traversals</span>
+                    <span className="text-[7.5px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full leading-none">Practice Active</span>
+                  </div>
+                  <div className="flex items-center justify-between border border-slate-100/80 bg-slate-50/50 rounded-lg p-2 opacity-75">
+                    <span className="text-[8.5px] font-medium text-slate-500 truncate leading-none">09. Shortest Path Algorithms</span>
+                    <span className="text-[7.5px] font-medium text-slate-400 px-1.5 py-0.5 rounded-full leading-none">Locked</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -354,25 +381,34 @@ export const DashboardMockup: React.FC = () => {
               </div>
             </div>
 
-            {/* Recruiting Match Widget (Light, Clean, and Brand-Harmonious) */}
-            <div className="flex-1 border border-slate-200/80 rounded-xl bg-white text-slate-800 p-2.5 flex items-center justify-between hover:bg-slate-50/80 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(15,23,42,0.03)] transition-all duration-200">
-              <div className="flex items-center gap-2.5">
-                <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-sky-400 to-indigo-600 flex items-center justify-center text-white font-extrabold text-[14px]">
-                  S
-                </div>
-                <div>
-                  <div className="text-[10px] font-bold text-slate-900 flex items-center gap-1.5">
-                    Stripe Inc. <ArrowUpRight className="h-3 w-3 text-slate-400" />
+            {/* Recruiting Match Widgets (Full list to fill height and add depth) */}
+            <div className="flex flex-col gap-1.5 border border-slate-100 rounded-xl bg-slate-50/50 p-2">
+              <span className="text-[7.5px] font-bold text-slate-400 uppercase tracking-wider px-1">Top Active Pipelines</span>
+              <div className="flex flex-col gap-1.5">
+                {jobs.map((job) => (
+                  <div 
+                    key={job.company} 
+                    className="border border-slate-100/80 rounded-lg bg-white p-2 flex items-center justify-between shadow-xs hover:bg-slate-50/80 hover:-translate-y-0.5 transition-all duration-200"
+                  >
+                    <div className="flex items-center gap-2">
+                      <div className={`h-6 w-6 rounded-md bg-gradient-to-tr ${job.color} flex items-center justify-center text-white font-extrabold text-[10px]`}>
+                        {job.letter}
+                      </div>
+                      <div>
+                        <div className="text-[9px] font-bold text-slate-900 flex items-center gap-1 leading-none">
+                          {job.company} <ArrowUpRight className="h-2.5 w-2.5 text-slate-400" />
+                        </div>
+                        <div className="text-[7.5px] text-slate-500 font-medium mt-0.5">{job.role}</div>
+                      </div>
+                    </div>
+                    
+                    <div className="text-right">
+                      <span className="text-[8px] font-bold text-[#58CC02] bg-[#58CC02]/10 px-2 py-0.5 rounded-full inline-block leading-none">
+                        {job.match}% Match
+                      </span>
+                    </div>
                   </div>
-                  <div className="text-[8px] text-slate-500">Position: Software Engineer Dev</div>
-                </div>
-              </div>
-              
-              <div className="text-right">
-                <div className="text-[9px] font-bold text-[#58CC02] bg-[#58CC02]/10 px-2 py-0.5 rounded-full inline-block">
-                  94% Match
-                </div>
-                <div className="text-[7px] text-slate-400 mt-1">Pipeline Auto-Unlock</div>
+                ))}
               </div>
             </div>
           </div>
