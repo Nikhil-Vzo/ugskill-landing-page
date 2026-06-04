@@ -36,6 +36,8 @@ export const HeroSection: React.FC = () => {
       setIsPlaying(true);
     } else {
       video.pause();
+      video.muted = true;
+      setIsMuted(true);
       setIsPlaying(false);
     }
   }, [isSection2InView]);
@@ -165,42 +167,56 @@ export const HeroSection: React.FC = () => {
         </div>
       </section>
 
-      {/* Section 2: Video companion (Full-bleed Cinematic Portal) */}
+      {/* Section 2: Video companion (Faded Portal) */}
       <motion.section
         ref={section2Ref}
-        className="relative h-screen w-full bg-black overflow-hidden"
+        className="relative min-h-screen w-full flex items-center justify-center py-20 lg:py-24 bg-white overflow-hidden"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1 }}
       >
-        <video
-          ref={videoRef}
-          src="/ug_skill_bot_intro.mp4"
-          className="absolute inset-0 w-full h-full object-cover z-0"
-          loop
-          playsInline
-        />
+        {/* Slightly lower width container with aspect-video */}
+        <div className="relative w-[92%] md:w-[85%] max-w-5xl aspect-video rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-slate-100 bg-slate-50 flex items-center justify-center">
+          <video
+            ref={videoRef}
+            src="/ug_skill_bot_intro.mp4"
+            className="w-full h-full object-cover z-0"
+            style={{
+              maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 92%)',
+              WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 92%)'
+            }}
+            loop
+            playsInline
+          />
 
-        {/* Cinematic dark overlay to make controls look premium */}
-        <div className="absolute inset-0 bg-black/25 pointer-events-none z-10" />
+          {/* Cinematic dark overlay to make controls look premium */}
+          <div 
+            className="absolute inset-0 pointer-events-none z-10"
+            style={{
+              background: 'radial-gradient(ellipse at center, rgba(0,0,0,0.06) 30%, rgba(0,0,0,0.2) 90%)',
+              maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 92%)',
+              WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 92%)'
+            }}
+          />
 
-        {/* Custom Playback Controls Overlay */}
-        <div className="absolute bottom-8 right-8 z-30 flex items-center gap-3 bg-black/60 hover:bg-black/80 border border-white/10 px-4 py-2.5 rounded-full backdrop-blur-md transition-all shadow-lg">
-          <button
-            onClick={toggleMute}
-            className="p-2 rounded-full hover:bg-white/10 text-white transition-all transform active:scale-95"
-            title={isMuted ? "Unmute" : "Mute"}
-          >
-            {isMuted ? <VolumeX className="w-5 h-5 text-white/80" /> : <Volume2 className="w-5 h-5 text-[#58CC02]" />}
-          </button>
-          <button
-            onClick={togglePlay}
-            className="p-2 rounded-full hover:bg-white/10 text-white transition-all transform active:scale-95"
-            title={isPlaying ? "Pause" : "Play"}
-          >
-            {isPlaying ? <Pause className="w-5 h-5 text-white/80" /> : <Play className="w-5 h-5 text-[#58CC02]" />}
-          </button>
+          {/* Custom Playback Controls Overlay */}
+          <div className="absolute bottom-6 right-6 z-30 flex items-center gap-3 bg-black/60 hover:bg-black/80 border border-white/10 px-4 py-2.5 rounded-full backdrop-blur-md transition-all shadow-lg">
+            <button
+              onClick={toggleMute}
+              className="p-2 rounded-full hover:bg-white/10 text-white transition-all transform active:scale-95"
+              title={isMuted ? "Unmute" : "Mute"}
+            >
+              {isMuted ? <VolumeX className="w-5 h-5 text-white/80" /> : <Volume2 className="w-5 h-5 text-[#58CC02]" />}
+            </button>
+            <button
+              onClick={togglePlay}
+              className="p-2 rounded-full hover:bg-white/10 text-white transition-all transform active:scale-95"
+              title={isPlaying ? "Pause" : "Play"}
+            >
+              {isPlaying ? <Pause className="w-5 h-5 text-white/80" /> : <Play className="w-5 h-5 text-[#58CC02]" />}
+            </button>
+          </div>
         </div>
       </motion.section>
 
