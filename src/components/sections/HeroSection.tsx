@@ -177,7 +177,7 @@ export const HeroSection: React.FC = () => {
         transition={{ duration: 1 }}
       >
         {/* Slightly lower width container with aspect-video */}
-        <div className="relative w-[92%] md:w-[85%] max-w-5xl aspect-video rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-slate-100 bg-slate-50 flex items-center justify-center">
+        <div className="relative w-[92%] md:w-[85%] max-w-5xl aspect-video overflow-hidden flex items-center justify-center">
           <video
             ref={videoRef}
             src="/ug_skill_bot_intro.mp4"
