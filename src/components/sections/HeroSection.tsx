@@ -112,6 +112,34 @@ export const HeroSection: React.FC = () => {
           style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%)' }}
         />
 
+        {/* Left Floating Illustration: Student learning */}
+        <motion.div
+          className="absolute left-4 lg:left-8 xl:left-12 top-1/2 w-44 lg:w-56 xl:w-72 hidden md:block select-none pointer-events-none z-0 opacity-70 xl:opacity-100"
+          style={{ translateY: "-50%" }}
+          animate={{ y: [0, -12, 0] }}
+          transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+        >
+          <img
+            src="/student_robot_study-removebg-preview.png"
+            alt="Student studying with bot companion"
+            className="w-full h-auto drop-shadow-[0_12px_24px_rgba(88,204,2,0.06)]"
+          />
+        </motion.div>
+
+        {/* Right Floating Illustration: Student got job */}
+        <motion.div
+          className="absolute right-4 lg:right-8 xl:right-12 top-1/2 w-44 lg:w-56 xl:w-72 hidden md:block select-none pointer-events-none z-0 opacity-70 xl:opacity-100"
+          style={{ translateY: "-50%" }}
+          animate={{ y: [0, -12, 0] }}
+          transition={{ repeat: Infinity, duration: 6.5, ease: "easeInOut" }}
+        >
+          <img
+            src="/student_placed_success-removebg-preview.png"
+            alt="Student celebrating job placement success"
+            className="w-full h-auto drop-shadow-[0_12px_24px_rgba(14,165,233,0.06)]"
+          />
+        </motion.div>
+
         <div className="relative z-10 text-center px-6 w-full">
           <div className="mx-auto max-w-6xl flex flex-col items-center">
             <motion.div
