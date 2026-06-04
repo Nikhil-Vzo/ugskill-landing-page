@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { 
   BookOpen, 
   TrendingUp, 
@@ -42,7 +43,7 @@ export const DashboardMockup: React.FC = () => {
   ];
 
   return (
-    <div className="w-full border border-slate-200/80 bg-slate-100 rounded-2xl shadow-[0_25px_50px_-12px_rgba(15,23,42,0.08)] overflow-hidden p-0.5">
+    <div className="w-full border border-slate-200/80 bg-slate-100 rounded-2xl shadow-[0_25px_50px_-12px_rgba(15,23,42,0.08)] p-0.5 relative">
       {/* High-Performance GPU Accelerated Styles */}
       <style>{`
         /* Smooth scale-up fade entry */
@@ -105,7 +106,7 @@ export const DashboardMockup: React.FC = () => {
       `}</style>
 
       {/* --- Browser Window Chrome Bar --- */}
-      <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-slate-200/60 select-none">
+      <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-slate-200/60 select-none rounded-t-[14px]">
         {/* macOS Window Controls */}
         <div className="flex items-center gap-1.5">
           <span className="h-3 w-3 rounded-full bg-red-400/90 shadow-sm" />
@@ -128,7 +129,7 @@ export const DashboardMockup: React.FC = () => {
 
       {/* --- Main Viewport (preserves 3D context) --- */}
       <div 
-        className="relative w-full aspect-[16/10] bg-slate-50 p-6 overflow-hidden rounded-b-2xl select-none"
+        className="relative w-full aspect-[16/10] bg-slate-50 p-6 rounded-b-[14px] select-none"
         style={{ transformStyle: 'preserve-3d', perspective: 1200 }}
       >
         {/* Ambient background glows */}
@@ -353,29 +354,61 @@ export const DashboardMockup: React.FC = () => {
               </div>
             </div>
 
-            {/* Recruiting Match Widget (High Contrast, Hardware-Accelerated 3D hover) */}
-            <div className="flex-1 border border-slate-100 rounded-xl bg-slate-900 text-white p-2.5 flex items-center justify-between hover-lift-3d">
+            {/* Recruiting Match Widget (Light, Clean, and Brand-Harmonious) */}
+            <div className="flex-1 border border-slate-200/80 rounded-xl bg-white text-slate-800 p-2.5 flex items-center justify-between hover:bg-slate-50/80 hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(15,23,42,0.03)] transition-all duration-200">
               <div className="flex items-center gap-2.5">
                 <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-sky-400 to-indigo-600 flex items-center justify-center text-white font-extrabold text-[14px]">
                   S
                 </div>
                 <div>
-                  <div className="text-[10px] font-bold text-white flex items-center gap-1.5">
-                    Stripe Inc. <ArrowUpRight className="h-3 w-3 text-emerald-400" />
+                  <div className="text-[10px] font-bold text-slate-900 flex items-center gap-1.5">
+                    Stripe Inc. <ArrowUpRight className="h-3 w-3 text-slate-400" />
                   </div>
-                  <div className="text-[8px] text-slate-400">Position: Software Engineer Dev</div>
+                  <div className="text-[8px] text-slate-500">Position: Software Engineer Dev</div>
                 </div>
               </div>
               
               <div className="text-right">
-                <div className="text-[9px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full inline-block">
+                <div className="text-[9px] font-bold text-[#58CC02] bg-[#58CC02]/10 px-2 py-0.5 rounded-full inline-block">
                   94% Match
                 </div>
-                <div className="text-[7px] text-slate-500 mt-1">Pipeline Auto-Unlock</div>
+                <div className="text-[7px] text-slate-400 mt-1">Pipeline Auto-Unlock</div>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Floating Gamification Widget 1 */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.8, z: -20 }} 
+          animate={{ opacity: 1, scale: 1, z: 50 }} 
+          transition={{ delay: 1.2, type: "spring", stiffness: 200, damping: 15 }}
+          className="absolute -right-8 top-12 bg-white p-3 pr-5 rounded-2xl shadow-xl border border-slate-100 z-20 flex items-center gap-3"
+        >
+          <div className="w-10 h-10 rounded-full bg-[#58CC02]/10 flex items-center justify-center text-[#58CC02]">
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+          </div>
+          <div>
+            <p className="text-sm font-bold text-[#0F172A]">Mock Interview</p>
+            <p className="text-xs font-semibold text-slate-500">Passed • 85% Readiness</p>
+          </div>
+        </motion.div>
+
+        {/* Floating Gamification Widget 2 */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.8, z: -20 }} 
+          animate={{ opacity: 1, scale: 1, z: 50 }} 
+          transition={{ delay: 1.4, type: "spring", stiffness: 200, damping: 15 }}
+          className="absolute -left-6 bottom-16 bg-white p-3 pr-5 rounded-2xl shadow-xl border border-slate-100 z-20 flex items-center gap-3"
+        >
+          <div className="w-10 h-10 rounded-full bg-[#0EA5E9]/10 flex items-center justify-center text-[#0EA5E9] font-bold">
+            7
+          </div>
+          <div>
+            <p className="text-sm font-bold text-[#0F172A]">Day Streak!</p>
+            <p className="text-xs font-medium text-slate-500">Top 10% of batch</p>
+          </div>
+        </motion.div>
       </div>
     </div>
   );

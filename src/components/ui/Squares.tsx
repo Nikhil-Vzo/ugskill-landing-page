@@ -181,7 +181,7 @@ export const Squares: React.FC<SquaresProps> = ({
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 -z-10 block h-full w-full pointer-events-auto"
+      className="absolute inset-0 z-0 block h-full w-full pointer-events-auto"
     />
   );
 };

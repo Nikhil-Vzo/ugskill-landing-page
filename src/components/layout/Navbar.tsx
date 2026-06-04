@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { TactileButton } from '../ui/TactileButton';
 
 export const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -56,12 +57,10 @@ export const Navbar: React.FC = () => {
             <Link href="/auth/login" className="text-sm font-semibold text-slate-500 hover:text-deep-slate transition-colors">
               Login
             </Link>
-            <Link 
-              href="/auth/login?sandbox=true" 
-              className="btn-tactile text-sm"
-              style={{ backgroundColor: '#58CC02', borderColor: '#46A302' }}
-            >
-              Try Demo
+            <Link href="/auth/login?sandbox=true" className="no-underline">
+              <TactileButton variant="primary" className="text-sm px-4.5 py-2">
+                Try Demo
+              </TactileButton>
             </Link>
           </div>
 
@@ -92,11 +91,12 @@ export const Navbar: React.FC = () => {
             </Link>
             <Link 
               href="/auth/login?sandbox=true" 
-              className="btn-tactile text-center text-sm py-3"
-              style={{ backgroundColor: '#58CC02', borderColor: '#46A302' }}
+              className="block w-full no-underline"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Try Demo
+              <TactileButton variant="primary" className="w-full text-sm py-2.5">
+                Try Demo
+              </TactileButton>
             </Link>
           </div>
         </div>
