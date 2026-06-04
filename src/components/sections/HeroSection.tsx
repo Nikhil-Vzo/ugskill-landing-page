@@ -139,13 +139,13 @@ export const HeroSection: React.FC = () => {
 
       {/* Section 2: Video companion */}
       <motion.section
-        className="relative py-24 bg-slate-50/50 border-t border-b border-slate-100 w-full overflow-hidden"
+        className="relative min-h-screen w-full flex items-center justify-center py-20 lg:py-24 bg-slate-50/50 border-t border-b border-slate-100 overflow-hidden"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-120px" }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="relative flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 px-6 max-w-7xl mx-auto z-20">
+        <div className="relative flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 px-6 max-w-7xl w-full mx-auto z-20">
           {/* Left Column: Mascot Bot + Speech Bubble */}
           <div className="flex flex-col items-center gap-4 max-w-[240px] order-1 lg:order-none">
             {/* Speech Bubble */}
@@ -248,13 +248,13 @@ export const HeroSection: React.FC = () => {
 
       {/* Section 3: Dashboard mockup */}
       <motion.section
-        className="relative py-24 bg-white w-full overflow-hidden"
+        className="relative min-h-screen w-full flex items-center justify-center py-20 lg:py-24 bg-white overflow-hidden"
         initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-120px" }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="relative flex items-center justify-center z-20 px-6">
+        <div className="relative flex items-center justify-center w-full z-20 px-6">
           {/* Mouse-interactive 3D card */}
           <motion.div
             style={{
