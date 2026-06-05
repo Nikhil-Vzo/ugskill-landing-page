@@ -249,7 +249,7 @@ const PillNav: React.FC<PillNavProps> = ({
   return (
     <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[1000] w-[90%] md:w-[70vw] flex justify-center">
       <nav
-        className={`w-full md:w-[70vw] flex items-center justify-between box-border px-2 py-1.5 md:py-1 rounded-full border border-white/60 bg-white/55 backdrop-blur-xl shadow-[0_12px_32px_-12px_rgba(15,23,42,0.12)] ${className}`}
+        className={`w-full md:w-[70vw] relative flex items-center justify-between md:justify-center box-border px-2 py-1.5 md:py-1 rounded-full border border-white/60 bg-white/55 backdrop-blur-xl shadow-[0_12px_32px_-12px_rgba(15,23,42,0.12)] ${className}`}
         aria-label="Primary"
         style={cssVars}
       >
@@ -260,7 +260,7 @@ const PillNav: React.FC<PillNavProps> = ({
             onMouseEnter={handleLogoEnter}
             role="menuitem"
             ref={logoRef}
-            className="rounded-full p-2 inline-flex items-center justify-center overflow-hidden hover:scale-105 transition-transform"
+            className="md:absolute md:left-2 rounded-full p-2 inline-flex items-center justify-center overflow-hidden hover:scale-105 transition-transform"
             style={{
               width: 'var(--nav-h)',
               height: 'var(--nav-h)',
@@ -283,7 +283,7 @@ const PillNav: React.FC<PillNavProps> = ({
             ref={el => {
               logoRef.current = el as unknown as HTMLAnchorElement;
             }}
-            className="rounded-full p-2 inline-flex items-center justify-center overflow-hidden hover:scale-105 transition-transform"
+            className="md:absolute md:left-2 rounded-full p-2 inline-flex items-center justify-center overflow-hidden hover:scale-105 transition-transform"
             style={{
               width: 'var(--nav-h)',
               height: 'var(--nav-h)',
@@ -302,7 +302,7 @@ const PillNav: React.FC<PillNavProps> = ({
 
         <div
           ref={navItemsRef}
-          className="relative items-center rounded-full hidden md:flex ml-2"
+          className="relative items-center rounded-full hidden md:flex"
           style={{
             height: 'var(--nav-h)'
           }}
