@@ -165,47 +165,24 @@ export const HeroSection: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Right Boxes (Interactive Demo & Enterprise Setup) docked to the extreme right bottom corner */}
+        {/* Right Actions (Interactive Demo & Enterprise Setup) docked to the extreme right bottom corner */}
         <motion.div
           initial={{ opacity: 0, x: 30, y: 20 }}
           animate={{ opacity: 1, x: 0, y: 0 }}
           transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute right-8 bottom-7 z-20 hidden lg:block w-[35%] max-w-[500px]"
+          className="absolute right-8 bottom-7 z-20 hidden lg:flex items-center gap-4"
         >
-          <div className="grid w-full grid-cols-2 gap-4">
-            {[
-              {
-                label: 'Instant sandbox',
-                value: 'Try Interactive Demo',
-                body: 'Spin up a full-stack dev terminal and Jupyter environment inside your browser.',
-                action: 'Launch demo',
-                href: '/auth/login?sandbox=true',
-              },
-              {
-                label: 'Custom integration',
-                value: 'Book Enterprise Setup',
-                body: 'Schedule a walkthrough to integrate our proctored exams and LMS with your pipeline.',
-                action: 'Book setup',
-                href: '/company/contact',
-              },
-            ].map((item) => (
-              <Link href={item.href} key={item.value} className="no-underline block h-full">
-                <div
-                  className="flex min-h-[172px] h-full flex-col justify-between rounded-3xl border border-white/65 bg-white/32 p-5 text-left shadow-[0_24px_70px_-40px_rgba(15,23,42,0.5)] backdrop-blur-2xl transition hover:bg-white/45 group/card cursor-pointer"
-                >
-                  <div>
-                    <div className="text-[10px] font-bold uppercase tracking-widest text-slate-600">{item.label}</div>
-                    <div className="mt-2 text-lg font-black leading-tight text-[#0F172A]">{item.value}</div>
-                    <p className="mt-3 text-xs font-medium leading-relaxed text-slate-600">{item.body}</p>
-                  </div>
-                  <div className="mt-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/60 bg-white/50 px-3 py-2 text-xs font-bold text-[#0F172A] shadow-sm backdrop-blur-md transition group-hover/card:bg-white/75">
-                    {item.action}
-                    <ArrowRight className="h-3.5 w-3.5 text-slate-500 transition-transform group-hover/card:translate-x-1" />
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <Link href="/auth/login?sandbox=true" className="no-underline">
+            <TactileButton variant="primary" className="px-6 py-4 text-sm font-bold shadow-[0_20px_40px_-15px_rgba(88,204,2,0.3)]">
+              Try Interactive Demo
+            </TactileButton>
+          </Link>
+          <Link href="/company/contact" className="no-underline">
+            <TactileButton variant="secondary" className="px-6 py-4 text-sm font-bold group bg-white/90 border border-slate-200/80 backdrop-blur-md shadow-[0_20px_40px_-15px_rgba(15,23,42,0.1)]">
+              Book Enterprise Setup
+              <ArrowRight className="ml-2 h-4 w-4 text-slate-400 transition-transform group-hover:translate-x-1" />
+            </TactileButton>
+          </Link>
         </motion.div>
       </section>
 
