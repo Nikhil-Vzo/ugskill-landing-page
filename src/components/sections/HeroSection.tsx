@@ -139,62 +139,69 @@ export const HeroSection: React.FC = () => {
           </motion.div>
         </div>
 
+        {/* Left Box (LMS Preview) docked to the extreme left bottom corner */}
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -30, y: 20 }}
+          animate={{ opacity: 1, x: 0, y: 0 }}
           transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute inset-x-6 bottom-7 z-20 hidden md:block"
+          className="absolute left-8 bottom-7 z-20 hidden lg:block w-[30%] max-w-[420px]"
         >
-          <div className="mx-auto flex max-w-7xl items-end justify-between gap-6">
-            <div className="group relative w-[38%] max-w-[520px] overflow-hidden rounded-3xl border border-white/65 bg-white/28 p-3 shadow-[0_24px_70px_-35px_rgba(15,23,42,0.5)] backdrop-blur-2xl">
-              <div className="relative aspect-[16/6] overflow-hidden rounded-2xl bg-slate-950">
-                <img
-                  src="/assets/projects/funnel_lms.png"
-                  alt="UGSkill course flow preview"
-                  className="h-full w-full object-cover opacity-95 transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-slate-950/75 via-slate-950/20 to-transparent" />
-                <div className="absolute left-4 top-4">
-                  <div className="text-[10px] font-bold uppercase tracking-widest text-white/70">LMS</div>
-                  <div className="mt-1 text-xl font-black text-white">Course paths</div>
-                </div>
-                <div className="absolute bottom-4 right-4 rounded-full border border-white/35 bg-white/20 px-3 py-1 text-xs font-bold text-white backdrop-blur-md">
-                  View flow
-                </div>
+          <div className="group relative w-full overflow-hidden rounded-3xl border border-white/65 bg-white/28 p-3 shadow-[0_24px_70px_-35px_rgba(15,23,42,0.5)] backdrop-blur-2xl">
+            <div className="relative aspect-[16/6] overflow-hidden rounded-2xl bg-slate-950">
+              <img
+                src="/assets/projects/learning_path_clay.png"
+                alt="UGSkill course flow preview"
+                className="h-full w-full object-cover opacity-95 transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-950/75 via-slate-950/20 to-transparent" />
+              <div className="absolute left-4 top-4">
+                <div className="text-[10px] font-bold uppercase tracking-widest text-white/70">LMS</div>
+                <div className="mt-1 text-xl font-black text-white">Course paths</div>
+              </div>
+              <div className="absolute bottom-4 right-4 rounded-full border border-white/35 bg-white/20 px-3 py-1 text-xs font-bold text-white backdrop-blur-md">
+                View flow
               </div>
             </div>
+          </div>
+        </motion.div>
 
-            <div className="grid w-[42%] max-w-[560px] grid-cols-2 gap-4">
-              {[
-                {
-                  label: 'Exam integrity',
-                  value: 'Proof students actually earned',
-                  body: 'Proctored checks, activity logs, and scored milestones stay tied to each course path.',
-                  action: 'Verify skills',
-                },
-                {
-                  label: 'Placement signal',
-                  value: 'Profiles recruiters can trust',
-                  body: 'Learning progress, interview readiness, and portfolio evidence combine into one hiring view.',
-                  action: 'View readiness',
-                },
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  className="flex min-h-[172px] flex-col justify-between rounded-3xl border border-white/65 bg-white/32 p-5 text-left shadow-[0_24px_70px_-40px_rgba(15,23,42,0.5)] backdrop-blur-2xl"
-                >
-                  <div>
-                    <div className="text-[10px] font-bold uppercase tracking-widest text-slate-600">{item.label}</div>
-                    <div className="mt-2 text-lg font-black leading-tight text-[#0F172A]">{item.value}</div>
-                    <p className="mt-3 text-xs font-medium leading-relaxed text-slate-600">{item.body}</p>
-                  </div>
-                  <button className="mt-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/60 bg-white/50 px-3 py-2 text-xs font-bold text-[#0F172A] shadow-sm backdrop-blur-md transition hover:bg-white/75">
-                    {item.action}
-                    <ArrowRight className="h-3.5 w-3.5 text-slate-500" />
-                  </button>
+        {/* Right Boxes (Exam integrity & Placement signal) docked to the extreme right bottom corner */}
+        <motion.div
+          initial={{ opacity: 0, x: 30, y: 20 }}
+          animate={{ opacity: 1, x: 0, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute right-8 bottom-7 z-20 hidden lg:block w-[35%] max-w-[500px]"
+        >
+          <div className="grid w-full grid-cols-2 gap-4">
+            {[
+              {
+                label: 'Exam integrity',
+                value: 'Proof students actually earned',
+                body: 'Proctored checks, activity logs, and scored milestones stay tied to each course path.',
+                action: 'Verify skills',
+              },
+              {
+                label: 'Placement signal',
+                value: 'Profiles recruiters can trust',
+                body: 'Learning progress, interview readiness, and portfolio evidence combine into one hiring view.',
+                action: 'View readiness',
+              },
+            ].map((item) => (
+              <div
+                key={item.label}
+                className="flex min-h-[172px] flex-col justify-between rounded-3xl border border-white/65 bg-white/32 p-5 text-left shadow-[0_24px_70px_-40px_rgba(15,23,42,0.5)] backdrop-blur-2xl"
+              >
+                <div>
+                  <div className="text-[10px] font-bold uppercase tracking-widest text-slate-600">{item.label}</div>
+                  <div className="mt-2 text-lg font-black leading-tight text-[#0F172A]">{item.value}</div>
+                  <p className="mt-3 text-xs font-medium leading-relaxed text-slate-600">{item.body}</p>
                 </div>
-              ))}
-            </div>
+                <button className="mt-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/60 bg-white/50 px-3 py-2 text-xs font-bold text-[#0F172A] shadow-sm backdrop-blur-md transition hover:bg-white/75">
+                  {item.action}
+                  <ArrowRight className="h-3.5 w-3.5 text-slate-500" />
+                </button>
+              </div>
+            ))}
           </div>
         </motion.div>
       </section>
