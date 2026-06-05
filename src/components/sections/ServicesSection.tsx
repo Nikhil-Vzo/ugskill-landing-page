@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useRef } from 'react';
+import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 
 interface ServiceItem {
@@ -44,9 +44,38 @@ const services: ServiceItem[] = [
   },
 ];
 
+const serviceImages: Record<string, string> = {
+  '01': '/assets/projects/sandbox_fullstack.png',
+  '02': '/assets/projects/sandbox_terminal.png',
+  '03': '/assets/sandboxes/sandbox_webgl.png',
+  '04': '/assets/sandboxes/sandbox_api.png',
+  '05': '/assets/projects/sandbox_jupyter.png',
+};
+
 export const ServicesSection: React.FC = () => {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Mouse coordinates relative to the Services section container
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smooth springs for magnetic mouse follow
+  const springConfig = { stiffness: 220, damping: 22 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+  };
+
   return (
     <section 
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
       className="relative w-full bg-white rounded-t-[40px] md:rounded-t-[60px] py-24 md:py-32 px-6 md:px-12 z-20 shadow-[0_-20px_40px_-15px_rgba(15,23,42,0.05)] border-t border-slate-200"
       id="solutions"
     >
@@ -68,7 +97,7 @@ export const ServicesSection: React.FC = () => {
         </div>
 
         {/* Services List Rows */}
-        <div className="flex flex-col border-t border-slate-200/80">
+        <div className="relative flex flex-col border-t border-slate-200/80">
           {services.map((service, index) => (
             <motion.div
               key={service.id}
@@ -76,6 +105,8 @@ export const ServicesSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.6, delay: index * 0.1, ease: 'easeOut' }}
+              onMouseEnter={() => setHoveredId(service.id)}
+              onMouseLeave={() => setHoveredId(null)}
               className="group flex flex-col md:flex-row md:items-start justify-between py-10 border-b border-slate-200/80 hover:bg-slate-50/50 transition-colors px-4 rounded-xl -mx-4 cursor-pointer"
             >
               {/* Left Side: Number Index */}
@@ -111,6 +142,31 @@ export const ServicesSection: React.FC = () => {
               </div>
             </motion.div>
           ))}
+
+          {/* Floating Hover Image Reveal Container (Magnetic) */}
+          <AnimatePresence>
+            {hoveredId && (
+              <motion.div
+                style={{
+                  left: smoothX,
+                  top: smoothY,
+                  x: 20,
+                  y: -90,
+                }}
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.85 }}
+                transition={{ duration: 0.2, ease: 'easeOut' }}
+                className="absolute pointer-events-none z-50 w-[280px] md:w-[420px] aspect-video flex items-center justify-center filter drop-shadow-[0_15px_30px_rgba(15,23,42,0.15)]"
+              >
+                <img
+                  src={serviceImages[hoveredId]}
+                  alt="Platform preview"
+                  className="w-full h-full object-contain rounded-xl"
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </section>

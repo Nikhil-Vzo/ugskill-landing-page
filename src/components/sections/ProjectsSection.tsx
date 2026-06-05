@@ -129,13 +129,12 @@ export const ProjectsSection: React.FC = () => {
                   </div>
 
                   {/* Right Side: Mockup Image Viewport */}
-                  <div className="w-full lg:w-[45%] aspect-video rounded-2xl border border-white/10 overflow-hidden shadow-lg relative group">
+                  <div className="w-full lg:w-[45%] aspect-video rounded-2xl border border-white/10 p-5 flex items-center justify-center bg-white/5 overflow-hidden shadow-lg relative group">
                     <img
                       src={card.imageUrl}
                       alt={card.title}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      className="w-full h-full object-contain rounded-xl shadow-md transition-transform duration-700 ease-out group-hover:scale-103"
                     />
-                    <div className="absolute inset-0 bg-black/10 pointer-events-none" />
                   </div>
                 </motion.div>
               </div>
