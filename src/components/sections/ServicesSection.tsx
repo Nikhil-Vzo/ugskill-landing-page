@@ -158,7 +158,7 @@ export const ServicesSection: React.FC = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.85 }}
                 transition={{ duration: 0.2, ease: 'easeOut' }}
-                className="absolute pointer-events-none z-50 w-[240px] md:w-[360px] aspect-video flex items-center justify-center filter drop-shadow-[0_15px_30px_rgba(15,23,42,0.15)]"
+                className="absolute pointer-events-none z-50 w-[240px] md:w-[360px] aspect-video hidden md:flex items-center justify-center filter drop-shadow-[0_15px_30px_rgba(15,23,42,0.15)]"
               >
                 <img
                   src={serviceImages[hoveredId]}

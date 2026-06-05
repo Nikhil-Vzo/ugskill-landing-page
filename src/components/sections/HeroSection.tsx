@@ -118,7 +118,7 @@ export const HeroSection: React.FC = () => {
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="mx-auto max-w-4xl"
           >
-            <h1 className="text-5xl font-black leading-[0.92] tracking-tight text-[#0F172A] md:text-7xl lg:text-[7.2rem]">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-[7.2rem] 2xl:text-[8rem] font-black leading-[0.92] tracking-tight text-[#0F172A]">
               From Campus
               <span className="block text-[#58CC02]">To Corporate</span>
             </h1>

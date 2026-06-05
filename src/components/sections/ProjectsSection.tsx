@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Layout, ShieldAlert, Briefcase, ChevronRight } from 'lucide-react';
 import { TactileButton } from '../ui/TactileButton';
@@ -67,6 +67,13 @@ const cardOffsets = [-16, 16, -8];
 
 export const ProjectsSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 1024);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   // Hook scroll for sticky tracking card scaling
   const { scrollYProgress } = useScroll({
@@ -118,18 +125,19 @@ export const ProjectsSection: React.FC = () => {
             return (
               <div
                 key={card.id}
-                className="sticky top-28 w-full"
+                className="relative lg:sticky lg:top-28 w-full pt-0"
                 style={{
-                  paddingTop: `${index * 24}px`,
-                }}
+                  paddingTop: 'var(--card-pt)',
+                  '--card-pt': `${index * 24}px`
+                } as React.CSSProperties}
               >
                 <motion.div
                   style={{
                     scale: cardProgress,
                     backgroundColor: card.color,
                     borderColor: card.borderColor,
-                    rotate: cardRotations[index],
-                    x: cardOffsets[index],
+                    rotate: isDesktop ? cardRotations[index] : 0,
+                    x: isDesktop ? cardOffsets[index] : 0,
                   }}
                   className="w-full min-h-[420px] md:min-h-[480px] border rounded-3xl p-8 md:p-12 shadow-diffused flex flex-col lg:flex-row gap-8 lg:gap-12 items-center overflow-hidden transition-all duration-300 hover:shadow-2xl"
                 >

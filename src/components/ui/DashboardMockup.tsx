@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { 
   BookOpen, 
@@ -17,6 +17,25 @@ import {
 export const DashboardMockup: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'courses' | 'leaderboard' | 'live' | 'interviews'>('courses');
   const [isMounted, setIsMounted] = useState(false);
+  const [scale, setScale] = useState(1);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = containerRef.current?.parentElement?.getBoundingClientRect().width || 0;
+      const designWidth = 720;
+      if (width < designWidth && width > 0) {
+        setScale(width / designWidth);
+      } else {
+        setScale(1);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     setIsMounted(true);
@@ -43,7 +62,16 @@ export const DashboardMockup: React.FC = () => {
   ];
 
   return (
-    <div className="w-full border border-slate-200/80 bg-slate-100 rounded-2xl shadow-[0_25px_50px_-12px_rgba(15,23,42,0.08)] p-0.5 relative">
+    <div ref={containerRef} className="relative w-full aspect-[16/10] overflow-visible">
+      <div 
+        className="border border-slate-200/80 bg-slate-100 rounded-2xl shadow-[0_25px_50px_-12px_rgba(15,23,42,0.08)] p-0.5 relative"
+        style={{
+          transform: `scale(${scale})`,
+          transformOrigin: 'top left',
+          width: '720px',
+          height: '450px'
+        }}
+      >
       {/* High-Performance GPU Accelerated Styles */}
       <style>{`
         /* Smooth scale-up fade entry */
@@ -445,6 +473,7 @@ export const DashboardMockup: React.FC = () => {
             <p className="text-xs font-medium text-slate-500">Top 10% of batch</p>
           </div>
         </motion.div>
+      </div>
       </div>
     </div>
   );
