@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Play, ExternalLink, Code2, Cpu, Terminal, Database, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowLeft, ArrowRight, ExternalLink, BookOpen, GraduationCap, ClipboardList, Layers3, Sparkles, Brain } from 'lucide-react';
 import { TactileButton } from '../ui/TactileButton';
 
-interface SandboxItem {
+interface CourseItem {
   id: number;
   title: string;
   category: string;
@@ -15,75 +15,74 @@ interface SandboxItem {
   icon: React.ReactNode;
 }
 
-const CATEGORIES = ['All', 'Full-Stack Dev', 'AI & Data Science', 'Cloud & DevOps', 'Interactive Labs'];
+const CATEGORIES = ['All', 'Core LMS', 'Programming', 'Assessments', 'Career Readiness'];
 
-const sandboxes: SandboxItem[] = [
+const courses: CourseItem[] = [
   {
     id: 1,
-    title: 'Full-Stack React & Node',
-    category: 'Full-Stack Dev',
-    description: 'A complete Node.js & React workspace with hot-reloading, live browser previews, and fully integrated Postgres databases.',
-    tech: ['React', 'Next.js', 'PostgreSQL', 'Tailwind'],
-    imageUrl: '/assets/sandboxes/sandbox_fullstack.png',
-    icon: <Code2 className="w-5 h-5 text-[#58CC02]" />,
+    title: 'LMS Foundations',
+    category: 'Core LMS',
+    description: 'Start with the core learning path: course modules, progress checkpoints, and structured weekly outcomes for every student.',
+    tech: ['Modules', 'Progress', 'Weekly Plan', 'Assignments'],
+    imageUrl: '/assets/projects/funnel_lms.png',
+    icon: <BookOpen className="w-5 h-5 text-[#58CC02]" />,
   },
   {
     id: 2,
-    title: 'Jupyter & PyTorch Engine',
-    category: 'AI & Data Science',
-    description: 'Interactive Jupyter notebooks with live GPU acceleration, visual epoch tracking, and pre-installed AI/ML packages.',
-    tech: ['Python', 'PyTorch', 'Jupyter', 'Pandas'],
-    imageUrl: '/assets/sandboxes/sandbox_jupyter.png',
-    icon: <Cpu className="w-5 h-5 text-[#0EA5E9]" />,
+    title: 'Programming Track',
+    category: 'Programming',
+    description: 'Hands-on coding lessons that move from concepts to practice with guided examples, code reviews, and project-based learning.',
+    tech: ['JavaScript', 'DSA', 'Projects', 'Mentor Notes'],
+    imageUrl: '/assets/projects/funnel_lms.png',
+    icon: <Layers3 className="w-5 h-5 text-[#0EA5E9]" />,
   },
   {
     id: 3,
-    title: 'Linux Terminal & DevOps',
-    category: 'Cloud & DevOps',
-    description: 'Isolated bash terminals with real-time feedback for learning Docker container orchestration, Nginx configs, and system tasks.',
-    tech: ['Bash', 'Docker', 'Nginx', 'Kubernetes'],
-    imageUrl: '/assets/sandboxes/sandbox_terminal.png',
-    icon: <Terminal className="w-5 h-5 text-amber-500" />,
+    title: 'Assessment Builder',
+    category: 'Assessments',
+    description: 'Quizzes, proctored tests, and auto-evaluated checkpoints designed to verify understanding before moving ahead.',
+    tech: ['Quizzes', 'Proctoring', 'Auto Grading', 'Milestones'],
+    imageUrl: '/assets/projects/funnel_exam.png',
+    icon: <ClipboardList className="w-5 h-5 text-amber-500" />,
   },
   {
     id: 4,
-    title: 'SQL Visualizer & Analytics',
-    category: 'Interactive Labs',
-    description: 'Interactive database query workbench. Write queries, view relational schema diagrams, and analyze execution plans.',
-    tech: ['SQL', 'PostgreSQL', 'DB Schema', 'Charts'],
-    imageUrl: '/assets/sandboxes/sandbox_sql.png',
-    icon: <Database className="w-5 h-5 text-indigo-500" />,
+    title: 'Career Readiness',
+    category: 'Career Readiness',
+    description: 'Placement prep modules that connect coursework to interviews, recruiter expectations, and job-ready portfolios.',
+    tech: ['Resume', 'Interview Prep', 'Portfolio', 'Placement'],
+    imageUrl: '/assets/projects/funnel_hiring.png',
+    icon: <GraduationCap className="w-5 h-5 text-indigo-500" />,
   },
   {
     id: 5,
-    title: '3D Simulation & WebGL Lab',
-    category: 'Interactive Labs',
-    description: 'Create interactive 3D structures and physical simulations using React Three Fiber, WebGL, and custom vector physics.',
-    tech: ['Three.js', 'WebGL', 'Framer Motion', 'GSAP'],
-    imageUrl: '/assets/sandboxes/sandbox_webgl.png',
+    title: 'AI Learning Assistant',
+    category: 'Core LMS',
+    description: 'Adaptive explanations, concept nudges, and smart recommendations that support students as they move through the course.',
+    tech: ['AI Tutor', 'Adaptive Path', 'Hints', 'Feedback'],
+    imageUrl: '/assets/hero/student_robot_study-removebg-preview.png',
     icon: <Sparkles className="w-5 h-5 text-pink-500" />,
   },
   {
     id: 6,
-    title: 'API Sandbox & Testing',
-    category: 'Full-Stack Dev',
-    description: 'Interactive API sandbox client with mocking capabilities, request history tracking, and automated unit test runners.',
-    tech: ['Node.js', 'API', 'Jest', 'Postman'],
-    imageUrl: '/assets/sandboxes/sandbox_api.png',
-    icon: <Code2 className="w-5 h-5 text-[#58CC02]" />,
+    title: 'Project Completion Path',
+    category: 'Programming',
+    description: 'End-to-end course completion flow that ends in a verified capstone, skill badge, and portfolio-ready output.',
+    tech: ['Capstone', 'Badge', 'Portfolio', 'Submission'],
+    imageUrl: '/assets/about/about_study_robo.png',
+    icon: <Brain className="w-5 h-5 text-[#58CC02]" />,
   },
 ];
 
 
 export const MarqueeSection: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('All');
-  const [hoveredCardId, setHoveredCardId] = useState<number | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardsPerPage, setCardsPerPage] = useState(3);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Filter sandboxes based on active category
-  const filteredSandboxes = sandboxes.filter(
+  // Filter course cards based on active category
+  const filteredCourses = courses.filter(
     (item) => activeCategory === 'All' || item.category === activeCategory
   );
 
@@ -104,12 +103,7 @@ export const MarqueeSection: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Ensure index remains in bounds when filters change
-  useEffect(() => {
-    setCurrentIndex(0);
-  }, [activeCategory]);
-
-  const maxIndex = Math.max(0, filteredSandboxes.length - cardsPerPage);
+  const maxIndex = Math.max(0, filteredCourses.length - cardsPerPage);
 
   const handlePrev = () => {
     setCurrentIndex((prev) => Math.max(0, prev - 1));
@@ -141,16 +135,16 @@ export const MarqueeSection: React.FC = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
           <div className="max-w-2xl">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0F172A] tracking-tighter leading-none mb-6">
-              Interactive Dev Sandboxes
+              Interactive Course Library
             </h2>
             <p className="text-lg text-slate-500 font-medium leading-relaxed">
-              UGSkill bridges learning and placement by letting students build projects directly in fully-featured coding sandboxes. No configuration required, fully integrated into their curriculum.
+              UGSkill organizes the LMS into practical course tracks, assessments, and career-ready learning paths. Students can follow each module from concept to completion without leaving the platform.
             </p>
           </div>
           <div className="relative w-40 md:w-56 h-40 md:h-56 flex-shrink-0 select-none pointer-events-none">
             <img
-              src="/assets/sandboxes/student_learning.png"
-              alt="Student learning"
+              src="/assets/projects/funnel_lms.png"
+              alt="LMS course library preview"
               className="w-full h-full object-contain"
             />
           </div>
@@ -161,7 +155,10 @@ export const MarqueeSection: React.FC = () => {
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
-              onClick={() => setActiveCategory(cat)}
+              onClick={() => {
+                setActiveCategory(cat);
+                setCurrentIndex(0);
+              }}
               className={`relative px-4 py-2 text-sm md:text-base font-bold rounded-xl transition-all duration-200 cursor-pointer ${
                 activeCategory === cat
                   ? 'text-[#0F172A]'
@@ -187,13 +184,11 @@ export const MarqueeSection: React.FC = () => {
             animate={{ x: `calc(-${currentIndex * (100 / cardsPerPage)}% - ${currentIndex * 16}px)` }}
             transition={{ type: 'spring', stiffness: 300, damping: 32 }}
           >
-            {filteredSandboxes.map((item) => (
+            {filteredCourses.map((item) => (
               <div
                 key={item.id}
                 style={{ width: `calc(${100 / cardsPerPage}% - ${(16 * (cardsPerPage - 1)) / cardsPerPage}px)` }}
                 className="flex-shrink-0 flex flex-col bg-white border border-slate-200/80 rounded-2xl shadow-diffused overflow-hidden transition-all duration-300 hover:border-[#58CC02]/30 hover:shadow-xl"
-                onMouseEnter={() => setHoveredCardId(item.id)}
-                onMouseLeave={() => setHoveredCardId(null)}
               >
                 {/* Visual Preview Window */}
                 <div className="relative w-full aspect-video bg-slate-50 border-b border-slate-100 p-3.5 flex items-center justify-center overflow-hidden group">
@@ -238,14 +233,14 @@ export const MarqueeSection: React.FC = () => {
                   <div className="flex items-center justify-between pt-4 border-t border-slate-100">
                     <span className="text-xs font-bold text-[#58CC02] flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 bg-[#58CC02] rounded-full animate-ping" />
-                      Free Sandbox Demo
+                      Part of the LMS
                     </span>
 
                     <TactileButton
                       variant="primary"
                       className="px-4 py-2.5 text-xs font-bold flex items-center gap-1.5"
                     >
-                      Open Lab <ExternalLink className="w-3.5 h-3.5" />
+                      View Course <ExternalLink className="w-3.5 h-3.5" />
                     </TactileButton>
                   </div>
                 </div>
@@ -257,11 +252,11 @@ export const MarqueeSection: React.FC = () => {
         {/* Carousel Controls */}
         <div className="flex items-center justify-between mt-8 border-t border-slate-100 pt-6">
           <div className="text-sm font-semibold text-slate-400">
-            Showing <span className="text-[#0F172A] font-bold">{currentIndex + 1}</span> to{' '}
-            <span className="text-[#0F172A] font-bold">
-              {Math.min(currentIndex + cardsPerPage, filteredSandboxes.length)}
-            </span>{' '}
-            of <span className="text-[#0F172A] font-bold">{filteredSandboxes.length}</span> templates
+              Showing <span className="text-[#0F172A] font-bold">{currentIndex + 1}</span> to{' '}
+              <span className="text-[#0F172A] font-bold">
+              {Math.min(currentIndex + cardsPerPage, filteredCourses.length)}
+              </span>{' '}
+            of <span className="text-[#0F172A] font-bold">{filteredCourses.length}</span> courses
           </div>
 
           <div className="flex gap-3">

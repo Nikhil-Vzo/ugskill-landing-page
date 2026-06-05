@@ -19,26 +19,41 @@ export const HeroSection: React.FC = () => {
     const video = videoRef.current;
     if (!video) return;
 
+    const syncVideoState = () => {
+      setIsMuted(video.muted);
+      setIsPlaying(!video.paused);
+    };
+
+    video.addEventListener("play", syncVideoState);
+    video.addEventListener("pause", syncVideoState);
+    video.addEventListener("volumechange", syncVideoState);
+
+    return () => {
+      video.removeEventListener("play", syncVideoState);
+      video.removeEventListener("pause", syncVideoState);
+      video.removeEventListener("volumechange", syncVideoState);
+    };
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
     if (isSection2InView) {
       // Unmute and try to play
       video.muted = false;
-      setIsMuted(false);
       video.play().catch(err => {
         console.log("Autoplay unmuted blocked, falling back to muted", err);
         if (videoRef.current) {
           videoRef.current.muted = true;
-          setIsMuted(true);
           videoRef.current.play().catch(playErr => {
             console.error("Muted play failed as well", playErr);
           });
         }
       });
-      setIsPlaying(true);
     } else {
       video.pause();
       video.muted = true;
-      setIsMuted(true);
-      setIsPlaying(false);
     }
   }, [isSection2InView]);
 
@@ -82,220 +97,204 @@ export const HeroSection: React.FC = () => {
 
   return (
     <div className="w-full bg-white flex flex-col">
-      {/* Section 1: Hero content (Headline & CTAs) */}
-      <section className="relative min-h-[90vh] w-full flex items-center justify-center overflow-hidden py-24 md:py-32 bg-white">
-        {/* Blueprint Grid Background */}
-        <div
-          className="absolute inset-0 pointer-events-none z-0 opacity-90"
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, rgba(226, 232, 240, 0.75) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(226, 232, 240, 0.75) 1px, transparent 1px)
-            `,
-            backgroundSize: '48px 48px',
-            maskImage: 'radial-gradient(ellipse at center, black, transparent 85%)',
-            WebkitMaskImage: 'radial-gradient(ellipse at center, black, transparent 85%)'
-          }}
+      {/* Section 1: Video-backed hero */}
+      <section className="relative min-h-screen w-full overflow-hidden bg-slate-50">
+        <video
+          src="/assets/hero/hero-section-video.mp4"
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
         />
 
-        {/* Ambient glow accents */}
-        <div
-          className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full blur-[100px] pointer-events-none z-0"
-          style={{ background: 'radial-gradient(circle, rgba(88,204,2,0.12) 0%, transparent 70%)' }}
-        />
-        <div
-          className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 h-[600px] w-[600px] rounded-full blur-[120px] pointer-events-none z-0"
-          style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.10) 0%, transparent 70%)' }}
-        />
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[700px] w-[700px] rounded-full blur-[140px] pointer-events-none -z-10"
-          style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%)' }}
-        />
+        <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,rgba(255,255,255,0.58)_0%,rgba(255,255,255,0.22)_30%,rgba(255,255,255,0.18)_62%,rgba(255,255,255,0.54)_100%)]" />
 
-        {/* Left Floating Illustration: Student learning */}
-        <motion.div
-          className="absolute left-4 lg:left-8 xl:left-12 top-1/2 w-44 lg:w-56 xl:w-72 hidden md:block select-none pointer-events-none z-0 opacity-70 xl:opacity-100"
-          style={{ translateY: "-50%" }}
-          animate={{ y: [0, -12, 0] }}
-          transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-        >
-          <img
-            src="/assets/hero/student_robot_study-removebg-preview.png"
-            alt="Student studying with bot companion"
-            className="w-full h-auto drop-shadow-[0_12px_24px_rgba(88,204,2,0.06)]"
-          />
-        </motion.div>
+        <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center justify-center px-6 pb-44 pt-28 text-center md:pb-36 md:pt-32">
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="mx-auto max-w-4xl"
+          >
+            <h1 className="text-5xl font-black leading-[0.92] tracking-tight text-[#0F172A] md:text-7xl lg:text-[7.2rem]">
+              From Campus
+              <span className="block text-[#58CC02]">To Corporate</span>
+            </h1>
 
-        {/* Right Floating Illustration: Student got job */}
-        <motion.div
-          className="absolute right-4 lg:right-8 xl:right-12 top-1/2 w-44 lg:w-56 xl:w-72 hidden md:block select-none pointer-events-none z-0 opacity-70 xl:opacity-100"
-          style={{ translateY: "-50%" }}
-          animate={{ y: [0, -12, 0] }}
-          transition={{ repeat: Infinity, duration: 6.5, ease: "easeInOut" }}
-        >
-          <img
-            src="/assets/hero/student_placed_success-removebg-preview.png"
-            alt="Student celebrating job placement success"
-            className="w-full h-auto drop-shadow-[0_12px_24px_rgba(14,165,233,0.06)]"
-          />
-        </motion.div>
-
-        <div className="relative z-10 text-center px-6 w-full">
-          <div className="mx-auto max-w-6xl flex flex-col items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <span className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full bg-slate-50 border border-slate-200/85 text-slate-600 text-xs font-semibold tracking-widest uppercase mb-8">
-                <span className="w-2 h-2 rounded-full bg-[#58CC02] animate-pulse" />
-                The Unified Campus Ecosystem
-              </span>
-            </motion.div>
-
-            <div className="overflow-hidden py-1">
-              <motion.h1
-                initial={{ opacity: 0, y: 80 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="text-6xl md:text-8xl lg:text-[7.5rem] font-bold text-[#0F172A] tracking-tighter leading-[0.95]"
-              >
-                From Campus <br /> To Corporate
-              </motion.h1>
-            </div>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-8 text-lg md:text-xl text-slate-500 max-w-2xl font-medium leading-relaxed"
-            >
-              The all-in-one LMS, Exam, and Placement engine that connects student learning directly to corporate readiness.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col sm:flex-row items-center gap-4 mt-10 w-full sm:w-auto"
-            >
+            <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Link href="/auth/login?sandbox=true" className="w-full sm:w-auto no-underline">
                 <TactileButton variant="primary" className="w-full sm:w-auto px-8 py-4 text-base">
                   Try Interactive Demo
                 </TactileButton>
               </Link>
               <Link href="/company/contact" className="w-full sm:w-auto no-underline">
-                <TactileButton variant="secondary" className="w-full sm:w-auto px-8 py-4 text-base group">
+                <TactileButton variant="secondary" className="w-full sm:w-auto px-8 py-4 text-base group bg-white/80 backdrop-blur-md">
                   Book Enterprise Setup
-                  <ArrowRight className="ml-2 w-4 h-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 h-4 w-4 text-slate-400 transition-transform group-hover:translate-x-1" />
                 </TactileButton>
               </Link>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute inset-x-6 bottom-7 z-20 hidden md:block"
+        >
+          <div className="mx-auto flex max-w-7xl items-end justify-between gap-6">
+            <div className="group relative w-[38%] max-w-[520px] overflow-hidden rounded-3xl border border-white/65 bg-white/28 p-3 shadow-[0_24px_70px_-35px_rgba(15,23,42,0.5)] backdrop-blur-2xl">
+              <div className="relative aspect-[16/6] overflow-hidden rounded-2xl bg-slate-950">
+                <img
+                  src="/assets/projects/funnel_lms.png"
+                  alt="UGSkill course flow preview"
+                  className="h-full w-full object-cover opacity-95 transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-slate-950/75 via-slate-950/20 to-transparent" />
+                <div className="absolute left-4 top-4">
+                  <div className="text-[10px] font-bold uppercase tracking-widest text-white/70">LMS</div>
+                  <div className="mt-1 text-xl font-black text-white">Course paths</div>
+                </div>
+                <div className="absolute bottom-4 right-4 rounded-full border border-white/35 bg-white/20 px-3 py-1 text-xs font-bold text-white backdrop-blur-md">
+                  View flow
+                </div>
+              </div>
+            </div>
+
+            <div className="grid w-[42%] max-w-[560px] grid-cols-2 gap-4">
+              {[
+                {
+                  label: 'Exam integrity',
+                  value: 'Proof students actually earned',
+                  body: 'Proctored checks, activity logs, and scored milestones stay tied to each course path.',
+                  action: 'Verify skills',
+                },
+                {
+                  label: 'Placement signal',
+                  value: 'Profiles recruiters can trust',
+                  body: 'Learning progress, interview readiness, and portfolio evidence combine into one hiring view.',
+                  action: 'View readiness',
+                },
+              ].map((item) => (
+                <div
+                  key={item.label}
+                  className="flex min-h-[172px] flex-col justify-between rounded-3xl border border-white/65 bg-white/32 p-5 text-left shadow-[0_24px_70px_-40px_rgba(15,23,42,0.5)] backdrop-blur-2xl"
+                >
+                  <div>
+                    <div className="text-[10px] font-bold uppercase tracking-widest text-slate-600">{item.label}</div>
+                    <div className="mt-2 text-lg font-black leading-tight text-[#0F172A]">{item.value}</div>
+                    <p className="mt-3 text-xs font-medium leading-relaxed text-slate-600">{item.body}</p>
+                  </div>
+                  <button className="mt-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/60 bg-white/50 px-3 py-2 text-xs font-bold text-[#0F172A] shadow-sm backdrop-blur-md transition hover:bg-white/75">
+                    {item.action}
+                    <ArrowRight className="h-3.5 w-3.5 text-slate-500" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
       </section>
 
-      {/* Section 2: Video companion (Faded Portal) */}
+      {/* Section 2 + 3: Video intro and dashboard mockup merged */}
       <motion.section
         ref={section2Ref}
-        className="relative min-h-screen w-full flex items-center justify-center py-20 lg:py-24 bg-white overflow-hidden"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-      >
-        {/* Slightly lower width container with aspect-video */}
-        <div className="relative w-[92%] md:w-[85%] max-w-5xl aspect-video overflow-hidden flex items-center justify-center">
-          <video
-            ref={videoRef}
-            src="/assets/hero/ug_bot_removed_bg.mp4"
-            className="w-full h-full object-cover z-0"
-            style={{
-              maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 92%)',
-              WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 92%)'
-            }}
-            loop
-            playsInline
-          />
-
-          {/* Cinematic dark overlay to make controls look premium */}
-          <div 
-            className="absolute inset-0 pointer-events-none z-10"
-            style={{
-              background: 'radial-gradient(ellipse at center, rgba(0,0,0,0.06) 30%, rgba(0,0,0,0.2) 90%)',
-              maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 92%)',
-              WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 92%)'
-            }}
-          />
-
-          {/* Custom Playback Controls Overlay */}
-          <div className="absolute bottom-6 right-6 z-30 flex items-center gap-3 bg-black/60 hover:bg-black/80 border border-white/10 px-4 py-2.5 rounded-full backdrop-blur-md transition-all shadow-lg">
-            <button
-              onClick={toggleMute}
-              className="p-2 rounded-full hover:bg-white/10 text-white transition-all transform active:scale-95"
-              title={isMuted ? "Unmute" : "Mute"}
-            >
-              {isMuted ? <VolumeX className="w-5 h-5 text-white/80" /> : <Volume2 className="w-5 h-5 text-[#58CC02]" />}
-            </button>
-            <button
-              onClick={togglePlay}
-              className="p-2 rounded-full hover:bg-white/10 text-white transition-all transform active:scale-95"
-              title={isPlaying ? "Pause" : "Play"}
-            >
-              {isPlaying ? <Pause className="w-5 h-5 text-white/80" /> : <Play className="w-5 h-5 text-[#58CC02]" />}
-            </button>
-          </div>
-        </div>
-      </motion.section>
-
-
-      {/* Section 3: Dashboard mockup */}
-      <motion.section
-        className="relative min-h-screen w-full flex items-center justify-center py-20 lg:py-24 bg-white overflow-hidden"
-        initial={{ opacity: 0, y: 60 }}
+        className="relative w-full overflow-hidden bg-white py-20 lg:py-24"
+        initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-120px" }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div className="relative flex items-center justify-center w-full z-20 px-6">
-          {/* Mouse-interactive 3D card */}
-          <motion.div
-            style={{
-              rotateX: hoverRotateX,
-              rotateY: hoverRotateY,
-              transformStyle: "preserve-3d",
-              backfaceVisibility: "hidden",
-            }}
-            className="w-full max-w-lg md:max-w-2xl lg:max-w-4xl xl:max-w-[860px] relative shadow-2xl rounded-2xl bg-white border border-slate-200"
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-          >
-            {/* Specular light reflection */}
-            <motion.div
-              className="absolute inset-0 z-10 rounded-2xl pointer-events-none"
-              style={{
-                background: useTransform(
-                  () => `radial-gradient(800px circle at ${x.get() * 100 + 50}% ${y.get() * 100 + 50}%, rgba(255,255,255,0.4), transparent 40%)`
-                )
-              }}
-            />
+        <div
+          className="absolute inset-0 pointer-events-none opacity-90"
+          style={{
+            backgroundImage: `
+              radial-gradient(circle at 50% 35%, rgba(88, 204, 2, 0.08), transparent 35%),
+              radial-gradient(circle at 72% 60%, rgba(14, 165, 233, 0.08), transparent 32%),
+              linear-gradient(to bottom, rgba(248, 250, 252, 0.95), rgba(255, 255, 255, 1))
+            `,
+          }}
+        />
 
-            {/* Floating mascot */}
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ y: { repeat: Infinity, duration: 5, ease: "easeInOut" } }}
-              className="absolute -left-8 -top-16 md:-left-16 md:-top-24 w-24 md:w-36 z-30 select-none pointer-events-none"
-              style={{ transform: "translateZ(80px)" }}
-            >
-              <img
-                src="/assets/hero/195-removebg-preview.png"
-                alt="Robot Mascot Companion"
-                className="w-full h-auto drop-shadow-[0_12px_24px_rgba(88,204,2,0.18)]"
-              />
-            </motion.div>
+        <div className="relative mx-auto min-h-[760px] w-full max-w-7xl px-6 lg:px-8">
+          <div className="relative flex flex-col gap-10 lg:block">
+            {/* Video intro */}
+            <div className="relative z-20 mx-auto w-full max-w-3xl lg:absolute lg:left-[6%] lg:top-1/2 lg:w-[46%] lg:-translate-y-1/2">
+              <div className="relative aspect-video overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950 shadow-[0_35px_90px_-30px_rgba(15,23,42,0.45)]">
+                <video
+                  ref={videoRef}
+                  src="/assets/hero/ug_bot_removed_bg.mp4"
+                  className="w-full h-full object-cover z-0"
+                  loop
+                  playsInline
+                />
 
-            <DashboardMockup />
-          </motion.div>
+                {/* Controls */}
+                <div className="absolute bottom-5 right-5 z-30 flex items-center gap-3 rounded-full border border-white/10 bg-black/60 px-4 py-2.5 text-white shadow-lg backdrop-blur-md transition-all hover:bg-black/80">
+                  <button
+                    onClick={toggleMute}
+                    className="rounded-full p-2 text-white transition-all hover:bg-white/10 active:scale-95"
+                    title={isMuted ? "Unmute" : "Mute"}
+                  >
+                    {isMuted ? <VolumeX className="w-5 h-5 text-white/80" /> : <Volume2 className="w-5 h-5 text-[#58CC02]" />}
+                  </button>
+                  <button
+                    onClick={togglePlay}
+                    className="rounded-full p-2 text-white transition-all hover:bg-white/10 active:scale-95"
+                    title={isPlaying ? "Pause" : "Play"}
+                  >
+                    {isPlaying ? <Pause className="w-5 h-5 text-white/80" /> : <Play className="w-5 h-5 text-[#58CC02]" />}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Dashboard mockup as a secondary layered panel */}
+            <div className="relative min-h-[520px] lg:min-h-[760px]">
+              <motion.div
+                style={{
+                  rotateX: hoverRotateX,
+                  rotateY: hoverRotateY,
+                  transformStyle: "preserve-3d",
+                  backfaceVisibility: "hidden",
+                  maskImage: 'linear-gradient(90deg, transparent 0%, black 14%, black 86%, transparent 100%)',
+                  WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, black 14%, black 86%, transparent 100%)'
+                }}
+                className="relative z-10 mx-auto w-full max-w-2xl lg:absolute lg:right-[0%] lg:top-1/2 lg:w-[58%] lg:-translate-y-1/2 lg:translate-x-8 scale-[0.92] shadow-2xl rounded-2xl bg-white border border-slate-200 opacity-95"
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+              >
+                {/* Specular light reflection */}
+                <motion.div
+                  className="absolute inset-0 z-10 rounded-2xl pointer-events-none"
+                  style={{
+                    background: useTransform(
+                      () => `radial-gradient(800px circle at ${x.get() * 100 + 50}% ${y.get() * 100 + 50}%, rgba(255,255,255,0.4), transparent 40%)`
+                    )
+                  }}
+                />
+
+                {/* Floating mascot */}
+                <motion.div
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ y: { repeat: Infinity, duration: 5, ease: "easeInOut" } }}
+                  className="absolute -left-8 -top-16 md:-left-16 md:-top-24 w-24 md:w-36 z-30 select-none pointer-events-none"
+                  style={{ transform: "translateZ(80px)" }}
+                >
+                  <img
+                    src="/assets/hero/195-removebg-preview.png"
+                    alt="Robot Mascot Companion"
+                    className="w-full h-auto drop-shadow-[0_12px_24px_rgba(88,204,2,0.18)]"
+                  />
+                </motion.div>
+
+                <DashboardMockup />
+              </motion.div>
+            </div>
+          </div>
         </div>
       </motion.section>
     </div>

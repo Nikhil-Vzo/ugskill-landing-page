@@ -55,19 +55,20 @@ const serviceImages: Record<string, string> = {
 export const ServicesSection: React.FC = () => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
   // Mouse coordinates relative to the Services section container
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
   // Smooth springs for magnetic mouse follow
-  const springConfig = { stiffness: 220, damping: 22 };
+  const springConfig = { stiffness: 520, damping: 36 };
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
+    if (!listRef.current) return;
+    const rect = listRef.current.getBoundingClientRect();
     mouseX.set(e.clientX - rect.left);
     mouseY.set(e.clientY - rect.top);
   };
@@ -97,7 +98,7 @@ export const ServicesSection: React.FC = () => {
         </div>
 
         {/* Services List Rows */}
-        <div className="relative flex flex-col border-t border-slate-200/80">
+        <div ref={listRef} className="relative flex flex-col border-t border-slate-200/80">
           {services.map((service, index) => (
             <motion.div
               key={service.id}
@@ -150,14 +151,14 @@ export const ServicesSection: React.FC = () => {
                 style={{
                   left: smoothX,
                   top: smoothY,
-                  x: 20,
-                  y: -90,
+                  x: 12,
+                  y: -48,
                 }}
                 initial={{ opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.85 }}
                 transition={{ duration: 0.2, ease: 'easeOut' }}
-                className="absolute pointer-events-none z-50 w-[280px] md:w-[420px] aspect-video flex items-center justify-center filter drop-shadow-[0_15px_30px_rgba(15,23,42,0.15)]"
+                className="absolute pointer-events-none z-50 w-[240px] md:w-[360px] aspect-video flex items-center justify-center filter drop-shadow-[0_15px_30px_rgba(15,23,42,0.15)]"
               >
                 <img
                   src={serviceImages[hoveredId]}
