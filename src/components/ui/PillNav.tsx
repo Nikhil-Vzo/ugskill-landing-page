@@ -127,9 +127,10 @@ const PillNav: React.FC<PillNavProps> = ({
       }
 
       if (navItems) {
-        gsap.set(navItems, { width: 0, overflow: 'hidden' });
+        gsap.set(navItems, { opacity: 0, y: -8 });
         gsap.to(navItems, {
-          width: 'auto',
+          opacity: 1,
+          y: 0,
           duration: 0.6,
           ease
         });
@@ -249,7 +250,7 @@ const PillNav: React.FC<PillNavProps> = ({
   return (
     <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[1000] w-[90%] md:w-[70vw] flex justify-center">
       <nav
-        className={`w-full md:w-[70vw] relative flex items-center justify-between md:justify-center box-border px-2 py-1.5 md:py-1 rounded-full border border-white/60 bg-white/55 backdrop-blur-xl shadow-[0_12px_32px_-12px_rgba(15,23,42,0.12)] ${className}`}
+        className={`w-full md:w-[70vw] flex items-center justify-between box-border px-6 py-1.5 md:py-1 rounded-full border border-white/60 bg-white/55 backdrop-blur-xl shadow-[0_12px_32px_-12px_rgba(15,23,42,0.12)] ${className}`}
         aria-label="Primary"
         style={cssVars}
       >
@@ -260,7 +261,7 @@ const PillNav: React.FC<PillNavProps> = ({
             onMouseEnter={handleLogoEnter}
             role="menuitem"
             ref={logoRef}
-            className="md:absolute md:left-2 rounded-full p-2 inline-flex items-center justify-center overflow-hidden hover:scale-105 transition-transform"
+            className="rounded-full p-2 inline-flex items-center justify-center overflow-hidden hover:scale-105 transition-transform"
             style={{
               width: 'var(--nav-h)',
               height: 'var(--nav-h)',
@@ -283,7 +284,7 @@ const PillNav: React.FC<PillNavProps> = ({
             ref={el => {
               logoRef.current = el as unknown as HTMLAnchorElement;
             }}
-            className="md:absolute md:left-2 rounded-full p-2 inline-flex items-center justify-center overflow-hidden hover:scale-105 transition-transform"
+            className="rounded-full p-2 inline-flex items-center justify-center overflow-hidden hover:scale-105 transition-transform"
             style={{
               width: 'var(--nav-h)',
               height: 'var(--nav-h)',
@@ -312,13 +313,13 @@ const PillNav: React.FC<PillNavProps> = ({
             className="list-none flex items-stretch m-0 p-[3px] h-full"
             style={{ gap: 'var(--pill-gap)' }}
           >
-            {items.map((item, i) => {
+            {items.filter(item => item.label !== 'Try Demo').map((item, i) => {
               const isActive = activeHref === item.href;
-              const isCTA = item.label === 'Try Demo';
+              const isCTA = false;
 
               const pillStyle: React.CSSProperties = {
-                background: isCTA ? '#58CC02' : 'var(--pill-bg, #f8fafc)',
-                color: isCTA ? '#ffffff' : 'var(--pill-text, var(--base, #0f172a))',
+                background: 'var(--pill-bg, #f8fafc)',
+                color: 'var(--pill-text, var(--base, #0f172a))',
                 paddingLeft: 'var(--pill-pad-x)',
                 paddingRight: 'var(--pill-pad-x)'
               };
@@ -368,7 +369,11 @@ const PillNav: React.FC<PillNavProps> = ({
                 'relative overflow-hidden inline-flex items-center justify-center h-full no-underline rounded-full box-border font-semibold text-[13px] uppercase tracking-[0.5px] whitespace-nowrap cursor-pointer select-none px-4';
 
               return (
-                <li key={item.href} role="none" className="flex h-full">
+                <li
+                  key={item.href}
+                  role="none"
+                  className="flex h-full"
+                >
                   {isRouterLink(item.href) ? (
                     <Link
                       role="menuitem"
@@ -399,6 +404,36 @@ const PillNav: React.FC<PillNavProps> = ({
             })}
           </ul>
         </div>
+
+        {/* Try Demo CTA Button on desktop */}
+        {items.filter(item => item.label === 'Try Demo').map((item) => {
+          const basePillClasses =
+            'relative overflow-hidden inline-flex items-center justify-center h-[38px] no-underline rounded-full box-border font-semibold text-[13px] uppercase tracking-[0.5px] whitespace-nowrap cursor-pointer select-none px-6 bg-[#58CC02] text-white hover:bg-[#46A302] active:scale-95 transition-all duration-200 shadow-sm';
+
+          return (
+            <div key={item.href} className="hidden md:flex items-center">
+              {isRouterLink(item.href) ? (
+                <Link
+                  role="menuitem"
+                  href={item.href}
+                  className={basePillClasses}
+                  aria-label={item.ariaLabel || item.label}
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <a
+                  role="menuitem"
+                  href={item.href}
+                  className={basePillClasses}
+                  aria-label={item.ariaLabel || item.label}
+                >
+                  {item.label}
+                </a>
+              )}
+            </div>
+          );
+        })}
 
         <button
           ref={hamburgerRef}
