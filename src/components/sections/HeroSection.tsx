@@ -3,7 +3,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, useInView } from "framer-motion";
 import Link from 'next/link';
-import { ArrowRight, Volume2, VolumeX, Play, Pause } from "lucide-react";
+import { ArrowRight, Volume2, VolumeX, Play, Pause, ArrowUpRight, MousePointerClick } from "lucide-react";
 import { DashboardMockup } from "../ui/DashboardMockup";
 import { TactileButton } from "../ui/TactileButton";
 
@@ -123,7 +123,7 @@ export const HeroSection: React.FC = () => {
               <span className="block text-[#58CC02]">To Corporate</span>
             </h1>
 
-            <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <div className="mt-9 flex lg:hidden flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Link href="/auth/login?sandbox=true" className="w-full sm:w-auto no-underline">
                 <TactileButton variant="primary" className="w-full sm:w-auto px-8 py-4 text-base">
                   Try Interactive Demo
@@ -170,17 +170,18 @@ export const HeroSection: React.FC = () => {
           initial={{ opacity: 0, x: 30, y: 20 }}
           animate={{ opacity: 1, x: 0, y: 0 }}
           transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute right-8 bottom-7 z-20 hidden lg:flex items-center gap-4"
+          className="absolute right-8 bottom-7 z-20 hidden lg:flex flex-col items-end gap-6"
         >
           <Link href="/auth/login?sandbox=true" className="no-underline">
-            <TactileButton variant="primary" className="px-6 py-4 text-sm font-bold shadow-[0_20px_40px_-15px_rgba(88,204,2,0.3)]">
+            <TactileButton variant="primary" className="px-7 py-4 text-sm font-bold shadow-[0_20px_40px_-15px_rgba(88,204,2,0.3)] flex items-center justify-center gap-2 group">
               Try Interactive Demo
+              <MousePointerClick className="w-4 h-4 text-white/90 transition-transform group-hover:scale-110" />
             </TactileButton>
           </Link>
           <Link href="/company/contact" className="no-underline">
-            <TactileButton variant="secondary" className="px-6 py-4 text-sm font-bold group bg-white/90 border border-slate-200/80 backdrop-blur-md shadow-[0_20px_40px_-15px_rgba(15,23,42,0.1)]">
+            <TactileButton variant="secondary" className="px-7 py-4 text-sm font-bold group bg-white/90 border border-slate-200/80 backdrop-blur-md shadow-[0_20px_40px_-15px_rgba(15,23,42,0.1)] flex items-center justify-center gap-2">
               Book Enterprise Setup
-              <ArrowRight className="ml-2 h-4 w-4 text-slate-400 transition-transform group-hover:translate-x-1" />
+              <ArrowUpRight className="w-4 h-4 text-slate-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </TactileButton>
           </Link>
         </motion.div>

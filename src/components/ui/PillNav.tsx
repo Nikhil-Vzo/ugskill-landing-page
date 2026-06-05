@@ -249,7 +249,7 @@ const PillNav: React.FC<PillNavProps> = ({
   return (
     <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[1000] w-[90%] md:w-auto flex justify-center">
       <nav
-        className={`w-full md:w-max flex items-center justify-between md:justify-start box-border px-4 py-1.5 md:py-0 md:px-0 rounded-full border border-slate-200/80 bg-white/90 backdrop-blur-md shadow-[0_12px_24px_rgba(15,23,42,0.06)] ${className}`}
+        className={`w-full md:w-max flex items-center justify-between md:justify-start box-border px-4 py-1.5 md:py-0 md:px-0 rounded-full border border-white/60 bg-white/55 backdrop-blur-xl shadow-[0_12px_32px_-12px_rgba(15,23,42,0.12)] ${className}`}
         aria-label="Primary"
         style={cssVars}
       >
