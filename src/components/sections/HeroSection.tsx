@@ -120,7 +120,7 @@ export const HeroSection: React.FC = () => {
           transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
         >
           <img
-            src="/student_robot_study-removebg-preview.png"
+            src="/assets/hero/student_robot_study-removebg-preview.png"
             alt="Student studying with bot companion"
             className="w-full h-auto drop-shadow-[0_12px_24px_rgba(88,204,2,0.06)]"
           />
@@ -134,7 +134,7 @@ export const HeroSection: React.FC = () => {
           transition={{ repeat: Infinity, duration: 6.5, ease: "easeInOut" }}
         >
           <img
-            src="/student_placed_success-removebg-preview.png"
+            src="/assets/hero/student_placed_success-removebg-preview.png"
             alt="Student celebrating job placement success"
             className="w-full h-auto drop-shadow-[0_12px_24px_rgba(14,165,233,0.06)]"
           />
@@ -208,7 +208,7 @@ export const HeroSection: React.FC = () => {
         <div className="relative w-[92%] md:w-[85%] max-w-5xl aspect-video overflow-hidden flex items-center justify-center">
           <video
             ref={videoRef}
-            src="/ug_bot_removed_bg.mp4"
+            src="/assets/hero/ug_bot_removed_bg.mp4"
             className="w-full h-full object-cover z-0"
             style={{
               maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 92%)',
@@ -288,7 +288,7 @@ export const HeroSection: React.FC = () => {
               style={{ transform: "translateZ(80px)" }}
             >
               <img
-                src="/195-removebg-preview.png"
+                src="/assets/hero/195-removebg-preview.png"
                 alt="Robot Mascot Companion"
                 className="w-full h-auto drop-shadow-[0_12px_24px_rgba(88,204,2,0.18)]"
               />

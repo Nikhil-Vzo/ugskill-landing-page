@@ -1,6 +1,10 @@
 import React from 'react';
 import { Navbar } from '@/components/layout/Navbar';
 import { HeroSection } from '@/components/sections/HeroSection';
+import { MarqueeSection } from '@/components/sections/MarqueeSection';
+import { AboutSection } from '@/components/sections/AboutSection';
+import { ServicesSection } from '@/components/sections/ServicesSection';
+import { ProjectsSection } from '@/components/sections/ProjectsSection';
 import { SmoothScroll } from '@/components/providers/SmoothScroll';
 
 export default function Home() {
@@ -10,8 +14,14 @@ export default function Home() {
         <Navbar />
         <main className="flex-1 w-full">
           <HeroSection />
+          <MarqueeSection />
+          <AboutSection />
+          <ServicesSection />
+          <ProjectsSection />
         </main>
       </div>
     </SmoothScroll>
   );
 }
+
+
