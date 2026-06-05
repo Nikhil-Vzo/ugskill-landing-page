@@ -24,7 +24,7 @@ const courses: CourseItem[] = [
     category: 'Core LMS',
     description: 'Start with the core learning path: course modules, progress checkpoints, and structured weekly outcomes for every student.',
     tech: ['Modules', 'Progress', 'Weekly Plan', 'Assignments'],
-    imageUrl: '/assets/projects/funnel_lms.png',
+    imageUrl: '/assets/projects/learning_path_clay.png',
     icon: <BookOpen className="w-5 h-5 text-[#58CC02]" />,
   },
   {
@@ -33,7 +33,7 @@ const courses: CourseItem[] = [
     category: 'Programming',
     description: 'Hands-on coding lessons that move from concepts to practice with guided examples, code reviews, and project-based learning.',
     tech: ['JavaScript', 'DSA', 'Projects', 'Mentor Notes'],
-    imageUrl: '/assets/projects/funnel_lms.png',
+    imageUrl: '/assets/projects/sandbox_clay.png',
     icon: <Layers3 className="w-5 h-5 text-[#0EA5E9]" />,
   },
   {
@@ -42,7 +42,7 @@ const courses: CourseItem[] = [
     category: 'Assessments',
     description: 'Quizzes, proctored tests, and auto-evaluated checkpoints designed to verify understanding before moving ahead.',
     tech: ['Quizzes', 'Proctoring', 'Auto Grading', 'Milestones'],
-    imageUrl: '/assets/projects/funnel_exam.png',
+    imageUrl: '/assets/projects/integrity_clay.png',
     icon: <ClipboardList className="w-5 h-5 text-amber-500" />,
   },
   {
@@ -51,7 +51,7 @@ const courses: CourseItem[] = [
     category: 'Career Readiness',
     description: 'Placement prep modules that connect coursework to interviews, recruiter expectations, and job-ready portfolios.',
     tech: ['Resume', 'Interview Prep', 'Portfolio', 'Placement'],
-    imageUrl: '/assets/projects/funnel_hiring.png',
+    imageUrl: '/assets/projects/career_clay.png',
     icon: <GraduationCap className="w-5 h-5 text-indigo-500" />,
   },
   {
@@ -143,7 +143,7 @@ export const MarqueeSection: React.FC = () => {
           </div>
           <div className="relative w-40 md:w-56 h-40 md:h-56 flex-shrink-0 select-none pointer-events-none">
             <img
-              src="/assets/projects/funnel_lms.png"
+              src="/assets/projects/learning_path_clay.png"
               alt="LMS course library preview"
               className="w-full h-full object-contain"
             />
