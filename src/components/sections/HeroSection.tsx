@@ -165,7 +165,7 @@ export const HeroSection: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Right Boxes (Exam integrity & Placement signal) docked to the extreme right bottom corner */}
+        {/* Right Boxes (Interactive Demo & Enterprise Setup) docked to the extreme right bottom corner */}
         <motion.div
           initial={{ opacity: 0, x: 30, y: 20 }}
           animate={{ opacity: 1, x: 0, y: 0 }}
@@ -175,32 +175,35 @@ export const HeroSection: React.FC = () => {
           <div className="grid w-full grid-cols-2 gap-4">
             {[
               {
-                label: 'Exam integrity',
-                value: 'Proof students actually earned',
-                body: 'Proctored checks, activity logs, and scored milestones stay tied to each course path.',
-                action: 'Verify skills',
+                label: 'Instant sandbox',
+                value: 'Try Interactive Demo',
+                body: 'Spin up a full-stack dev terminal and Jupyter environment inside your browser.',
+                action: 'Launch demo',
+                href: '/auth/login?sandbox=true',
               },
               {
-                label: 'Placement signal',
-                value: 'Profiles recruiters can trust',
-                body: 'Learning progress, interview readiness, and portfolio evidence combine into one hiring view.',
-                action: 'View readiness',
+                label: 'Custom integration',
+                value: 'Book Enterprise Setup',
+                body: 'Schedule a walkthrough to integrate our proctored exams and LMS with your pipeline.',
+                action: 'Book setup',
+                href: '/company/contact',
               },
             ].map((item) => (
-              <div
-                key={item.label}
-                className="flex min-h-[172px] flex-col justify-between rounded-3xl border border-white/65 bg-white/32 p-5 text-left shadow-[0_24px_70px_-40px_rgba(15,23,42,0.5)] backdrop-blur-2xl"
-              >
-                <div>
-                  <div className="text-[10px] font-bold uppercase tracking-widest text-slate-600">{item.label}</div>
-                  <div className="mt-2 text-lg font-black leading-tight text-[#0F172A]">{item.value}</div>
-                  <p className="mt-3 text-xs font-medium leading-relaxed text-slate-600">{item.body}</p>
+              <Link href={item.href} key={item.value} className="no-underline block h-full">
+                <div
+                  className="flex min-h-[172px] h-full flex-col justify-between rounded-3xl border border-white/65 bg-white/32 p-5 text-left shadow-[0_24px_70px_-40px_rgba(15,23,42,0.5)] backdrop-blur-2xl transition hover:bg-white/45 group/card cursor-pointer"
+                >
+                  <div>
+                    <div className="text-[10px] font-bold uppercase tracking-widest text-slate-600">{item.label}</div>
+                    <div className="mt-2 text-lg font-black leading-tight text-[#0F172A]">{item.value}</div>
+                    <p className="mt-3 text-xs font-medium leading-relaxed text-slate-600">{item.body}</p>
+                  </div>
+                  <div className="mt-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/60 bg-white/50 px-3 py-2 text-xs font-bold text-[#0F172A] shadow-sm backdrop-blur-md transition group-hover/card:bg-white/75">
+                    {item.action}
+                    <ArrowRight className="h-3.5 w-3.5 text-slate-500 transition-transform group-hover/card:translate-x-1" />
+                  </div>
                 </div>
-                <button className="mt-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/60 bg-white/50 px-3 py-2 text-xs font-bold text-[#0F172A] shadow-sm backdrop-blur-md transition hover:bg-white/75">
-                  {item.action}
-                  <ArrowRight className="h-3.5 w-3.5 text-slate-500" />
-                </button>
-              </div>
+              </Link>
             ))}
           </div>
         </motion.div>
