@@ -36,11 +36,11 @@ export const AboutSection: React.FC = () => {
 
       <motion.div
         style={{ y: yStudy }}
-        className="absolute left-[-4%] top-[18%] hidden w-[220px] select-none pointer-events-none md:block lg:left-[2%] lg:w-[360px]"
+        className="absolute left-[2%] top-[22%] hidden w-[130px] select-none pointer-events-none md:block lg:left-[5%] lg:w-[200px]"
       >
         <img
-          src="/assets/projects/admin_mascot_clay.png"
-          alt="University Administrator Mascot"
+          src="/assets/projects/pointing_robo_green.png"
+          alt="Pointing Green Robot Mascot"
           className="h-auto w-full object-contain drop-shadow-[0_18px_30px_rgba(88,204,2,0.12)]"
         />
       </motion.div>
