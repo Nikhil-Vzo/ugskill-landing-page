@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, useInView, AnimatePresence } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useInView } from "framer-motion";
 import Link from 'next/link';
 import { ArrowRight, Volume2, VolumeX, Play, Pause, ArrowUpRight, MousePointerClick } from "lucide-react";
 import { DashboardMockup } from "../ui/DashboardMockup";
@@ -10,29 +10,6 @@ import { TactileButton } from "../ui/TactileButton";
 export const HeroSection: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const section2Ref = useRef<HTMLDivElement>(null);
-  const [persona, setPersona] = useState<'student' | 'hr' | 'admin'>('student');
-
-  const PERSONA_DATA = {
-    student: {
-      title: ["From Campus", "To Corporate"],
-      subtitle: "Interactive upskilling, verified skill tests, mock interviews, and direct-to-corporate recruitment pipelines.",
-      mascot: "/assets/projects/student_mascot_clay.png",
-      dashboardTab: "courses" as const,
-    },
-    hr: {
-      title: ["Vetted Skills", "Direct Pipeline"],
-      subtitle: "Zero resume inflation. Hire pre-evaluated candidates matching your exact technical requirements with automated proctoring.",
-      mascot: "/assets/projects/hr_mascot_clay.png",
-      dashboardTab: "interviews" as const,
-    },
-    admin: {
-      title: ["LMS Unified", "Verified Proof"],
-      subtitle: "Integrate courses, anti-cheat assessments, and recruiter pipelines into one unified university platform.",
-      mascot: "/assets/projects/admin_mascot_clay.png",
-      dashboardTab: "leaderboard" as const,
-    }
-  };
-
   const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -135,55 +112,16 @@ export const HeroSection: React.FC = () => {
         <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,rgba(255,255,255,0.58)_0%,rgba(255,255,255,0.22)_30%,rgba(255,255,255,0.18)_62%,rgba(255,255,255,0.54)_100%)]" />
 
         <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center justify-center px-6 pb-44 pt-28 text-center md:pb-36 md:pt-32">
-          {/* Persona Switcher Toggle */}
-          <div className="inline-flex items-center gap-1 p-1 rounded-full border border-slate-200/80 bg-white/70 backdrop-blur-xl shadow-[0_8px_24px_-8px_rgba(15,23,42,0.12)] mb-12 select-none z-30">
-            {(['student', 'hr', 'admin'] as const).map((p) => {
-              const label = p === 'student' ? 'Student' : p === 'hr' ? 'HR Recruiter' : 'Uni Admin';
-              const isActive = persona === p;
-              return (
-                <button
-                  key={p}
-                  onClick={() => setPersona(p)}
-                  className={`relative px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-full transition-all duration-200 cursor-pointer ${
-                    isActive ? 'text-white' : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeHeroPersona"
-                      className="absolute inset-0 bg-[#58CC02] rounded-full -z-10 shadow-[0_4px_12px_rgba(88,204,2,0.25)]"
-                      transition={{ type: 'spring', stiffness: 350, damping: 26 }}
-                    />
-                  )}
-                  {label}
-                </button>
-              );
-            })}
-          </div>
-
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="mx-auto max-w-4xl"
           >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={persona}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-              >
-                <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-[7.2rem] 2xl:text-[8rem] font-black leading-[0.92] tracking-tight text-[#0F172A]">
-                  {PERSONA_DATA[persona].title[0]}
-                  <span className="block text-[#58CC02]">{PERSONA_DATA[persona].title[1]}</span>
-                </h1>
-                <p className="mt-6 text-base md:text-lg text-slate-500 max-w-2xl mx-auto font-semibold leading-relaxed">
-                  {PERSONA_DATA[persona].subtitle}
-                </p>
-              </motion.div>
-            </AnimatePresence>
+            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-[7.2rem] 2xl:text-[8rem] font-black leading-[0.92] tracking-tight text-[#0F172A]">
+              From Campus
+              <span className="block text-[#58CC02]">To Corporate</span>
+            </h1>
 
             <div className="mt-9 flex lg:hidden flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Link href="/auth/login?sandbox=true" className="w-full sm:w-auto no-underline">
@@ -332,21 +270,14 @@ export const HeroSection: React.FC = () => {
                   className="absolute -left-8 -top-16 md:-left-16 md:-top-24 w-24 md:w-36 z-30 select-none pointer-events-none"
                   style={{ transform: "translateZ(80px)" }}
                 >
-                  <AnimatePresence mode="wait">
-                    <motion.img
-                      key={persona}
-                      initial={{ opacity: 0, scale: 0.85 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.85 }}
-                      transition={{ duration: 0.25, ease: "easeInOut" }}
-                      src={PERSONA_DATA[persona].mascot}
-                      alt="Robot Mascot Companion"
-                      className="w-full h-auto drop-shadow-[0_12px_24px_rgba(88,204,2,0.18)]"
-                    />
-                  </AnimatePresence>
+                  <img
+                    src="/assets/projects/student_mascot_clay.png"
+                    alt="Robot Mascot Companion"
+                    className="w-full h-auto drop-shadow-[0_12px_24px_rgba(88,204,2,0.18)]"
+                  />
                 </motion.div>
 
-                <DashboardMockup activeTabOverride={PERSONA_DATA[persona].dashboardTab} />
+                <DashboardMockup />
               </motion.div>
             </div>
           </div>
