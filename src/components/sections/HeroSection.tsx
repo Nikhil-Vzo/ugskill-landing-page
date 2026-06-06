@@ -211,7 +211,7 @@ export const HeroSection: React.FC = () => {
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ y: { repeat: Infinity, duration: 4, ease: "easeInOut" } }}
-            className="w-full select-none pointer-events-none"
+            className="w-full p-4 rounded-3xl border border-white/20 bg-gradient-to-b from-white/15 to-transparent backdrop-blur-[5px] shadow-[0_12px_32px_-12px_rgba(15,23,42,0.12)] select-none pointer-events-none"
           >
             <img
               src="/assets/projects/scroll_down_robo.png"
