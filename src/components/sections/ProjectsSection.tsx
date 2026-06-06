@@ -117,7 +117,7 @@ export const ProjectsSection: React.FC = () => {
         </div>
 
         {/* Stacking Sticky Cards */}
-        <div className="relative space-y-16 md:space-y-24">
+        <div className="relative">
           {projectCards.map((card, index) => {
             // Calculations for sticky progress scale
             const cardProgress = 1 - (projectCards.length - 1 - index) * 0.03;
@@ -125,9 +125,15 @@ export const ProjectsSection: React.FC = () => {
             return (
               <div
                 key={card.id}
-                className="relative lg:sticky lg:top-28 w-full"
+                className="sticky w-full"
                 style={{
-                  paddingTop: isDesktop ? `${index * 24}px` : '0px'
+                  top: isDesktop ? '112px' : '80px',
+                  paddingTop: isDesktop ? `${index * 24}px` : `${index * 16}px`,
+                  paddingBottom: index < projectCards.length - 1 
+                    ? (isDesktop ? '96px' : '64px') 
+                    : '0px',
+                  marginBottom: '0px',
+                  zIndex: 10 + index
                 }}
               >
                 <motion.div
@@ -138,7 +144,7 @@ export const ProjectsSection: React.FC = () => {
                     rotate: isDesktop ? cardRotations[index] : 0,
                     x: isDesktop ? cardOffsets[index] : 0,
                   }}
-                  className="w-full min-h-[420px] md:min-h-[480px] border rounded-3xl p-8 md:p-12 shadow-diffused flex flex-col lg:flex-row gap-8 lg:gap-12 items-center overflow-hidden transition-all duration-300 hover:shadow-2xl"
+                  className="w-full min-h-[380px] sm:min-h-[420px] lg:min-h-[480px] border rounded-3xl p-6 sm:p-8 lg:p-12 shadow-diffused flex flex-col lg:flex-row gap-8 lg:gap-12 items-center overflow-hidden transition-all duration-300 hover:shadow-2xl"
                 >
                   {/* Left Side: Card Text Info */}
                   <div className="flex-1 flex flex-col items-start z-10">
@@ -168,7 +174,7 @@ export const ProjectsSection: React.FC = () => {
                   </div>
 
                   {/* Right Side: Floating 3D Illustration Viewport (No Frame, transparent bg) */}
-                  <div className="w-full lg:w-[45%] h-[260px] md:h-[340px] flex items-center justify-center relative group select-none pointer-events-none">
+                  <div className="w-full lg:w-[45%] h-[180px] sm:h-[240px] md:h-[300px] lg:h-[340px] flex items-center justify-center relative group select-none pointer-events-none">
                     <img
                       src={card.imageUrl}
                       alt={card.title}
