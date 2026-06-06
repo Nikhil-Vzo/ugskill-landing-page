@@ -125,11 +125,10 @@ export const ProjectsSection: React.FC = () => {
             return (
               <div
                 key={card.id}
-                className="relative lg:sticky lg:top-28 w-full pt-0"
+                className="relative lg:sticky lg:top-28 w-full"
                 style={{
-                  paddingTop: 'var(--card-pt)',
-                  '--card-pt': `${index * 24}px`
-                } as React.CSSProperties}
+                  paddingTop: isDesktop ? `${index * 24}px` : '0px'
+                }}
               >
                 <motion.div
                   style={{
