@@ -82,7 +82,7 @@ export const ServicesSection: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto w-full">
         {/* Section Heading */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-24">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-24 gap-8">
           <div className="max-w-xl">
             <span className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full bg-slate-50 border border-slate-200 text-slate-600 text-xs font-semibold tracking-widest uppercase mb-4 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-[#0EA5E9]" />
@@ -91,10 +91,17 @@ export const ServicesSection: React.FC = () => {
             <h2 className="text-4xl md:text-5xl font-extrabold text-[#0F172A] tracking-tighter leading-none">
               Unified Platform Features
             </h2>
+            <p className="text-base md:text-lg text-slate-500 mt-6 font-medium leading-relaxed">
+              Five core systems integrated into one interface to deliver seamless training and recruitment outcomes.
+            </p>
           </div>
-          <p className="text-base md:text-lg text-slate-500 max-w-sm mt-4 md:mt-0 font-medium leading-relaxed">
-            Five core systems integrated into one interface to deliver seamless training and recruitment outcomes.
-          </p>
+          <div className="relative w-32 h-32 md:w-40 md:h-40 flex-shrink-0 select-none pointer-events-none self-center md:self-end">
+            <img
+              src="/assets/projects/student_mascot_clay.png"
+              alt="Coding Student Mascot"
+              className="w-full h-full object-contain drop-shadow-[0_12px_24px_rgba(88,204,2,0.15)]"
+            />
+          </div>
         </div>
 
         {/* Services List Rows */}

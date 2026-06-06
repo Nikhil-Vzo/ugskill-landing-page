@@ -14,11 +14,21 @@ import {
   ArrowUpRight
 } from 'lucide-react';
 
-export const DashboardMockup: React.FC = () => {
+export interface DashboardMockupProps {
+  activeTabOverride?: 'courses' | 'leaderboard' | 'live' | 'interviews';
+}
+
+export const DashboardMockup: React.FC<DashboardMockupProps> = ({ activeTabOverride }) => {
   const [activeTab, setActiveTab] = useState<'courses' | 'leaderboard' | 'live' | 'interviews'>('courses');
   const [isMounted, setIsMounted] = useState(false);
   const [scale, setScale] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (activeTabOverride) {
+      setActiveTab(activeTabOverride);
+    }
+  }, [activeTabOverride]);
 
   useEffect(() => {
     const handleResize = () => {

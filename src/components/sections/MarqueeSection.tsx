@@ -143,8 +143,8 @@ export const MarqueeSection: React.FC = () => {
           </div>
           <div className="relative w-40 md:w-56 h-40 md:h-56 flex-shrink-0 select-none pointer-events-none">
             <img
-              src="/assets/projects/learning_path_clay.png"
-              alt="LMS course library preview"
+              src="/assets/projects/admin_mascot_clay.png"
+              alt="University Administrator Mascot"
               className="w-full h-full object-contain"
             />
           </div>
