@@ -256,8 +256,9 @@ export const HeroSection: React.FC = () => {
           className="absolute inset-0 pointer-events-none opacity-90"
           style={{
             backgroundImage: `
-              radial-gradient(circle at 50% 35%, rgba(88, 204, 2, 0.08), transparent 35%),
-              radial-gradient(circle at 72% 60%, rgba(14, 165, 233, 0.08), transparent 32%),
+              radial-gradient(circle at 20% 50%, rgba(88, 204, 2, 0.22), transparent 55%),
+              radial-gradient(circle at 80% 50%, rgba(88, 204, 2, 0.16), transparent 45%),
+              radial-gradient(circle at 50% 80%, rgba(14, 165, 233, 0.08), transparent 35%),
               linear-gradient(to bottom, rgba(248, 250, 252, 0.95), rgba(255, 255, 255, 1))
             `,
           }}
@@ -267,7 +268,10 @@ export const HeroSection: React.FC = () => {
           <div className="relative flex flex-col gap-10 lg:block">
             {/* Video intro */}
             <div className="relative z-20 mx-auto w-full max-w-3xl lg:absolute lg:left-[6%] lg:top-1/2 lg:w-[46%] lg:-translate-y-1/2">
-              <div className="relative aspect-video overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950 shadow-[0_35px_90px_-30px_rgba(15,23,42,0.45)]">
+              {/* Balanced green-blue glowing blurred background blob */}
+              <div className="absolute -inset-8 z-0 rounded-[2.5rem] bg-gradient-to-tr from-[#58CC02]/32 to-[#0EA5E9]/18 blur-2xl opacity-85 pointer-events-none" />
+              
+              <div className="relative z-10 aspect-video overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950 shadow-[0_35px_90px_-30px_rgba(15,23,42,0.45)]">
                 <video
                   ref={videoRef}
                   src="/assets/hero/ug_bot_removed_bg.mp4"
