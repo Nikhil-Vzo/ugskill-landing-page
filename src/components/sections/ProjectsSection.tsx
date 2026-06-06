@@ -117,7 +117,7 @@ export const ProjectsSection: React.FC = () => {
         </div>
 
         {/* Stacking Sticky Cards */}
-        <div className="relative flex flex-col gap-16 md:gap-24">
+        <div className="relative space-y-16 md:space-y-24">
           {projectCards.map((card, index) => {
             // Calculations for sticky progress scale
             const cardProgress = 1 - (projectCards.length - 1 - index) * 0.03;
