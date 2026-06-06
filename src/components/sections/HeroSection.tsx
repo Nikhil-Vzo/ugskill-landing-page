@@ -109,8 +109,6 @@ export const HeroSection: React.FC = () => {
           preload="metadata"
         />
 
-        <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,rgba(255,255,255,0.58)_0%,rgba(255,255,255,0.22)_30%,rgba(255,255,255,0.18)_62%,rgba(255,255,255,0.54)_100%)]" />
-
         <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center justify-center px-6 pb-44 pt-28 text-center md:pb-36 md:pt-32">
           <motion.div
             initial={{ opacity: 0, y: 28 }}
@@ -118,11 +116,6 @@ export const HeroSection: React.FC = () => {
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="mx-auto max-w-4xl"
           >
-            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-[7.2rem] 2xl:text-[8rem] font-black leading-[0.92] tracking-tight text-[#0F172A]">
-              From Campus
-              <span className="block text-[#58CC02]">To Corporate</span>
-            </h1>
-
             <div className="mt-9 flex lg:hidden flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Link href="/auth/login?sandbox=true" className="w-full sm:w-auto no-underline">
                 <TactileButton variant="primary" className="w-full sm:w-auto px-8 py-4 text-base">
