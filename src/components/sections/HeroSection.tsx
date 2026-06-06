@@ -201,30 +201,24 @@ export const HeroSection: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Left Box (LMS Preview) docked to the extreme left bottom corner */}
+        {/* Left Box (Scroll Down Indicator) docked to the extreme left bottom corner */}
         <motion.div
-          initial={{ opacity: 0, x: -30, y: 20 }}
-          animate={{ opacity: 1, x: 0, y: 0 }}
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute left-8 bottom-7 z-20 hidden lg:block w-[30%] max-w-[420px]"
+          className="absolute left-8 bottom-7 z-20 hidden xl:block w-[18%] max-w-[220px]"
         >
-          <div className="group relative w-full overflow-hidden rounded-3xl border border-white/65 bg-white/28 p-3 shadow-[0_24px_70px_-35px_rgba(15,23,42,0.5)] backdrop-blur-2xl">
-            <div className="relative aspect-[16/6] overflow-hidden rounded-2xl bg-slate-950">
-              <img
-                src="/assets/projects/learning_path_clay.png"
-                alt="UGSkill course flow preview"
-                className="h-full w-full object-cover opacity-95 transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-slate-950/75 via-slate-950/20 to-transparent" />
-              <div className="absolute left-4 top-4">
-                <div className="text-[10px] font-bold uppercase tracking-widest text-white/70">LMS</div>
-                <div className="mt-1 text-xl font-black text-white">Course paths</div>
-              </div>
-              <div className="absolute bottom-4 right-4 rounded-full border border-white/35 bg-white/20 px-3 py-1 text-xs font-bold text-white backdrop-blur-md">
-                View flow
-              </div>
-            </div>
-          </div>
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ y: { repeat: Infinity, duration: 4, ease: "easeInOut" } }}
+            className="w-full select-none pointer-events-none"
+          >
+            <img
+              src="/assets/projects/scroll_down_robo.png"
+              alt="Scroll Down Indicator Mascot"
+              className="w-full h-auto drop-shadow-[0_12px_24px_rgba(88,204,2,0.15)]"
+            />
+          </motion.div>
         </motion.div>
 
         {/* Right Actions (Interactive Demo & Enterprise Setup) docked to the extreme right bottom corner */}
