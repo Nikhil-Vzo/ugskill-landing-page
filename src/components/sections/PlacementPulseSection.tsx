@@ -13,7 +13,6 @@ import { cn } from '@/lib/utils';
 interface StepCardProps {
   step: string;
   title: string;
-  description: string;
   imageSrc: string;
   icon: React.ReactNode;
   delay: number;
@@ -22,7 +21,6 @@ interface StepCardProps {
 const StepCard: React.FC<StepCardProps> = ({
   step,
   title,
-  description,
   imageSrc,
   icon,
   delay
@@ -34,16 +32,13 @@ const StepCard: React.FC<StepCardProps> = ({
       viewport={{ once: true, margin: "-60px" }}
       transition={{ type: "spring", stiffness: 80, damping: 15, delay }}
       className={cn(
-        "relative rounded-[2.5rem] overflow-hidden border border-slate-200/80 bg-white p-8 md:p-10 flex flex-col justify-between items-center text-center shadow-[0_8px_30px_rgba(0,0,0,0.015)] hover:border-[#58CC02]/30 hover:shadow-[0_15px_30px_rgba(88,204,2,0.04)] hover:translate-y-[-4px] group transition-all duration-300 z-10 w-full"
+        "relative flex flex-col items-center text-center group transition-all duration-300 z-10 w-full py-4"
       )}
     >
-      {/* Decorative subtle card inner glow */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#58CC02]/[0.01] to-transparent pointer-events-none" />
-      
       <div className="flex flex-col items-center w-full">
         {/* Step Badge & Icon */}
         <div className="flex items-center gap-3.5 mb-6">
-          <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-center text-[#58CC02] shadow-sm group-hover:scale-105 transition-transform duration-300">
+          <div className="w-10 h-10 rounded-xl bg-white border border-slate-200/80 flex items-center justify-center text-[#58CC02] shadow-sm group-hover:scale-105 transition-transform duration-300">
             {icon}
           </div>
           <span className="text-[10px] font-bold text-[#46A302] bg-[#58CC02]/8 border border-[#58CC02]/15 px-3 py-1 rounded-full uppercase tracking-wider">
@@ -52,25 +47,49 @@ const StepCard: React.FC<StepCardProps> = ({
         </div>
 
         {/* Mascot Image centered and floating */}
-        <div className="w-48 h-48 relative flex items-center justify-center overflow-hidden pointer-events-none mb-6">
+        <div className="w-56 h-56 md:w-64 md:h-64 relative flex items-center justify-center overflow-hidden pointer-events-none mb-6">
           <motion.img 
             src={imageSrc}
             alt={title}
-            animate={{ y: [0, -5, 0] }}
+            animate={{ y: [0, -6, 0] }}
             transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: delay * 2 }}
-            className="max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
+            className="max-h-full object-contain group-hover:scale-110 transition-transform duration-300"
           />
         </div>
 
-        {/* Title & Description */}
-        <h3 className="text-xl md:text-2xl font-extrabold text-[#0F172A] tracking-tight mb-3">
+        {/* Title */}
+        <h3 className="text-xl md:text-2xl font-extrabold text-[#0F172A] tracking-tight group-hover:text-[#58CC02] transition-colors duration-300">
           {title}
         </h3>
-        <p className="text-slate-500 text-sm md:text-base font-medium leading-relaxed max-w-sm">
-          {description}
-        </p>
       </div>
     </motion.div>
+  );
+};
+
+const ArrowConnector: React.FC = () => {
+  return (
+    <div className="flex items-center justify-center min-w-[2.5rem] text-[#58CC02] z-20">
+      {/* Desktop Arrow */}
+      <motion.div 
+        className="hidden lg:block"
+        animate={{ x: [-4, 4, -4] }}
+        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+      >
+        <svg width="48" height="24" viewBox="0 0 48 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="stroke-[#58CC02]">
+          <path d="M2 12H46M46 12L36 2M46 12L36 22" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </motion.div>
+      {/* Mobile Arrow */}
+      <motion.div 
+        className="block lg:hidden py-4"
+        animate={{ y: [-4, 4, -4] }}
+        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+      >
+        <svg width="24" height="48" viewBox="0 0 24 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="stroke-[#58CC02]">
+          <path d="M12 2V46M12 46L2 36M12 46L22 36" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </motion.div>
+    </div>
   );
 };
 
@@ -89,10 +108,10 @@ export const PlacementPulseSection: React.FC = () => {
         }}
       />
 
-      <div className="relative z-10 w-full max-w-7xl px-6 md:px-12 flex flex-col">
+      <div className="relative z-10 w-full max-w-6xl px-6 md:px-12 flex flex-col">
         
         {/* Section Header */}
-        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16 md:mb-24">
+        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16 md:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -130,47 +149,35 @@ export const PlacementPulseSection: React.FC = () => {
         </div>
 
         {/* 3-Section Horizontal path cards layout */}
-        <div className="relative flex flex-col lg:flex-row gap-8 items-stretch w-full">
+        <div className="relative flex flex-col lg:flex-row gap-4 items-center w-full mx-auto">
           
-          {/* Animated Connecting SVG path line running behind the cards (visible on desktop) */}
-          <div className="hidden lg:block absolute top-[30%] left-[15%] right-[15%] h-[2px] pointer-events-none z-0">
-            <svg className="w-full h-full" fill="none">
-              <motion.line 
-                x1="0" y1="0" x2="100%" y2="0" 
-                stroke="#58CC02" strokeWidth="2.5" 
-                strokeDasharray="6 6" 
-                animate={{ strokeDashoffset: [0, -20] }}
-                transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-              />
-            </svg>
-          </div>
-
           {/* Card 1: Study */}
           <StepCard 
             step="Stage 01"
             title="Continuous Learning"
-            description="Students progress through modular, syllabus-aligned learning pathways, solving coding challenges inside interactive sandboxes."
-            imageSrc="/assets/projects/student_studying.png"
+            imageSrc="/assets/projects/robot_studying.png"
             icon={<BookOpen className="w-5 h-5" />}
             delay={0}
           />
+
+          <ArrowConnector />
 
           {/* Card 2: Test */}
           <StepCard 
             step="Stage 02"
             title="Verified Assessments"
-            description="Verify code competency with browser lockdowns, audio-video analysis, and cryptographic proctor signatures."
-            imageSrc="/assets/projects/student_testing.png"
+            imageSrc="/assets/projects/robot_testing.png"
             icon={<ShieldCheck className="w-5 h-5" />}
             delay={0.15}
           />
+
+          <ArrowConnector />
 
           {/* Card 3: Placement */}
           <StepCard 
             step="Stage 03"
             title="Direct Placement"
-            description="Connect directly to corporate recruiter pipelines with verified credentials, matching student skill tags with active hiring needs."
-            imageSrc="/assets/projects/student_placed.png"
+            imageSrc="/assets/projects/robot_placed.png"
             icon={<Award className="w-5 h-5" />}
             delay={0.3}
           />
