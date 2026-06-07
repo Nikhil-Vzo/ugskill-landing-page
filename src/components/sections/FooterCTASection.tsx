@@ -11,6 +11,7 @@ import {
   Award,
   Globe
 } from 'lucide-react';
+import { TactileButton } from '../ui/TactileButton';
 
 // Magnet Button Helper Component for premium interactive feel
 const MagnetWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -55,34 +56,25 @@ export const FooterCTASection: React.FC = () => {
 
   const footerLinks = {
     Platform: [
-      { name: 'Interactive LMS', href: '#' },
-      { name: 'Proctored Exams', href: '#' },
-      { name: 'Interview Simulator', href: '#' },
-      { name: 'Placement Engine', href: '#' },
+      { name: 'About Platform', href: '#about-platform' },
+      { name: 'Unified Features', href: '#solutions' },
+      { name: 'Vetted Projects', href: '#projects-stack' },
     ],
-    Solutions: [
-      { name: 'For Universities', href: '#' },
-      { name: 'For Recruiters', href: '#' },
-      { name: 'API Integrations', href: '#' },
-      { name: 'Enterprise Setup', href: '#' },
+    Verification: [
+      { name: 'Placement Engine', href: '#placement-funnel' },
+      { name: 'Interactive Sandbox', href: '/auth/login?sandbox=true' },
+      { name: 'Real-time Standings', href: '#placement-funnel' },
     ],
-    Company: [
-      { name: 'About Us', href: '#' },
-      { name: 'Press & Media', href: '#' },
-      { name: 'Careers', href: '#' },
-      { name: 'Contact Sales', href: '#' },
-    ],
-    Resources: [
-      { name: 'Case Studies', href: '#' },
-      { name: 'Technical Docs', href: '#' },
-      { name: 'Privacy Policy', href: '#' },
-      { name: 'Terms of Service', href: '#' },
+    Access: [
+      { name: 'Try Demo', href: '/auth/login?sandbox=true' },
+      { name: 'Client Login', href: '/auth/login' },
+      { name: 'Contact Sales', href: '/company/contact' },
     ],
   };
 
   return (
     <section className="relative w-full bg-white py-24 lg:py-32 flex flex-col items-center overflow-hidden border-t border-zinc-200/85">
-      {/* Soft background glow */}
+      {/* Background Volumetric Glowing Orbs (Soft green) */}
       <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-[#58CC02]/5 to-transparent blur-3xl rounded-full pointer-events-none z-0" />
       <div className="absolute bottom-1/3 right-1/4 translate-x-1/2 translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-bl from-[#58CC02]/3 to-transparent blur-3xl rounded-full pointer-events-none z-0" />
 
@@ -99,33 +91,24 @@ export const FooterCTASection: React.FC = () => {
 
       <div className="relative z-10 w-full max-w-6xl px-6 md:px-12 flex flex-col items-center">
         
-        {/* ================= PREMIUM BRAND GREEN CTA CARD ================= */}
-        <div className="w-full rounded-[2.5rem] bg-gradient-to-br from-[#61E002] via-[#58CC02] to-[#46A302] border border-[#58CC02]/25 p-8 md:p-12 lg:p-16 overflow-hidden relative shadow-[0_30px_70px_-15px_rgba(88,204,2,0.35)] mb-28">
-          {/* Animated Gradient Mesh Layers inside card (white & dark green) */}
+        {/* ================= PREMIUM BENTO LIGHT CARD ================= */}
+        <div className="w-full rounded-[2.5rem] bg-zinc-50 border border-zinc-200/80 p-8 md:p-12 lg:p-16 overflow-hidden relative shadow-[0_20px_50px_-12px_rgba(0,0,0,0.03)] mb-28">
+          {/* Subtle Green Overlay inside card */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden z-0 rounded-[2.5rem]">
             <motion.div 
-              className="absolute -top-40 -left-40 w-96 h-96 bg-white/20 blur-[100px] rounded-full"
+              className="absolute -top-40 -left-40 w-96 h-96 bg-[#58CC02]/8 blur-[100px] rounded-full"
               animate={{ 
-                scale: [1, 1.25, 1],
-                x: [0, 25, 0],
-                y: [0, -25, 0]
+                scale: [1, 1.15, 1],
+                x: [0, 20, 0],
+                y: [0, -20, 0]
               }}
               transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
             />
-            <motion.div 
-              className="absolute -bottom-40 -right-40 w-96 h-96 bg-black/15 blur-[120px] rounded-full"
-              animate={{ 
-                scale: [1.25, 1, 1.25],
-                x: [0, -25, 0],
-                y: [0, 25, 0]
-              }}
-              transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
-            />
-            {/* Subtle White Grid Overlay inside card */}
+            {/* Subtle Grid Overlay inside card */}
             <div 
-              className="absolute inset-0 opacity-[0.12] pointer-events-none"
+              className="absolute inset-0 opacity-[0.05] pointer-events-none"
               style={{
-                backgroundImage: 'radial-gradient(#FFFFFF 1.5px, transparent 1.5px)',
+                backgroundImage: 'radial-gradient(#000000 1.5px, transparent 1.5px)',
                 backgroundSize: '24px 24px',
               }}
             />
@@ -133,46 +116,46 @@ export const FooterCTASection: React.FC = () => {
 
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
-            {/* Left Wing: Asymmetrical Widgets in frosted glass */}
+            {/* Left Wing: Asymmetrical Widgets */}
             <div className="lg:col-span-4 flex flex-col gap-6 justify-center items-start z-10">
               
-              {/* Widget 1: Mini Code Terminal (frosted glass style) */}
+              {/* Widget 1: Mini Code Terminal */}
               <motion.div
                 initial={{ opacity: 0, x: -40, rotate: -2 }}
                 whileInView={{ opacity: 1, x: 0, rotate: -1.5 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ type: "spring", stiffness: 100, damping: 15, delay: 0.1 }}
-                whileHover={{ rotate: 0, scale: 1.03, borderColor: "rgba(255,255,255,0.4)" }}
-                className="w-full max-w-[300px] rounded-3xl border border-white/20 bg-black/25 backdrop-blur-xl p-4.5 shadow-2xl flex flex-col gap-3 transition-all duration-300"
+                whileHover={{ rotate: 0, scale: 1.03, borderColor: "rgba(88,204,2,0.4)" }}
+                className="w-full max-w-[300px] rounded-3xl border border-zinc-200 bg-white p-4.5 shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col gap-3 transition-all duration-300"
               >
-                <div className="flex items-center gap-1.5 border-b border-white/10 pb-2">
-                  <Terminal className="w-4 h-4 text-white" />
-                  <span className="text-[10px] font-bold text-white/70 uppercase tracking-wider">Verification Engine</span>
+                <div className="flex items-center gap-1.5 border-b border-zinc-100 pb-2">
+                  <Terminal className="w-4 h-4 text-[#58CC02]" />
+                  <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Verification Engine</span>
                 </div>
-                <div className="font-mono text-[11px] leading-relaxed text-white/90 bg-black/45 p-2.5 rounded-lg border border-white/5">
-                  <p className="text-white/40">{"// verifying student..."}</p>
-                  <p><span className="text-white/60">const</span> proof = <span className="text-white font-bold">checkSkills</span>();</p>
-                  <p className="text-white/50 mt-1">{"&gt;"} Status: <span className="text-white font-bold">100% Legit ✅</span></p>
+                <div className="font-mono text-[11px] leading-relaxed text-zinc-800 bg-zinc-50 p-2.5 rounded-lg border border-zinc-150">
+                  <p className="text-zinc-400">{"// verifying student..."}</p>
+                  <p><span className="text-zinc-500">const</span> proof = <span className="text-[#58CC02] font-semibold">checkSkills</span>();</p>
+                  <p className="text-zinc-400 mt-1">{"&gt;"} Status: <span className="text-[#58CC02] font-bold">100% Legit ✅</span></p>
                 </div>
               </motion.div>
 
-              {/* Widget 2: Recruiter Signals (frosted glass style) */}
+              {/* Widget 2: Recruiter Signals */}
               <motion.div
                 initial={{ opacity: 0, x: -40, rotate: 2 }}
                 whileInView={{ opacity: 1, x: 0, rotate: 1.5 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ type: "spring", stiffness: 100, damping: 15, delay: 0.25 }}
-                whileHover={{ rotate: 0, scale: 1.03, borderColor: "rgba(255,255,255,0.4)" }}
-                className="w-full max-w-[300px] rounded-3xl border border-white/20 bg-black/25 backdrop-blur-xl p-4.5 shadow-2xl flex flex-col gap-2.5 transition-all duration-300"
+                whileHover={{ rotate: 0, scale: 1.03, borderColor: "rgba(88,204,2,0.4)" }}
+                className="w-full max-w-[300px] rounded-3xl border border-zinc-200 bg-white p-4.5 shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col gap-2.5 transition-all duration-300"
               >
-                <span className="text-[9px] font-bold text-white/70 uppercase tracking-widest leading-none">Active Recruitment</span>
-                <div className="flex items-center justify-between border-t border-white/10 pt-2.5 text-xs font-bold text-white">
+                <span className="text-[9px] font-bold text-zinc-450 uppercase tracking-widest leading-none">Active Recruitment</span>
+                <div className="flex items-center justify-between border-t border-zinc-100 pt-2.5 text-xs font-bold text-zinc-800">
                   <span className="truncate">Stripe matches</span>
-                  <span className="text-white bg-white/20 px-2 py-0.5 rounded-full text-[10px]">9 Qualified</span>
+                  <span className="text-[#58CC02] bg-[#58CC02]/10 px-2 py-0.5 rounded-full text-[10px]">9 Qualified</span>
                 </div>
-                <div className="flex items-center justify-between text-xs font-bold text-white">
+                <div className="flex items-center justify-between text-xs font-bold text-zinc-800">
                   <span className="truncate">Supabase hires</span>
-                  <span className="text-white bg-white/20 px-2 py-0.5 rounded-full text-[10px]">4 Verified</span>
+                  <span className="text-[#58CC02] bg-[#58CC02]/10 px-2 py-0.5 rounded-full text-[10px]">4 Verified</span>
                 </div>
               </motion.div>
 
@@ -185,39 +168,38 @@ export const FooterCTASection: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/20 border border-white/25 text-white text-xs font-bold tracking-wider uppercase mb-6"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#58CC02]/10 border border-[#58CC02]/20 text-[#46A302] text-xs font-bold tracking-wider uppercase mb-6"
               >
                 <Sparkles className="w-4 h-4" />
                 Get Started
               </motion.div>
 
-              <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter leading-none mb-6">
+              <h2 className="text-4xl md:text-5xl font-black text-zinc-950 tracking-tighter leading-none mb-6">
                 Level up your campus talent.
               </h2>
-              <p className="text-white/90 font-medium leading-relaxed max-w-sm mb-9">
+              <p className="text-zinc-550 font-medium leading-relaxed max-w-sm mb-9">
                 Bridge the gap between syllabus-aligned learning pathways and proctor-verified recruiter pipelines.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-4 w-full justify-center">
                 <MagnetWrapper>
                   <Link href="/auth/login?sandbox=true" className="no-underline">
-                    {/* High contrast primary white button on green background */}
-                    <button className="relative inline-flex items-center justify-center rounded-xl font-bold transition-all duration-75 outline-none focus:outline-none cursor-pointer select-none px-8 py-4 text-base bg-white text-zinc-950 shadow-[0_4px_0_#D4D4D8] hover:bg-zinc-50 active:shadow-none active:translate-y-[4px]">
+                    <TactileButton variant="primary" className="px-8 py-4 text-base shadow-[0_20px_40px_-15px_rgba(88,204,2,0.25)]">
                       Try Interactive Demo
-                    </button>
+                    </TactileButton>
                   </Link>
                 </MagnetWrapper>
                 
                 <Link href="/company/contact" className="no-underline">
-                  <button className="group relative inline-flex items-center justify-center rounded-xl font-semibold transition-all duration-75 outline-none focus:outline-none cursor-pointer select-none px-8 py-4 text-base bg-black/20 text-white shadow-[0_4px_0_rgba(0,0,0,0.15)] border border-white/10 hover:bg-black/30 active:shadow-none active:translate-y-[4px]">
+                  <button className="group relative inline-flex items-center justify-center rounded-xl font-semibold transition-all duration-75 outline-none focus:outline-none cursor-pointer select-none px-8 py-4 text-base bg-white text-zinc-700 shadow-[0_4px_0_#E2E8F0] border border-zinc-200 hover:bg-zinc-50 active:shadow-none active:translate-y-[4px]">
                     Contact Sales
-                    <ArrowRight className="ml-2 h-4 w-4 text-white/90 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="ml-2 h-4 w-4 text-zinc-400 transition-transform group-hover:translate-x-1" />
                   </button>
                 </Link>
               </div>
             </div>
 
-            {/* Right Wing: Staggered Gamification Badges in frosted glass */}
+            {/* Right Wing: Staggered Gamification Badges */}
             <div className="lg:col-span-4 flex flex-col gap-6 justify-center items-end z-10">
               
               {/* Widget 3: Student Badge Box */}
@@ -226,17 +208,17 @@ export const FooterCTASection: React.FC = () => {
                 whileInView={{ opacity: 1, x: 0, rotate: 1.5 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ type: "spring", stiffness: 100, damping: 15, delay: 0.2 }}
-                whileHover={{ rotate: 0, scale: 1.03, borderColor: "rgba(255,255,255,0.4)" }}
-                className="w-full max-w-[300px] rounded-3xl border border-white/20 bg-black/25 backdrop-blur-xl p-4.5 shadow-2xl flex flex-col gap-3 transition-all duration-300"
+                whileHover={{ rotate: 0, scale: 1.03, borderColor: "rgba(88,204,2,0.4)" }}
+                className="w-full max-w-[300px] rounded-3xl border border-zinc-200 bg-white p-4.5 shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex flex-col gap-3 transition-all duration-300"
               >
-                <span className="text-[10px] font-bold text-white/70 uppercase tracking-widest leading-none">Global Ranks</span>
-                <div className="flex items-center gap-3 bg-black/35 border border-white/5 rounded-xl p-2.5">
-                  <div className="w-9 h-9 rounded-full bg-white/25 flex items-center justify-center text-white">
+                <span className="text-[10px] font-bold text-zinc-450 uppercase tracking-widest leading-none">Global Ranks</span>
+                <div className="flex items-center gap-3 bg-zinc-50 border border-zinc-150 rounded-xl p-2.5">
+                  <div className="w-9 h-9 rounded-full bg-[#58CC02]/10 flex items-center justify-center text-[#58CC02]">
                     <Award className="w-5 h-5" />
                   </div>
                   <div className="text-left">
-                    <h5 className="text-xs font-black text-white leading-none">Aarav Sharma</h5>
-                    <p className="text-[10px] text-white/80 font-bold mt-1.5">Rank 1st • 92,400 XP</p>
+                    <h5 className="text-xs font-black text-zinc-950 leading-none">Aarav Sharma</h5>
+                    <p className="text-[10px] text-zinc-500 font-bold mt-1.5">Rank 1st • 92,400 XP</p>
                   </div>
                 </div>
               </motion.div>
@@ -247,19 +229,19 @@ export const FooterCTASection: React.FC = () => {
                 whileInView={{ opacity: 1, x: 0, rotate: -1.5 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ type: "spring", stiffness: 100, damping: 15, delay: 0.35 }}
-                whileHover={{ rotate: 0, scale: 1.03, borderColor: "rgba(255,255,255,0.4)" }}
-                className="w-full max-w-[300px] rounded-3xl border border-white/20 bg-black/25 backdrop-blur-xl p-4.5 shadow-2xl flex items-center gap-3.5 transition-all duration-300"
+                whileHover={{ rotate: 0, scale: 1.03, borderColor: "rgba(88,204,2,0.4)" }}
+                className="w-full max-w-[300px] rounded-3xl border border-zinc-200 bg-white p-4.5 shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex items-center gap-3.5 transition-all duration-300"
               >
                 <motion.div 
-                  className="w-9 h-9 rounded-xl bg-white/25 flex items-center justify-center text-white shadow-sm shrink-0"
+                  className="w-9 h-9 rounded-xl bg-[#58CC02]/10 flex items-center justify-center text-[#58CC02] shadow-sm shrink-0"
                   animate={{ scale: [1, 1.08, 1] }}
                   transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
                 >
-                  <Flame className="w-5 h-5 fill-white/10" />
+                  <Flame className="w-5 h-5 fill-[#58CC02]/10" />
                 </motion.div>
                 <div className="text-left">
-                  <h5 className="text-xs font-black text-white leading-none">Daily Coding Streaks</h5>
-                  <p className="text-[10px] text-white font-bold mt-1.5">🔥 124 students active today</p>
+                  <h5 className="text-xs font-black text-zinc-950 leading-none">Daily Coding Streaks</h5>
+                  <p className="text-[10px] text-[#58CC02] font-bold mt-1.5">🔥 124 students active today</p>
                 </div>
               </motion.div>
 
@@ -272,7 +254,7 @@ export const FooterCTASection: React.FC = () => {
         <footer className="w-full border-t border-zinc-200/80 pt-16 flex flex-col gap-16">
           
           {/* Links Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-10">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10">
             
             {/* Column 0: Branding & Newsletter */}
             <div className="col-span-2 flex flex-col gap-6 text-left">
