@@ -42,9 +42,9 @@ const projectCards: ProjectCard[] = [
     borderColor: '#E2E8F0',
     textColor: '#0F172A',
     descColor: '#475569',
-    icon: <ShieldAlert className="w-6 h-6 text-amber-500" />,
+    icon: <ShieldAlert className="w-6 h-6 text-[#58CC02]" />,
     imageUrl: '/assets/projects/integrity_clay.png',
-    shadowColor: 'rgba(245,158,11,0.12)',
+    shadowColor: 'rgba(88,204,2,0.12)',
   },
   {
     id: 3,
@@ -55,7 +55,7 @@ const projectCards: ProjectCard[] = [
     borderColor: '#CBD5E1', // Slate 300
     textColor: '#0F172A',
     descColor: '#475569',
-    icon: <Briefcase className="w-6 h-6 text-[#0EA5E9]" />,
+    icon: <Briefcase className="w-6 h-6 text-[#46A302]" />,
     imageUrl: '/assets/projects/career_clay.png',
     shadowColor: 'rgba(88,204,2,0.12)',
   },

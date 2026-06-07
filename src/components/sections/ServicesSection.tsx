@@ -85,7 +85,7 @@ export const ServicesSection: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-24 gap-8">
           <div className="max-w-xl">
             <span className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full bg-slate-50 border border-slate-200 text-slate-600 text-xs font-semibold tracking-widest uppercase mb-4 shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-[#0EA5E9]" />
+              <span className="w-2 h-2 rounded-full bg-[#58CC02]" />
               Modular Core Engine
             </span>
             <h2 className="text-4xl md:text-5xl font-extrabold text-[#0F172A] tracking-tighter leading-none">

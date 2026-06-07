@@ -30,7 +30,7 @@ const courses: CourseItem[] = [
     category: 'Programming',
     description: 'Hands-on coding lessons that move from concepts to practice with guided examples and project-based learning.',
     tech: ['JavaScript', 'DSA', 'Projects', 'Mentor Notes'],
-    icon: <Layers3 className="w-5 h-5 text-[#0EA5E9]" />,
+    icon: <Layers3 className="w-5 h-5 text-[#58CC02]" />,
   },
   {
     id: 3,
@@ -38,7 +38,7 @@ const courses: CourseItem[] = [
     category: 'Assessments',
     description: 'Quizzes, proctored tests, and auto-evaluated checkpoints designed to verify understanding.',
     tech: ['Quizzes', 'Proctoring', 'Auto Grading', 'Milestones'],
-    icon: <ClipboardList className="w-5 h-5 text-amber-500" />,
+    icon: <ClipboardList className="w-5 h-5 text-[#46A302]" />,
   },
   {
     id: 4,
@@ -46,7 +46,7 @@ const courses: CourseItem[] = [
     category: 'Career Readiness',
     description: 'Placement prep modules that connect coursework to interviews, recruiter expectations, and job-ready portfolios.',
     tech: ['Resume', 'Interview Prep', 'Portfolio', 'Placement'],
-    icon: <GraduationCap className="w-5 h-5 text-indigo-500" />,
+    icon: <GraduationCap className="w-5 h-5 text-[#58CC02]" />,
   },
   {
     id: 5,
@@ -54,7 +54,7 @@ const courses: CourseItem[] = [
     category: 'Core LMS',
     description: 'Adaptive explanations, concept nudges, and smart recommendations that support students.',
     tech: ['AI Tutor', 'Adaptive Path', 'Hints', 'Feedback'],
-    icon: <Sparkles className="w-5 h-5 text-pink-500" />,
+    icon: <Sparkles className="w-5 h-5 text-[#46A302]" />,
   },
   {
     id: 6,

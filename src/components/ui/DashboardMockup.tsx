@@ -469,7 +469,7 @@ export const DashboardMockup: React.FC<DashboardMockupProps> = ({ activeTabOverr
           transition={{ delay: 1.4, type: "spring", stiffness: 200, damping: 15 }}
           className="absolute -left-6 bottom-16 bg-white p-3 pr-5 rounded-2xl shadow-xl border border-slate-100 z-20 flex items-center gap-3"
         >
-          <div className="w-10 h-10 rounded-full bg-[#0EA5E9]/10 flex items-center justify-center text-[#0EA5E9] font-bold">
+          <div className="w-10 h-10 rounded-full bg-[#58CC02]/10 flex items-center justify-center text-[#58CC02] font-bold">
             7
           </div>
           <div>
