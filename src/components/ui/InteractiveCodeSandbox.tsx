@@ -166,6 +166,51 @@ const CHALLENGES: Record<number, CodeChallenge> = {
   }
 };
 
+const highlightJS = (codeLine: string) => {
+  if (codeLine.trim().startsWith('//')) {
+    return <span className="text-slate-400 italic font-mono">{codeLine}</span>;
+  }
+  
+  // A simple tokenizer to replace key words with styled spans matching brand guidelines
+  const parts = codeLine.split(/(\/\/.*|"[^"]*"|'[^']*'|\b(?:const|let|var|function|return|while|for|of|in|if|else|new|import|export|default|class|from|try|catch)\b|\b(?:Set|Map|Array|window|document|console)\b|\b(?:every|some|includes|forEach|map|filter|reduce|shift|push|add|has|getRequirements|getRequiredSkills|getEvaluatorScore|addEventListener|removeEventListener|triggerWarning|length|status|skills|currentWeek|neighbors|activeWeek|focusViolations|handleBlur)\b|\b\d+\b|=>|===|==|!==|!=|=|\+|-|\*|\/|&&|\|\||!|>=|<=|>|<)/g);
+  
+  return parts.map((part, index) => {
+    if (!part) return null;
+    
+    // Check comments first
+    if (part.startsWith('//')) {
+      return <span key={index} className="text-slate-400 italic font-mono">{part}</span>;
+    }
+    // Check strings
+    if ((part.startsWith('"') && part.endsWith('"')) || (part.startsWith("'") && part.endsWith("'"))) {
+      return <span key={index} className="text-emerald-600 font-semibold font-mono">{part}</span>;
+    }
+    // Check keywords
+    if (/^\b(?:const|let|var|function|return|while|for|of|in|if|else|new|import|export|default|class|from|try|catch)\b$/.test(part)) {
+      return <span key={index} className="text-violet-600 font-bold font-mono">{part}</span>;
+    }
+    // Check built-ins
+    if (/^\b(?:Set|Map|Array|window|document|console)\b$/.test(part)) {
+      return <span key={index} className="text-sky-500 font-bold font-mono">{part}</span>;
+    }
+    // Check methods/properties
+    if (/^\b(?:every|some|includes|forEach|map|filter|reduce|shift|push|add|has|getRequirements|getRequiredSkills|getEvaluatorScore|addEventListener|removeEventListener|triggerWarning|length|status|skills|currentWeek|neighbors|activeWeek|focusViolations|handleBlur)\b$/.test(part)) {
+      return <span key={index} className="text-[#58CC02] font-semibold font-mono">{part}</span>;
+    }
+    // Check numbers
+    if (/^\d+$/.test(part)) {
+      return <span key={index} className="text-amber-500 font-bold font-mono">{part}</span>;
+    }
+    // Check operators
+    if (/^(?:=>|===|==|!==|!=|=|\+|-|\*|\/|&&|\|\||!|>=|<=|>|<)$/.test(part)) {
+      return <span key={index} className="text-rose-500 font-bold font-mono">{part}</span>;
+    }
+    
+    // Default fallback
+    return <span key={index} className="text-slate-700 font-mono">{part}</span>;
+  });
+};
+
 export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ courseId, courseTitle }) => {
   const challenge = CHALLENGES[courseId] || CHALLENGES[1];
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -222,9 +267,14 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ courseId, cours
             <motion.div
               key={idx}
               {...motionProps}
-              className="bg-[#58CC02]/8 border-l-2 border-[#58CC02] px-2 py-0.5 my-1 text-[#46A302] font-semibold font-mono"
+              className="flex items-start my-1.5 py-1 px-4 bg-[#58CC02]/5 border-l-[3px] border-[#58CC02] text-[#46A302] font-semibold font-mono"
             >
-              {indentation}{selectedOption}
+              <span className="w-6 text-right select-none text-[#58CC02]/45 text-[10px] mr-4 font-mono pt-0.5">
+                {idx + 1}
+              </span>
+              <span className="flex-1 font-mono text-xs leading-relaxed whitespace-pre font-bold">
+                {indentation}{selectedOption}
+              </span>
             </motion.div>
           );
         } else {
@@ -232,151 +282,185 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ courseId, cours
             <motion.div
               key={idx}
               {...motionProps}
-              className="text-slate-400 italic bg-slate-100/60 px-2 py-0.5 my-1 border-l-2 border-slate-300 font-mono"
+              className="flex items-start my-1.5 py-1 px-4 bg-amber-500/5 border-l-[3px] border-amber-500 text-amber-600 font-medium font-mono"
             >
-              {line}
+              <span className="w-6 text-right select-none text-amber-500/45 text-[10px] mr-4 font-mono pt-0.5">
+                {idx + 1}
+              </span>
+              <span className="flex-1 font-mono text-xs leading-relaxed whitespace-pre italic">
+                {line}
+              </span>
             </motion.div>
           );
         }
       }
       return (
-        <motion.div key={idx} {...motionProps} className="px-2 text-slate-700 font-mono">
-          {line}
+        <motion.div key={idx} {...motionProps} className="flex items-start py-0.5 px-4 hover:bg-slate-100/50 transition-colors duration-150 group">
+          <span className="w-6 text-right select-none text-slate-300 text-[10px] mr-4 font-mono pt-0.5 group-hover:text-slate-400">
+            {idx + 1}
+          </span>
+          <span className="flex-1 font-mono text-xs leading-relaxed whitespace-pre text-slate-700">
+            {highlightJS(line)}
+          </span>
         </motion.div>
       );
     });
   };
 
   return (
-    <div className="w-full flex flex-col bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-diffused text-slate-700 font-sans text-sm">
-      {/* IDE Header Tab Bar */}
-      <div className="bg-slate-50 px-5 py-3.5 flex items-center justify-between border-b border-slate-200">
-        <div className="flex items-center gap-2">
-          <span className="w-3 h-3 rounded-full bg-rose-400 block"></span>
-          <span className="w-3 h-3 rounded-full bg-amber-400 block"></span>
-          <span className="w-3 h-3 rounded-full bg-emerald-400 block"></span>
-          <span className="text-xs text-slate-500 font-semibold ml-3 bg-white px-3 py-1 rounded-md border border-slate-200/80">
-            {challenge.fileName}
+    <div className="w-full flex flex-col bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-diffused text-slate-700 font-sans text-sm relative group/sandbox">
+      {/* Background glowing gradient overlay when hovered */}
+      <div className="absolute -inset-px bg-gradient-to-r from-emerald-500/5 to-sky-500/5 rounded-3xl opacity-0 group-hover/sandbox:opacity-100 transition-opacity duration-500 pointer-events-none z-0" />
+      
+      <div className="relative z-10 bg-white rounded-[23px] overflow-hidden flex flex-col w-full h-full">
+        {/* IDE Header Tab Bar */}
+        <div className="bg-slate-50/80 backdrop-blur-md px-5 py-3.5 flex items-center justify-between border-b border-slate-200/80">
+          <div className="flex items-center gap-2">
+            <span className="w-3 h-3 rounded-full bg-[#FF5F56] shadow-sm block"></span>
+            <span className="w-3 h-3 rounded-full bg-[#FFBD2E] shadow-sm block"></span>
+            <span className="w-3 h-3 rounded-full bg-[#27C93F] shadow-sm block"></span>
+            <span className="text-xs text-slate-500 font-bold ml-3 bg-white px-3 py-1 rounded-lg border border-slate-200/85 shadow-sm font-mono tracking-tight">
+              {challenge.fileName}
+            </span>
+          </div>
+          <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#58CC02] bg-[#58CC02]/8 px-3 py-1.5 rounded-full border border-[#58CC02]/20 shadow-sm flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 bg-[#58CC02] rounded-full animate-pulse" />
+            {courseTitle} Sandbox
           </span>
         </div>
-        <span className="text-xs font-bold uppercase tracking-wider text-[#58CC02] bg-[#58CC02]/8 px-2.5 py-1 rounded-full border border-[#58CC02]/25">
-          {courseTitle} Sandbox
-        </span>
-      </div>
 
-      {/* Instructions */}
-      <div className="p-5 bg-slate-50/45 border-b border-slate-200/50">
-        <p className="text-xs text-slate-500 font-medium leading-relaxed">
-          <span className="text-[#58CC02] font-bold">TASK INSTRUCTION: </span>
-          {challenge.instructions}
-        </p>
-      </div>
-
-      {/* Code Editor */}
-      <div className="p-4 bg-[#F8FAFC] min-h-[160px] select-none leading-relaxed text-xs overflow-x-auto border-b border-slate-200/60">
-        <pre className="font-mono">
-          <code key={courseId}>{renderEditorCode()}</code>
-        </pre>
-      </div>
-
-      {/* Bug Fixing Choices */}
-      <div className="p-5 bg-white border-b border-slate-200/60">
-        <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-3">
-          Select Line to Insert:
-        </span>
-        <div className="flex flex-col gap-2.5">
-          {challenge.options.map((option, idx) => (
-            <button
-              key={idx}
-              onClick={() => executionStatus === 'idle' && setSelectedOption(option)}
-              disabled={executionStatus === 'running' || executionStatus === 'success'}
-              className={`w-full text-left p-3.5 rounded-xl border font-mono text-xs transition-all duration-200 cursor-pointer ${
-                selectedOption === option
-                  ? 'border-[#58CC02] bg-[#58CC02]/6 text-[#46A302] font-bold shadow-[0_2px_8px_rgba(88,204,2,0.08)]'
-                  : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-800 hover:bg-slate-50/50'
-              } ${(executionStatus === 'running' || executionStatus === 'success') ? 'opacity-60 cursor-not-allowed' : ''}`}
-            >
-              {option}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Action Button & Interactive Terminal */}
-      <div className="p-5 bg-slate-50 border-t border-slate-200/80 flex flex-col gap-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-slate-500 text-xs font-semibold">
-            <Terminal className="w-4 h-4 text-[#58CC02]" />
-            <span>Interactive Output Console</span>
+        {/* Instructions */}
+        <div className="p-5 bg-slate-50/30 border-b border-slate-200/60 backdrop-blur-sm">
+          <div className="flex items-start gap-3">
+            <div className="p-1.5 bg-[#58CC02]/10 border border-[#58CC02]/20 rounded-lg text-[#58CC02] mt-0.5">
+              <Terminal className="w-3.5 h-3.5" />
+            </div>
+            <p className="text-xs text-slate-600 font-semibold leading-relaxed pt-0.5">
+              <span className="text-slate-805 font-extrabold tracking-tight block mb-0.5">CHALLENGE INSTRUCTION:</span>
+              {challenge.instructions}
+            </p>
           </div>
-          <div className="flex gap-2">
-            {(executionStatus === 'success' || executionStatus === 'error') && (
-              <button
-                onClick={() => {
-                  setSelectedOption(null);
-                  setExecutionStatus('idle');
-                  setConsoleLogs([]);
-                }}
-                className="px-3 py-3 rounded-xl text-xs font-bold bg-white border border-slate-200 hover:bg-slate-50 text-slate-500 shadow-sm transition-all active:scale-95 cursor-pointer"
-                title="Reset Challenge"
-              >
-                <RefreshCw className="w-3.5 h-3.5" />
-              </button>
-            )}
-            <button
-              onClick={handleRunTests}
-              disabled={!selectedOption || executionStatus === 'running' || executionStatus === 'success'}
-              className={`px-5 py-3 rounded-xl text-xs font-bold flex items-center gap-2 cursor-pointer transition-all active:translate-y-[4px] active:shadow-none ${
-                !selectedOption || executionStatus === 'success'
-                  ? 'bg-slate-100 text-slate-450 border border-slate-200/50 cursor-not-allowed shadow-none'
-                  : 'bg-[#58CC02] hover:bg-[#61E002] text-white shadow-[0_4px_0_#46A302] border-b-[4px] border-[#46A302]'
-              }`}
-            >
-              {executionStatus === 'running' ? (
-                <>
-                  <RefreshCw className="w-3.5 h-3.5 animate-spin" /> Running...
-                </>
-              ) : (
-                <>
-                  <Play className="w-3.5 h-3.5 fill-white text-white" /> Run Tests
-                </>
+        </div>
+
+        {/* Code Editor */}
+        <div className="py-4 bg-[#F8FAFC] min-h-[185px] select-none leading-relaxed text-xs overflow-x-auto border-b border-slate-200/60 flex flex-col">
+          {renderEditorCode()}
+        </div>
+
+        {/* Bug Fixing Choices */}
+        <div className="p-5 bg-white border-b border-slate-200/60">
+          <span className="text-xs font-extrabold text-slate-400 uppercase tracking-wider block mb-3">
+            Select Line to Insert:
+          </span>
+          <div className="flex flex-col gap-2.5">
+            {challenge.options.map((option, idx) => {
+              const isSelected = selectedOption === option;
+              return (
+                <button
+                  key={idx}
+                  onClick={() => executionStatus === 'idle' && setSelectedOption(option)}
+                  disabled={executionStatus === 'running' || executionStatus === 'success'}
+                  className={`w-full text-left p-4 rounded-xl border font-mono text-xs transition-all duration-200 cursor-pointer flex items-center gap-3 relative group/option ${
+                    isSelected
+                      ? 'border-[#58CC02] bg-[#58CC02]/5 text-[#46A302] font-semibold shadow-[0_2px_12px_rgba(88,204,2,0.06)]'
+                      : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50/40 shadow-sm'
+                  } ${(executionStatus === 'running' || executionStatus === 'success') ? 'opacity-60 cursor-not-allowed' : ''}`}
+                >
+                  <div className={`w-4 h-4 rounded-full border flex items-center justify-center flex-shrink-0 transition-all duration-200 ${
+                    isSelected 
+                      ? 'border-[#58CC02] bg-[#58CC02]' 
+                      : 'border-slate-300 bg-white group-hover/option:border-slate-400'
+                  }`}>
+                    {isSelected && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
+                  </div>
+                  <div className="flex-1 font-mono text-xs leading-relaxed whitespace-pre overflow-x-auto">
+                    {highlightJS(option)}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Action Button & Interactive Terminal */}
+        <div className="p-5 bg-slate-50 border-t border-slate-200/80 flex flex-col gap-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 text-slate-500 text-xs font-semibold">
+              <Terminal className="w-4 h-4 text-[#58CC02]" />
+              <span>Interactive Output Console</span>
+            </div>
+            <div className="flex gap-2">
+              {(executionStatus === 'success' || executionStatus === 'error') && (
+                <button
+                  onClick={() => {
+                    setSelectedOption(null);
+                    setExecutionStatus('idle');
+                    setConsoleLogs([]);
+                  }}
+                  className="px-3 py-3 rounded-xl text-xs font-bold bg-white border border-slate-200 hover:bg-slate-50 text-slate-500 shadow-sm transition-all active:scale-95 cursor-pointer"
+                  title="Reset Challenge"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                </button>
               )}
-            </button>
-          </div>
-        </div>
-
-        {consoleLogs.length > 0 && (
-          <div className="p-4 bg-[#0F172A] border border-slate-950 rounded-xl font-mono text-xs flex flex-col gap-1.5 min-h-[90px] leading-relaxed shadow-inner">
-            {consoleLogs.map((log, idx) => (
-              <div
-                key={idx}
-                className={
-                  log.startsWith('✓') || log.includes('PASSED')
-                    ? 'text-[#58CC02] font-semibold'
-                    : log.startsWith('FAIL') || log.startsWith('Compilation')
-                    ? 'text-rose-400 font-semibold'
-                    : 'text-slate-350'
-                }
+              <button
+                onClick={handleRunTests}
+                disabled={!selectedOption || executionStatus === 'running' || executionStatus === 'success'}
+                className={`px-5 py-3 rounded-xl text-xs font-bold flex items-center gap-2 cursor-pointer transition-all ${
+                  !selectedOption || executionStatus === 'success'
+                    ? 'bg-slate-105 text-slate-400 border border-slate-200/50 cursor-not-allowed shadow-none active:translate-y-0'
+                    : 'bg-[#58CC02] hover:bg-[#61E002] text-white shadow-[0_4px_0_#46A302] border-b-[4px] border-[#46A302] active:translate-y-[4px] active:shadow-none'
+                }`}
               >
-                {log}
-              </div>
-            ))}
+                {executionStatus === 'running' ? (
+                  <>
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin" /> Running...
+                  </>
+                ) : (
+                  <>
+                    <Play className="w-3.5 h-3.5 fill-white text-white" /> Run Tests
+                  </>
+                )}
+              </button>
+            </div>
           </div>
-        )}
 
-        {executionStatus === 'success' && (
-          <div className="flex items-center gap-2 bg-[#58CC02]/8 border border-[#58CC02]/20 rounded-xl p-3.5 text-[#46A302] text-xs font-semibold">
-            <CheckCircle2 className="w-4.5 h-4.5 flex-shrink-0" />
-            <span>Check passed! Recruiter proof verification signature generated.</span>
-          </div>
-        )}
+          {consoleLogs.length > 0 && (
+            <div className="p-4 bg-[#18181B] border border-slate-900 rounded-xl font-mono text-xs flex flex-col gap-1.5 min-h-[90px] leading-relaxed shadow-inner">
+              {consoleLogs.map((log, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className={
+                    log.startsWith('✓') || log.includes('PASSED')
+                      ? 'text-[#58CC02] font-semibold flex items-center gap-1.5'
+                      : log.startsWith('FAIL') || log.startsWith('Compilation')
+                      ? 'text-rose-400 font-semibold flex items-center gap-1.5'
+                      : 'text-slate-300 font-medium'
+                  }
+                >
+                  {log}
+                </motion.div>
+              ))}
+            </div>
+          )}
 
-        {executionStatus === 'error' && (
-          <div className="flex items-center gap-2 bg-rose-500/8 border border-rose-500/20 rounded-xl p-3.5 text-rose-600 text-xs font-semibold">
-            <AlertTriangle className="w-4.5 h-4.5 flex-shrink-0" />
-            <span>Compilation error. Review selected options and run again.</span>
-          </div>
-        )}
+          {executionStatus === 'success' && (
+            <div className="flex items-center gap-2 bg-[#58CC02]/8 border border-[#58CC02]/20 rounded-xl p-3.5 text-[#46A302] text-xs font-semibold">
+              <CheckCircle2 className="w-4.5 h-4.5 flex-shrink-0" />
+              <span>Check passed! Recruiter proof verification signature generated.</span>
+            </div>
+          )}
+
+          {executionStatus === 'error' && (
+            <div className="flex items-center gap-2 bg-rose-500/8 border border-rose-500/20 rounded-xl p-3.5 text-rose-600 text-xs font-semibold">
+              <AlertTriangle className="w-4.5 h-4.5 flex-shrink-0" />
+              <span>Compilation error. Review selected options and run again.</span>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

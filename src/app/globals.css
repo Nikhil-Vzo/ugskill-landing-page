@@ -48,6 +48,9 @@
 }
 
 @theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
   --color-primary-action: var(--primary-action);
   --color-primary-action-hover: var(--primary-action-hover);
   --color-deep-slate: var(--deep-slate);

@@ -138,37 +138,58 @@ export const MarqueeSection: React.FC = () => {
             <div className="flex flex-col gap-4">
               {courses.map((item) => {
                 const isSelected = selectedCourse.id === item.id;
+                
+                const getCategoryStyle = (cat: string) => {
+                  if (cat === 'Core LMS') return 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20';
+                  if (cat === 'Programming') return 'bg-sky-500/10 text-sky-600 border-sky-500/20';
+                  if (cat === 'Assessments') return 'bg-amber-500/10 text-amber-600 border-amber-500/20';
+                  return 'bg-indigo-500/10 text-indigo-600 border-indigo-500/20';
+                };
+
                 return (
-                  <button
+                  <motion.button
                     key={item.id}
                     onClick={() => setSelectedCourse(item)}
-                    className={`w-full text-left p-6 rounded-2xl border transition-all duration-300 flex items-center justify-between cursor-pointer ${
+                    whileHover={{ scale: 1.01, y: -1 }}
+                    whileTap={{ scale: 0.99 }}
+                    className={`w-full text-left p-6 rounded-2xl border transition-all duration-300 flex items-center justify-between cursor-pointer relative overflow-hidden pl-8 ${
                       isSelected
-                        ? 'border-[#58CC02]/30 bg-slate-50/70 shadow-md'
-                        : 'border-slate-200/80 bg-white hover:border-slate-300'
+                        ? 'border-[#58CC02]/40 bg-white shadow-[0_10px_30px_rgba(88,204,2,0.06)]'
+                        : 'border-slate-200/80 bg-white hover:border-slate-300 hover:shadow-[0_4px_12px_rgba(0,0,0,0.015)]'
                     }`}
                   >
+                    {isSelected && (
+                      <motion.div
+                        layoutId="activeCourseIndicator"
+                        className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#58CC02] rounded-r-md"
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      />
+                    )}
                     <div className="flex items-center gap-5">
-                      <div className="p-3 bg-slate-50 border border-slate-200/50 rounded-xl">
+                      <div className={`p-3 border rounded-xl transition-all duration-300 ${
+                        isSelected 
+                          ? 'bg-white border-[#58CC02]/25 shadow-sm' 
+                          : 'bg-slate-50/50 border-slate-200/50'
+                      }`}>
                         {item.icon}
                       </div>
                       <div>
-                        <h3 className="text-base font-bold text-[#0F172A]">{item.title}</h3>
-                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mt-0.5">
+                        <h3 className="text-base font-extrabold text-[#0F172A] tracking-tight">{item.title}</h3>
+                        <span className={`inline-block text-[9px] font-extrabold px-2.5 py-0.5 rounded-full border uppercase tracking-wider mt-1.5 ${getCategoryStyle(item.category)}`}>
                           {item.category}
                         </span>
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
                       {isSelected && (
-                        <span className="text-xs font-bold text-[#58CC02] flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 bg-[#58CC02] rounded-full animate-ping" />
-                          Sandbox Active
+                        <span className="text-xs font-bold text-[#58CC02] flex items-center gap-1.5">
+                          <span className="w-2 h-2 bg-[#58CC02] rounded-full animate-ping" />
+                          Active
                         </span>
                       )}
-                      <ArrowRight className={`w-4 h-4 transition-transform ${isSelected ? 'text-[#58CC02] translate-x-1' : 'text-slate-400'}`} />
+                      <ArrowRight className={`w-4 h-4 transition-transform duration-300 ${isSelected ? 'text-[#58CC02] translate-x-1.5' : 'text-slate-355'}`} />
                     </div>
-                  </button>
+                  </motion.button>
                 );
               })}
             </div>
