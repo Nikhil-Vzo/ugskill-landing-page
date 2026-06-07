@@ -105,35 +105,68 @@ export const ServicesSection: React.FC = () => {
         </div>
 
         {/* Services List Rows */}
-        <div ref={listRef} className="relative flex flex-col border-t border-slate-200/80">
+        <div ref={listRef} className="relative flex flex-col">
           {services.map((service, index) => (
             <motion.div
               key={service.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
-              transition={{ duration: 0.6, delay: index * 0.1, ease: 'easeOut' }}
               onMouseEnter={() => setHoveredId(service.id)}
               onMouseLeave={() => setHoveredId(null)}
-              className="group flex flex-col md:flex-row md:items-start justify-between py-10 border-b border-slate-200/80 hover:bg-slate-50/50 transition-colors px-4 rounded-xl -mx-4 cursor-pointer"
+              className="group relative flex flex-col md:flex-row md:items-start justify-between py-10 hover:bg-slate-50/50 transition-colors px-4 rounded-xl -mx-4 cursor-pointer"
             >
+              {/* Divider Line */}
+              <motion.div
+                className="absolute top-0 left-0 right-0 h-[1px] bg-slate-200/80 origin-left"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              />
+
+              {index === services.length - 1 && (
+                <motion.div
+                  className="absolute bottom-0 left-0 right-0 h-[1px] bg-slate-200/80 origin-left"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                />
+              )}
+
               {/* Left Side: Number Index */}
-              <div className="text-3xl md:text-4xl font-extrabold text-slate-300 group-hover:text-[#58CC02] transition-colors duration-300 md:w-24">
+              <motion.div 
+                className="text-3xl md:text-4xl font-extrabold text-slate-300 group-hover:text-[#58CC02] transition-colors duration-300 md:w-24 origin-center"
+                initial={{ opacity: 0, rotate: -35 }}
+                whileInView={{ opacity: 1, rotate: 0 }}
+                viewport={{ once: true }}
+                transition={{ type: "spring", stiffness: 120, damping: 14 }}
+              >
                 {service.id}
-              </div>
+              </motion.div>
 
               {/* Center: Title & Description */}
-              <div className="flex-1 md:px-6 mt-4 md:mt-0 max-w-2xl">
+              <motion.div 
+                className="flex-1 md:px-6 mt-4 md:mt-0 max-w-2xl"
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.05 }}
+              >
                 <h3 className="text-xl md:text-2xl font-bold text-[#0F172A] tracking-tight mb-3 group-hover:text-[#58CC02] transition-colors duration-300">
                   {service.title}
                 </h3>
                 <p className="text-sm md:text-base text-slate-500 font-medium leading-relaxed">
                   {service.description}
                 </p>
-              </div>
+              </motion.div>
 
               {/* Right Side: Key points and Arrow */}
-              <div className="flex flex-wrap md:flex-col items-start gap-2 mt-6 md:mt-0 md:text-right min-w-[200px]">
+              <motion.div 
+                className="flex flex-wrap md:flex-col items-start gap-2 mt-6 md:mt-0 md:text-right min-w-[200px]"
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+              >
                 {service.details.map((detail) => (
                   <span
                     key={detail}
@@ -142,12 +175,18 @@ export const ServicesSection: React.FC = () => {
                     {detail}
                   </span>
                 ))}
-              </div>
+              </motion.div>
 
               {/* Floating Action Arrow */}
-              <div className="self-end md:self-start mt-6 md:mt-0 pl-4 text-slate-400 group-hover:text-[#0f172a] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300">
+              <motion.div 
+                className="self-end md:self-start mt-6 md:mt-0 pl-4 text-slate-400 group-hover:text-[#0f172a] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300"
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+              >
                 <ArrowUpRight className="w-6 h-6" />
-              </div>
+              </motion.div>
             </motion.div>
           ))}
 
