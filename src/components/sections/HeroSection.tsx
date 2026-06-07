@@ -7,6 +7,39 @@ import { ArrowRight, Volume2, VolumeX, Play, Pause, ArrowUpRight, MousePointerCl
 import { DashboardMockup } from "../ui/DashboardMockup";
 import { TactileButton } from "../ui/TactileButton";
 
+const rightActionsContainerVariants = {
+  hidden: { 
+    opacity: 0, 
+    y: 40, 
+    scale: 0.95 
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring" as const,
+      stiffness: 120,
+      damping: 15,
+      delay: 0.9,
+      staggerChildren: 0.1,
+    }
+  }
+};
+
+const rightActionsChildVariants = {
+  hidden: { opacity: 0, y: 15 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      type: "spring" as const,
+      stiffness: 120,
+      damping: 15,
+    }
+  }
+};
+
 export const HeroSection: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const section2Ref = useRef<HTMLDivElement>(null);
@@ -97,9 +130,8 @@ export const HeroSection: React.FC = () => {
 
   return (
     <div className="w-full bg-white flex flex-col">
-      {/* Section 1: Video-backed hero */}
       <section className="relative min-h-screen w-full overflow-hidden bg-slate-50">
-        <video
+        <motion.video
           src="/assets/hero/hero-section-video.mp4"
           className="absolute inset-0 h-full w-full object-cover"
           autoPlay
@@ -107,6 +139,9 @@ export const HeroSection: React.FC = () => {
           loop
           playsInline
           preload="metadata"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
         />
 
         <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center justify-center px-6 pb-44 pt-28 text-center md:pb-36 md:pt-32">
@@ -134,9 +169,14 @@ export const HeroSection: React.FC = () => {
 
         {/* Left Box (Scroll Down Indicator) docked to the extreme left bottom corner */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: -50, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{
+            type: "spring",
+            stiffness: 90,
+            damping: 10,
+            delay: 0.8
+          }}
           className="absolute left-8 bottom-7 z-20 hidden xl:block w-[18%] max-w-[220px]"
         >
           <motion.div
@@ -154,23 +194,27 @@ export const HeroSection: React.FC = () => {
 
         {/* Right Actions (Interactive Demo & Enterprise Setup) docked to the extreme right bottom corner */}
         <motion.div
-          initial={{ opacity: 0, x: 30, y: 20 }}
-          animate={{ opacity: 1, x: 0, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          variants={rightActionsContainerVariants}
+          initial="hidden"
+          animate="visible"
           className="absolute right-8 bottom-7 z-20 hidden lg:flex flex-col items-end gap-6"
         >
-          <Link href="/auth/login?sandbox=true" className="no-underline">
-            <TactileButton variant="primary" className="px-7 py-4 text-sm font-bold shadow-[0_20px_40px_-15px_rgba(88,204,2,0.3)] flex items-center justify-center gap-2 group">
-              Try Interactive Demo
-              <MousePointerClick className="w-4 h-4 text-white/90 transition-transform group-hover:scale-110" />
-            </TactileButton>
-          </Link>
-          <Link href="/company/contact" className="no-underline">
-            <TactileButton variant="secondary" className="px-7 py-4 text-sm font-bold group bg-white/90 border border-slate-200/80 backdrop-blur-md shadow-[0_20px_40px_-15px_rgba(15,23,42,0.1)] flex items-center justify-center gap-2">
-              Book Enterprise Setup
-              <ArrowUpRight className="w-4 h-4 text-slate-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </TactileButton>
-          </Link>
+          <motion.div variants={rightActionsChildVariants}>
+            <Link href="/auth/login?sandbox=true" className="no-underline">
+              <TactileButton variant="primary" className="px-7 py-4 text-sm font-bold shadow-[0_20px_40px_-15px_rgba(88,204,2,0.3)] flex items-center justify-center gap-2 group">
+                Try Interactive Demo
+                <MousePointerClick className="w-4 h-4 text-white/90 transition-transform group-hover:scale-110" />
+              </TactileButton>
+            </Link>
+          </motion.div>
+          <motion.div variants={rightActionsChildVariants}>
+            <Link href="/company/contact" className="no-underline">
+              <TactileButton variant="secondary" className="px-7 py-4 text-sm font-bold group bg-white/90 border border-slate-200/80 backdrop-blur-md shadow-[0_20px_40px_-15px_rgba(15,23,42,0.1)] flex items-center justify-center gap-2">
+                Book Enterprise Setup
+                <ArrowUpRight className="w-4 h-4 text-slate-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </TactileButton>
+            </Link>
+          </motion.div>
         </motion.div>
       </section>
 
@@ -183,8 +227,16 @@ export const HeroSection: React.FC = () => {
         viewport={{ once: true, margin: "-120px" }}
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
       >
-        <div
+        <motion.div
           className="absolute inset-0 pointer-events-none opacity-90"
+          animate={{
+            backgroundPosition: ["0px 0px", "20px 20px"]
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "linear"
+          }}
           style={{
             backgroundImage: `
               radial-gradient(circle at 20% 50%, rgba(88, 204, 2, 0.22), transparent 55%),
@@ -202,7 +254,18 @@ export const HeroSection: React.FC = () => {
               {/* Balanced green-blue glowing blurred background blob */}
               <div className="absolute -inset-8 z-0 rounded-[2.5rem] bg-gradient-to-tr from-[#58CC02]/32 to-[#0EA5E9]/18 blur-2xl opacity-85 pointer-events-none" />
               
-              <div className="relative z-10 aspect-video overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950 shadow-[0_35px_90px_-30px_rgba(15,23,42,0.45)]">
+              <motion.div
+                initial={{ opacity: 0, x: -60, rotate: -3 }}
+                whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{
+                  type: "spring",
+                  stiffness: 70,
+                  damping: 14,
+                  delay: 0.1
+                }}
+                className="relative z-10 aspect-video overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-950 shadow-[0_35px_90px_-30px_rgba(15,23,42,0.45)]"
+              >
                 <video
                   ref={videoRef}
                   src="/assets/hero/ug_bot_removed_bg.mp4"
@@ -228,49 +291,74 @@ export const HeroSection: React.FC = () => {
                     {isPlaying ? <Pause className="w-5 h-5 text-white/80" /> : <Play className="w-5 h-5 text-[#58CC02]" />}
                   </button>
                 </div>
-              </div>
+              </motion.div>
             </div>
 
             {/* Dashboard mockup as a secondary layered panel */}
             <div className="relative min-h-[520px] lg:min-h-[760px]">
               <motion.div
-                style={{
-                  rotateX: hoverRotateX,
-                  rotateY: hoverRotateY,
-                  transformStyle: "preserve-3d",
-                  backfaceVisibility: "hidden",
-                  maskImage: 'linear-gradient(90deg, transparent 0%, black 14%, black 86%, transparent 100%)',
-                  WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, black 14%, black 86%, transparent 100%)'
+                initial={{ opacity: 0, x: 60, rotateY: 8 }}
+                whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{
+                  type: "spring",
+                  stiffness: 80,
+                  damping: 15,
+                  delay: 0.25
                 }}
-                className="relative z-10 mx-auto w-full max-w-2xl lg:absolute lg:right-[0%] lg:top-1/2 lg:w-[58%] lg:-translate-y-1/2 lg:translate-x-8 scale-[0.92] shadow-2xl rounded-2xl bg-white border border-slate-200 opacity-95"
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
+                style={{
+                  transformStyle: "preserve-3d"
+                }}
+                className="relative z-10 mx-auto w-full max-w-2xl lg:absolute lg:right-[0%] lg:top-1/2 lg:w-[58%] lg:-translate-y-1/2 lg:translate-x-8 scale-[0.92]"
               >
-                {/* Specular light reflection */}
                 <motion.div
-                  className="absolute inset-0 z-10 rounded-2xl pointer-events-none"
                   style={{
-                    background: useTransform(
-                      () => `radial-gradient(800px circle at ${x.get() * 100 + 50}% ${y.get() * 100 + 50}%, rgba(255,255,255,0.4), transparent 40%)`
-                    )
+                    rotateX: hoverRotateX,
+                    rotateY: hoverRotateY,
+                    transformStyle: "preserve-3d",
+                    backfaceVisibility: "hidden",
+                    maskImage: 'linear-gradient(90deg, transparent 0%, black 14%, black 86%, transparent 100%)',
+                    WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, black 14%, black 86%, transparent 100%)'
                   }}
-                />
-
-                {/* Floating mascot */}
-                <motion.div
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ y: { repeat: Infinity, duration: 5, ease: "easeInOut" } }}
-                  className="absolute -left-8 -top-16 md:-left-16 md:-top-24 w-24 md:w-36 z-30 select-none pointer-events-none"
-                  style={{ transform: "translateZ(80px)" }}
+                  className="w-full h-full shadow-2xl rounded-2xl bg-white border border-slate-200 opacity-95"
+                  onMouseMove={handleMouseMove}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  <img
-                    src="/assets/projects/student_mascot_clay.png"
-                    alt="Robot Mascot Companion"
-                    className="w-full h-auto drop-shadow-[0_12px_24px_rgba(88,204,2,0.18)]"
+                  {/* Specular light reflection */}
+                  <motion.div
+                    className="absolute inset-0 z-10 rounded-2xl pointer-events-none"
+                    style={{
+                      background: useTransform(
+                        () => `radial-gradient(800px circle at ${x.get() * 100 + 50}% ${y.get() * 100 + 50}%, rgba(255,255,255,0.4), transparent 40%)`
+                      )
+                    }}
                   />
-                </motion.div>
 
-                <DashboardMockup />
+                  {/* Floating mascot */}
+                  <motion.div
+                    initial={{ opacity: 0, y: -100, scale: 0.8 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 120,
+                      damping: 12,
+                      delay: 0.7
+                    }}
+                    className="absolute -left-8 -top-16 md:-left-16 md:-top-24 w-24 md:w-36 z-30 select-none pointer-events-none"
+                    style={{ transform: "translateZ(80px)" }}
+                  >
+                    <motion.img
+                      src="/assets/projects/student_mascot_clay.png"
+                      alt="Robot Mascot Companion"
+                      animate={{ y: [0, -10, 0] }}
+                      transition={{ y: { repeat: Infinity, duration: 5, ease: "easeInOut" } }}
+                      className="w-full h-auto drop-shadow-[0_12px_24px_rgba(88,204,2,0.18)]"
+                    />
+                  </motion.div>
+
+                  <DashboardMockup />
+                </motion.div>
               </motion.div>
             </div>
           </div>
