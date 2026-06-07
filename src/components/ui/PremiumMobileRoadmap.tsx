@@ -96,7 +96,7 @@ export const PremiumMobileRoadmap: React.FC<RoadmapProps> = ({ courses }) => {
 
         {/* Mascot floating companion guide */}
         <motion.div
-          animate={{ x: mascotX, y: mascotY + Math.sin(Date.now() / 1000) * 4 }}
+          animate={{ x: mascotX, y: mascotY + Math.sin(mascotTime) * 4 }}
           transition={{ type: 'spring', stiffness: 120, damping: 14 }}
           className="absolute left-0 top-0 z-10 w-14 h-14 pointer-events-none"
         >

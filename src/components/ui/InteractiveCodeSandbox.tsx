@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Terminal, Play, CheckCircle2, AlertTriangle, RefreshCw } from 'lucide-react';
 
@@ -171,12 +171,6 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ courseId, cours
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [executionStatus, setExecutionStatus] = useState<'idle' | 'running' | 'success' | 'error'>('idle');
   const [consoleLogs, setConsoleLogs] = useState<string[]>([]);
-
-  useEffect(() => {
-    setSelectedOption(null);
-    setExecutionStatus('idle');
-    setConsoleLogs([]);
-  }, [courseId]);
 
   const handleRunTests = () => {
     if (!selectedOption) return;

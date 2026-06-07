@@ -175,7 +175,7 @@ export const MarqueeSection: React.FC = () => {
 
             {/* Right Coding Sandbox Simulator */}
             <div className="sticky top-24">
-              <InteractiveCodeSandbox courseId={selectedCourse.id} courseTitle={selectedCourse.title} />
+              <InteractiveCodeSandbox key={selectedCourse.id} courseId={selectedCourse.id} courseTitle={selectedCourse.title} />
             </div>
           </div>
         ) : (
