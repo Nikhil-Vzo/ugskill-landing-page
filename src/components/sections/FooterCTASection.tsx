@@ -85,7 +85,7 @@ export const FooterCTASection: React.FC = () => {
     <section className="relative w-full bg-gradient-to-b from-white via-[#58CC02]/[0.02] to-[#F8FAFC] py-24 lg:py-32 flex flex-col items-center overflow-hidden border-t border-slate-200/80">
       {/* Background Volumetric Glowing Orbs */}
       <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-[#58CC02]/5 to-transparent blur-3xl rounded-full pointer-events-none z-0" />
-      <div className="absolute bottom-1/3 right-1/4 translate-x-1/2 translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-bl from-[#0EA5E9]/5 to-transparent blur-3xl rounded-full pointer-events-none z-0" />
+      <div className="absolute bottom-1/3 right-1/4 translate-x-1/2 translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-bl from-[#58CC02]/3 to-transparent blur-3xl rounded-full pointer-events-none z-0" />
 
       {/* Grid Overlay with Radial Fade Mask */}
       <div 
@@ -114,7 +114,7 @@ export const FooterCTASection: React.FC = () => {
               transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
             />
             <motion.div 
-              className="absolute -bottom-40 -right-40 w-96 h-96 bg-[#0EA5E9]/15 blur-[120px] rounded-full"
+              className="absolute -bottom-40 -right-40 w-96 h-96 bg-[#58CC02]/8 blur-[120px] rounded-full"
               animate={{ 
                 scale: [1.25, 1, 1.25],
                 x: [0, -30, 0],
@@ -152,7 +152,7 @@ export const FooterCTASection: React.FC = () => {
                 </div>
                 <div className="font-mono text-[11px] leading-relaxed text-slate-300 bg-slate-950/60 backdrop-blur-sm p-2.5 rounded-lg border border-white/5">
                   <p className="text-slate-500">{"// verifying student..."}</p>
-                  <p><span className="text-indigo-400">const</span> proof = <span className="text-[#58CC02]">checkSkills</span>();</p>
+                  <p><span className="text-slate-400">const</span> proof = <span className="text-[#58CC02]">checkSkills</span>();</p>
                   <p className="text-slate-500 mt-1">{"&gt;"} Status: <span className="text-[#58CC02] font-bold">100% Legit ✅</span></p>
                 </div>
               </motion.div>
@@ -173,7 +173,7 @@ export const FooterCTASection: React.FC = () => {
                 </div>
                 <div className="flex items-center justify-between text-xs font-bold text-slate-200">
                   <span className="truncate">Supabase hires</span>
-                  <span className="text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-full text-[10px]">4 Verified</span>
+                  <span className="text-[#58CC02] bg-[#58CC02]/10 px-2 py-0.5 rounded-full text-[10px]">4 Verified</span>
                 </div>
               </motion.div>
 
