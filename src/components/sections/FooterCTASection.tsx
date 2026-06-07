@@ -135,7 +135,7 @@ export const FooterCTASection: React.FC = () => {
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             {/* Left Wing: Asymmetrical Widgets in frosted obsidian glass */}
-            <div className="lg:col-span-4 flex flex-col gap-6 justify-center items-start z-10">
+            <div className="lg:col-span-3 flex flex-col gap-6 justify-center items-start z-10">
               
               {/* Widget 1: Mini Code Terminal (frosted obsidian glass style) */}
               <motion.div
@@ -153,7 +153,7 @@ export const FooterCTASection: React.FC = () => {
                 <div className="font-mono text-[11px] leading-relaxed text-slate-300 bg-slate-950/60 backdrop-blur-sm p-2.5 rounded-lg border border-white/5">
                   <p className="text-slate-500">{"// verifying student..."}</p>
                   <p><span className="text-slate-400">const</span> proof = <span className="text-[#58CC02]">checkSkills</span>();</p>
-                  <p className="text-slate-500 mt-1">{"&gt;"} Status: <span className="text-[#58CC02] font-bold">100% Legit ✅</span></p>
+                  <p className="text-slate-500 mt-1">{" > "} Status: <span className="text-[#58CC02] font-bold">100% Legit ✅</span></p>
                 </div>
               </motion.div>
 
@@ -180,7 +180,7 @@ export const FooterCTASection: React.FC = () => {
             </div>
 
             {/* Center Column: Text CTA and Buttons */}
-            <div className="lg:col-span-4 flex flex-col items-center text-center justify-center py-4 z-20">
+            <div className="lg:col-span-6 flex flex-col items-center text-center justify-center py-4 z-20">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -195,21 +195,21 @@ export const FooterCTASection: React.FC = () => {
               <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter leading-none mb-6">
                 Level up your campus talent.
               </h2>
-              <p className="text-slate-300 font-medium leading-relaxed max-w-sm mb-9">
+              <p className="text-slate-300 font-medium leading-relaxed max-w-md mb-9">
                 Bridge the gap between syllabus-aligned learning pathways and proctor-verified recruiter pipelines.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-4 w-full justify-center">
                 <MagnetWrapper>
                   <Link href="/auth/login?sandbox=true" className="no-underline">
-                    <TactileButton variant="primary" className="px-8 py-4 text-base shadow-[0_20px_40px_-15px_rgba(88,204,2,0.4)]">
+                    <TactileButton variant="primary" className="px-8 py-4 text-base whitespace-nowrap shadow-[0_20px_40px_-15px_rgba(88,204,2,0.4)]">
                       Try Interactive Demo
                     </TactileButton>
                   </Link>
                 </MagnetWrapper>
                 
                 <Link href="/company/contact" className="no-underline">
-                  <button className="group relative inline-flex items-center justify-center rounded-xl font-semibold transition-all duration-75 outline-none focus:outline-none cursor-pointer select-none px-8 py-4 text-base bg-white/10 text-white shadow-[0_4px_0_rgba(255,255,255,0.15)] border border-white/10 hover:bg-white/20 active:shadow-none active:translate-y-[4px]">
+                  <button className="group relative inline-flex items-center justify-center rounded-xl font-semibold transition-all duration-75 outline-none focus:outline-none cursor-pointer select-none px-8 py-4 text-base bg-white/10 text-white border border-white/10 hover:bg-white/20 active:shadow-none active:translate-y-[4px] whitespace-nowrap shadow-[0_4px_0_rgba(255,255,255,0.15)]">
                     Contact Sales
                     <ArrowRight className="ml-2 h-4 w-4 text-slate-300 transition-transform group-hover:translate-x-1" />
                   </button>
@@ -218,7 +218,7 @@ export const FooterCTASection: React.FC = () => {
             </div>
 
             {/* Right Wing: Staggered Gamification Badges in obsidian glass */}
-            <div className="lg:col-span-4 flex flex-col gap-6 justify-center items-end z-10">
+            <div className="lg:col-span-3 flex flex-col gap-6 justify-center items-end z-10">
               
               {/* Widget 3: Student Badge Box */}
               <motion.div
