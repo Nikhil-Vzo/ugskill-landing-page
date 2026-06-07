@@ -56,7 +56,7 @@ const projectCards: ProjectCard[] = [
     textColor: '#0F172A',
     descColor: '#475569',
     icon: <Briefcase className="w-6 h-6 text-[#0EA5E9]" />,
-    imageUrl: '/assets/projects/hr_mascot_clay.png',
+    imageUrl: '/assets/projects/career_clay.png',
     shadowColor: 'rgba(88,204,2,0.12)',
   },
 ];

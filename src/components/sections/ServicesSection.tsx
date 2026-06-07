@@ -39,7 +39,7 @@ const services: ServiceItem[] = [
   {
     id: '05',
     title: 'Recruiter Direct Pipeline',
-    description: 'A shared whiteboard and dashboard dashboard connecting vetted student profiles directly to corporate recruiters.',
+    description: 'A shared whiteboard and dashboard connecting vetted student profiles directly to corporate recruiters.',
     details: ['One-click hiring drives', 'Verified skill tags', 'Direct analytics sharing'],
   },
 ];
