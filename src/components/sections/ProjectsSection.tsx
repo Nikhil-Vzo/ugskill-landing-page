@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, MotionValue } from 'framer-motion';
 import { ArrowRight, Layout, ShieldAlert, Briefcase, ChevronRight } from 'lucide-react';
 import { TactileButton } from '../ui/TactileButton';
 
@@ -65,6 +65,80 @@ const projectCards: ProjectCard[] = [
 const cardRotations = [-2.2, 1.8, -1.2];
 const cardOffsets = [-16, 16, -8];
 
+interface ProjectCardComponentProps {
+  card: ProjectCard;
+  index: number;
+  isDesktop: boolean;
+  scrollYProgress: MotionValue<number>;
+}
+
+const ProjectCardComponent: React.FC<ProjectCardComponentProps> = ({
+  card,
+  index,
+  isDesktop,
+  scrollYProgress,
+}) => {
+  // Scroll Parallax Calculations mapping the y coordinate for a 3D layered parallax depth effect
+  const yParallax = useTransform(scrollYProgress, [0, 1], [index * 30 - 50, index * 30 + 50]);
+  const smoothYParallax = useSpring(yParallax, { stiffness: 100, damping: 20 });
+
+  // Calculations for sticky progress scale
+  const cardProgress = 1 - (projectCards.length - 1 - index) * 0.03;
+
+  return (
+    <motion.div
+      style={{
+        scale: cardProgress,
+        backgroundColor: card.color,
+        borderColor: card.borderColor,
+        rotate: isDesktop ? cardRotations[index] : 0,
+        x: isDesktop ? cardOffsets[index] : 0,
+      }}
+      className="w-full min-h-[380px] sm:min-h-[420px] lg:min-h-[480px] border rounded-3xl p-6 sm:p-8 lg:p-12 shadow-diffused flex flex-col lg:flex-row gap-8 lg:gap-12 items-center overflow-hidden transition-all duration-300 hover:shadow-2xl"
+    >
+      {/* Left Side: Card Text Info */}
+      <div className="flex-1 flex flex-col items-start z-10">
+        <span className="text-xs font-extrabold uppercase tracking-widest text-[#58CC02] mb-3">
+          {card.subtitle}
+        </span>
+        <div className="flex items-center gap-3.5 mb-6">
+          <div className="p-3 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
+            {card.icon}
+          </div>
+          <h3 className="text-2xl md:text-4xl font-extrabold text-[#0F172A] tracking-tight">
+            {card.title}
+          </h3>
+        </div>
+        <p className="text-sm md:text-base text-slate-600 leading-relaxed font-medium mb-8">
+          {card.description}
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+          <TactileButton variant="primary" className="px-6 py-3 text-sm flex items-center gap-1.5">
+            Interactive Demo <ArrowRight className="w-4 h-4" />
+          </TactileButton>
+          <TactileButton variant="secondary" className="px-6 py-3 text-sm bg-white border-slate-200 text-[#0F172A] hover:bg-slate-50 flex items-center gap-1">
+            Read System Specs <ChevronRight className="w-4 h-4" />
+          </TactileButton>
+        </div>
+      </div>
+
+      {/* Right Side: Floating 3D Illustration Viewport (No Frame, transparent bg) */}
+      <div className="w-full lg:w-[45%] h-[180px] sm:h-[240px] md:h-[300px] lg:h-[340px] flex items-center justify-center relative group select-none pointer-events-none overflow-hidden">
+        <motion.img
+          src={card.imageUrl}
+          alt={card.title}
+          style={{
+            y: smoothYParallax,
+            filter: "drop-shadow(0 15px 30px " + card.shadowColor + ")",
+          }}
+          className="max-w-full max-h-full object-contain transition-transform duration-700 ease-out group-hover:scale-105"
+        />
+      </div>
+    </motion.div>
+  );
+};
+
 export const ProjectsSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDesktop, setIsDesktop] = useState(false);
@@ -118,76 +192,28 @@ export const ProjectsSection: React.FC = () => {
 
         {/* Stacking Sticky Cards */}
         <div className="relative">
-          {projectCards.map((card, index) => {
-            // Calculations for sticky progress scale
-            const cardProgress = 1 - (projectCards.length - 1 - index) * 0.03;
-
-            return (
-              <div
-                key={card.id}
-                className="sticky w-full"
-                style={{
-                  top: isDesktop ? '112px' : '80px',
-                  paddingTop: isDesktop ? `${index * 24}px` : `${index * 16}px`,
-                  paddingBottom: index < projectCards.length - 1 
-                    ? (isDesktop ? '96px' : '64px') 
-                    : '0px',
-                  marginBottom: '0px',
-                  zIndex: 10 + index
-                }}
-              >
-                <motion.div
-                  style={{
-                    scale: cardProgress,
-                    backgroundColor: card.color,
-                    borderColor: card.borderColor,
-                    rotate: isDesktop ? cardRotations[index] : 0,
-                    x: isDesktop ? cardOffsets[index] : 0,
-                  }}
-                  className="w-full min-h-[380px] sm:min-h-[420px] lg:min-h-[480px] border rounded-3xl p-6 sm:p-8 lg:p-12 shadow-diffused flex flex-col lg:flex-row gap-8 lg:gap-12 items-center overflow-hidden transition-all duration-300 hover:shadow-2xl"
-                >
-                  {/* Left Side: Card Text Info */}
-                  <div className="flex-1 flex flex-col items-start z-10">
-                    <span className="text-xs font-extrabold uppercase tracking-widest text-[#58CC02] mb-3">
-                      {card.subtitle}
-                    </span>
-                    <div className="flex items-center gap-3.5 mb-6">
-                      <div className="p-3 rounded-2xl bg-white border border-slate-200/80 shadow-sm">
-                        {card.icon}
-                      </div>
-                      <h3 className="text-2xl md:text-4xl font-extrabold text-[#0F172A] tracking-tight">
-                        {card.title}
-                      </h3>
-                    </div>
-                    <p className="text-sm md:text-base text-slate-600 leading-relaxed font-medium mb-8">
-                      {card.description}
-                    </p>
-
-                    <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                      <TactileButton variant="primary" className="px-6 py-3 text-sm flex items-center gap-1.5">
-                        Interactive Demo <ArrowRight className="w-4 h-4" />
-                      </TactileButton>
-                      <TactileButton variant="secondary" className="px-6 py-3 text-sm bg-white border-slate-200 text-[#0F172A] hover:bg-slate-50 flex items-center gap-1">
-                        Read System Specs <ChevronRight className="w-4 h-4" />
-                      </TactileButton>
-                    </div>
-                  </div>
-
-                  {/* Right Side: Floating 3D Illustration Viewport (No Frame, transparent bg) */}
-                  <div className="w-full lg:w-[45%] h-[180px] sm:h-[240px] md:h-[300px] lg:h-[340px] flex items-center justify-center relative group select-none pointer-events-none">
-                    <img
-                      src={card.imageUrl}
-                      alt={card.title}
-                      style={{
-                        filter: `drop-shadow(0 15px 30px ${card.shadowColor})`,
-                      }}
-                      className="max-w-full max-h-full object-contain transition-transform duration-700 ease-out group-hover:scale-105"
-                    />
-                  </div>
-                </motion.div>
-              </div>
-            );
-          })}
+          {projectCards.map((card, index) => (
+            <div
+              key={card.id}
+              className="sticky w-full"
+              style={{
+                top: isDesktop ? '112px' : '80px',
+                paddingTop: isDesktop ? `${index * 24}px` : `${index * 16}px`,
+                paddingBottom: index < projectCards.length - 1 
+                  ? (isDesktop ? '96px' : '64px') 
+                  : '0px',
+                marginBottom: '0px',
+                zIndex: 10 + index
+              }}
+            >
+              <ProjectCardComponent
+                card={card}
+                index={index}
+                isDesktop={isDesktop}
+                scrollYProgress={scrollYProgress}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>
