@@ -8,7 +8,6 @@ import {
   Award,
   Sparkles
 } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 interface StepCardProps {
   step: string;
@@ -31,34 +30,38 @@ const StepCard: React.FC<StepCardProps> = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ type: "spring", stiffness: 80, damping: 15, delay }}
-      className={cn(
-        "relative flex flex-col items-center text-center group transition-all duration-300 z-10 w-full py-4"
-      )}
+      className="relative flex flex-col items-center text-center group z-10 w-full py-6 px-4"
     >
+      {/* Soft floating background ambient glow behind each step */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-to-tr from-[#58CC02]/[0.04] to-[#46A302]/[0.01] blur-3xl rounded-full -z-10 group-hover:scale-125 transition-transform duration-500 pointer-events-none" />
+
       <div className="flex flex-col items-center w-full">
-        {/* Step Badge & Icon */}
-        <div className="flex items-center gap-3.5 mb-6">
-          <div className="w-10 h-10 rounded-xl bg-white border border-slate-200/80 flex items-center justify-center text-[#58CC02] shadow-sm group-hover:scale-105 transition-transform duration-300">
+        {/* Step Badge with Glassmorphism */}
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 rounded-xl bg-white/80 backdrop-blur-md border border-slate-200/60 flex items-center justify-center text-[#58CC02] shadow-[0_4px_12px_rgba(0,0,0,0.02)] group-hover:rotate-[10deg] group-hover:scale-110 transition-all duration-300">
             {icon}
           </div>
-          <span className="text-[10px] font-bold text-[#46A302] bg-[#58CC02]/8 border border-[#58CC02]/15 px-3 py-1 rounded-full uppercase tracking-wider">
+          <span className="text-[10px] font-black text-[#46A302] bg-[#58CC02]/8 border border-[#58CC02]/15 px-3 py-1 rounded-full uppercase tracking-widest">
             {step}
           </span>
         </div>
 
-        {/* Mascot Image centered and floating */}
-        <div className="w-56 h-56 md:w-64 md:h-64 relative flex items-center justify-center overflow-hidden pointer-events-none mb-6">
+        {/* Mascot Image Container with interactive shadow and bounce */}
+        <div className="w-56 h-56 md:w-64 md:h-64 relative flex items-center justify-center pointer-events-none mb-6">
+          {/* Subtle reflection/shadow below illustration */}
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-36 h-3.5 bg-slate-900/[0.04] blur-md rounded-full group-hover:w-40 group-hover:bg-slate-900/[0.06] transition-all duration-300" />
+          
           <motion.img 
             src={imageSrc}
             alt={title}
             animate={{ y: [0, -6, 0] }}
-            transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: delay * 2 }}
-            className="max-h-full object-contain group-hover:scale-110 transition-transform duration-300"
+            transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: delay * 1.5 }}
+            className="max-h-full object-contain group-hover:scale-110 group-hover:-translate-y-2 transition-transform duration-300"
           />
         </div>
 
-        {/* Title */}
-        <h3 className="text-xl md:text-2xl font-extrabold text-[#0F172A] tracking-tight group-hover:text-[#58CC02] transition-colors duration-300">
+        {/* Title using premium typography and hover color transitions */}
+        <h3 className="text-2xl md:text-3xl font-black text-[#0F172A] tracking-tight group-hover:text-[#58CC02] transition-colors duration-300">
           {title}
         </h3>
       </div>
@@ -68,27 +71,55 @@ const StepCard: React.FC<StepCardProps> = ({
 
 const ArrowConnector: React.FC = () => {
   return (
-    <div className="flex items-center justify-center min-w-[2.5rem] text-[#58CC02] z-20">
-      {/* Desktop Arrow */}
-      <motion.div 
-        className="hidden lg:block"
-        animate={{ x: [-4, 4, -4] }}
-        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-      >
-        <svg width="48" height="24" viewBox="0 0 48 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="stroke-[#58CC02]">
-          <path d="M2 12H46M46 12L36 2M46 12L36 22" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <div className="flex items-center justify-center min-w-[3.5rem] lg:min-w-[5rem] text-[#58CC02] z-20">
+      {/* Desktop Arrow with Flying Dot */}
+      <div className="hidden lg:block relative w-16 h-8">
+        <svg width="64" height="24" viewBox="0 0 64 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+          {/* Base Arrow Line */}
+          <path d="M2 12H62M62 12L52 2M62 12L52 22" stroke="#E2E8F0" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+          {/* Animated Active Line */}
+          <motion.path 
+            d="M2 12H62" 
+            stroke="url(#green-gradient)" 
+            strokeWidth="3" 
+            strokeLinecap="round"
+            strokeDasharray="12 40"
+            animate={{ strokeDashoffset: [0, -52] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+          />
+          <defs>
+            <linearGradient id="green-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#58CC02" stopOpacity="0"/>
+              <stop offset="50%" stopColor="#58CC02" stopOpacity="1"/>
+              <stop offset="100%" stopColor="#46A302" stopOpacity="0"/>
+            </linearGradient>
+          </defs>
         </svg>
-      </motion.div>
-      {/* Mobile Arrow */}
-      <motion.div 
-        className="block lg:hidden py-4"
-        animate={{ y: [-4, 4, -4] }}
-        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-      >
-        <svg width="24" height="48" viewBox="0 0 24 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="stroke-[#58CC02]">
-          <path d="M12 2V46M12 46L2 36M12 46L22 36" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </div>
+      {/* Mobile Arrow with Flying Dot */}
+      <div className="block lg:hidden py-4 w-8 h-16">
+        <svg width="24" height="64" viewBox="0 0 24 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+          {/* Base Arrow Line */}
+          <path d="M12 2V62M12 62L2 52M12 62L22 52" stroke="#E2E8F0" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+          {/* Animated Active Line */}
+          <motion.path 
+            d="M12 2V62" 
+            stroke="url(#green-gradient-v)" 
+            strokeWidth="3" 
+            strokeLinecap="round"
+            strokeDasharray="12 40"
+            animate={{ strokeDashoffset: [0, -52] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+          />
+          <defs>
+            <linearGradient id="green-gradient-v" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#58CC02" stopOpacity="0"/>
+              <stop offset="50%" stopColor="#58CC02" stopOpacity="1"/>
+              <stop offset="100%" stopColor="#46A302" stopOpacity="0"/>
+            </linearGradient>
+          </defs>
         </svg>
-      </motion.div>
+      </div>
     </div>
   );
 };
@@ -155,7 +186,7 @@ export const PlacementPulseSection: React.FC = () => {
           <StepCard 
             step="Stage 01"
             title="Continuous Learning"
-            imageSrc="/assets/projects/robot_studying.png"
+            imageSrc="/assets/projects/student_studying.png"
             icon={<BookOpen className="w-5 h-5" />}
             delay={0}
           />
@@ -166,7 +197,7 @@ export const PlacementPulseSection: React.FC = () => {
           <StepCard 
             step="Stage 02"
             title="Verified Assessments"
-            imageSrc="/assets/projects/robot_testing.png"
+            imageSrc="/assets/projects/student_testing.png"
             icon={<ShieldCheck className="w-5 h-5" />}
             delay={0.15}
           />
@@ -177,7 +208,7 @@ export const PlacementPulseSection: React.FC = () => {
           <StepCard 
             step="Stage 03"
             title="Direct Placement"
-            imageSrc="/assets/projects/robot_placed.png"
+            imageSrc="/assets/projects/student_placed.png"
             icon={<Award className="w-5 h-5" />}
             delay={0.3}
           />

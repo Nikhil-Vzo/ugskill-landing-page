@@ -161,7 +161,7 @@ export const DashboardMockup: React.FC<DashboardMockupProps> = ({ activeTabOverr
 
       {/* --- Main Viewport (preserves 3D context) --- */}
       <div 
-        className="relative w-full aspect-[16/10] bg-slate-50 p-6 rounded-b-[14px] select-none overflow-hidden"
+        className="relative w-full aspect-[16/10] bg-slate-50 p-6 rounded-b-[14px] select-none overflow-visible"
         style={{ transformStyle: 'preserve-3d', perspective: 1200 }}
       >
         {/* Modern Grid Background inside Mockup Viewport */}

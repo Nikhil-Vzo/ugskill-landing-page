@@ -295,7 +295,7 @@ export const HeroSection: React.FC = () => {
             </div>
 
             {/* Dashboard mockup as a secondary layered panel */}
-            <div className="relative min-h-[520px] lg:min-h-[760px]">
+            <div className="relative min-h-0 h-auto lg:min-h-[760px] w-full">
               <motion.div
                 initial={{ opacity: 0, x: 60, rotateY: 8 }}
                 whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
@@ -316,11 +316,9 @@ export const HeroSection: React.FC = () => {
                     rotateX: hoverRotateX,
                     rotateY: hoverRotateY,
                     transformStyle: "preserve-3d",
-                    backfaceVisibility: "hidden",
-                    maskImage: 'linear-gradient(90deg, transparent 0%, black 14%, black 86%, transparent 100%)',
-                    WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, black 14%, black 86%, transparent 100%)'
+                    backfaceVisibility: "hidden"
                   }}
-                  className="w-full h-full shadow-2xl rounded-2xl bg-white border border-slate-200 opacity-95"
+                  className="w-full h-auto lg:h-full shadow-2xl rounded-2xl bg-white border border-slate-200 opacity-95 desktop-mask"
                   onMouseMove={handleMouseMove}
                   onMouseLeave={handleMouseLeave}
                 >
