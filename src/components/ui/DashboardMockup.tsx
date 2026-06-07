@@ -8,7 +8,6 @@ import {
   Award, 
   Activity, 
   CheckCircle2, 
-  Play, 
   Sparkles,
   Layers,
   ArrowUpRight
@@ -26,7 +25,8 @@ export const DashboardMockup: React.FC<DashboardMockupProps> = ({ activeTabOverr
 
   useEffect(() => {
     if (activeTabOverride) {
-      setActiveTab(activeTabOverride);
+      const frame = requestAnimationFrame(() => setActiveTab(activeTabOverride));
+      return () => cancelAnimationFrame(frame);
     }
   }, [activeTabOverride]);
 
@@ -48,7 +48,8 @@ export const DashboardMockup: React.FC<DashboardMockupProps> = ({ activeTabOverr
   }, []);
 
   useEffect(() => {
-    setIsMounted(true);
+    const frame = requestAnimationFrame(() => setIsMounted(true));
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   const tabs = [
@@ -57,13 +58,6 @@ export const DashboardMockup: React.FC<DashboardMockupProps> = ({ activeTabOverr
     { id: 'live', icon: Activity, label: 'Live GD' },
     { id: 'interviews', icon: TrendingUp, label: 'AI Interviews' },
   ] as const;
-
-  const badges = [
-    { label: 'LMS Path Validated' },
-    { label: 'Proctored Exam Passed' },
-    { label: 'Live GD Rooms Rated A+' },
-    { label: 'AI Mock Interview Room A' },
-  ];
 
   const jobs = [
     { company: 'Stripe Inc.', role: 'Software Dev Intern', match: 94, color: 'from-sky-400 to-indigo-600', letter: 'S' },
@@ -398,7 +392,7 @@ export const DashboardMockup: React.FC<DashboardMockupProps> = ({ activeTabOverr
                     <div className="flex items-center justify-between bg-slate-50 border border-slate-150 rounded-lg p-1.5 gap-2">
                       <div className="min-w-0 flex-1">
                         <div className="text-[7px] text-slate-400 font-bold uppercase leading-none">Question</div>
-                        <div className="text-[9px] font-bold text-slate-800 truncate">"Describe a project you built..."</div>
+                        <div className="text-[9px] font-bold text-slate-800 truncate">&quot;Describe a project you built...&quot;</div>
                       </div>
                       {/* Audio Waveform scale-based animations */}
                       <div className="flex items-end gap-[1.5px] h-4">
