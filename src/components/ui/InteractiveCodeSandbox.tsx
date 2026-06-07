@@ -5,12 +5,12 @@ import { motion } from 'framer-motion';
 import { Terminal, Play, CheckCircle2, AlertTriangle, RefreshCw } from 'lucide-react';
 
 interface SandboxProps {
-  courseId: number;
-  courseTitle: string;
+  initialChallengeId?: number;
 }
 
 interface CodeChallenge {
   fileName: string;
+  courseTitle: string;
   instructions: string;
   starterCode: string;
   correctOption: string;
@@ -21,6 +21,7 @@ interface CodeChallenge {
 const CHALLENGES: Record<number, CodeChallenge> = {
   1: {
     fileName: 'checkpoints.js',
+    courseTitle: 'LMS Foundations',
     instructions: 'Insert the progress milestone validator to verify student weekly path requirements.',
     starterCode: `function validateWeeklyProgress(student) {
   const activeWeek = student.currentWeek;
@@ -44,6 +45,7 @@ const CHALLENGES: Record<number, CodeChallenge> = {
   },
   2: {
     fileName: 'bfs_traversal.js',
+    courseTitle: 'Programming Track',
     instructions: 'Complete the neighboring node traversal loop inside the BFS function.',
     starterCode: `function bfsTraversal(startNode) {
   const queue = [startNode];
@@ -72,6 +74,7 @@ const CHALLENGES: Record<number, CodeChallenge> = {
   },
   3: {
     fileName: 'proctor_check.js',
+    courseTitle: 'Assessment Builder',
     instructions: 'Implement window focus change detection logic for proctored anti-cheat assessments.',
     starterCode: `function monitorWindowFocus() {
   let focusViolations = 0;
@@ -97,6 +100,7 @@ const CHALLENGES: Record<number, CodeChallenge> = {
   },
   4: {
     fileName: 'resume_parse.js',
+    courseTitle: 'Career Readiness',
     instructions: 'Validate technical skills against recruiter pipeline constraints.',
     starterCode: `function validateCandidateSkills(candidate, pipeline) {
   const requiredSkills = pipeline.getRequiredSkills();
@@ -119,6 +123,7 @@ const CHALLENGES: Record<number, CodeChallenge> = {
   },
   5: {
     fileName: 'ai_tutor.js',
+    courseTitle: 'AI Learning Assistant',
     instructions: 'Complete response buffering for the real-time AI tutor hint pipeline.',
     starterCode: `function bufferResponse(chunks) {
   let fullText = "";
@@ -144,6 +149,7 @@ const CHALLENGES: Record<number, CodeChallenge> = {
   },
   6: {
     fileName: 'capstone_badge.js',
+    courseTitle: 'Project Completion Path',
     instructions: 'Verify student capstone completion and unlock direct recruiter placement badges.',
     starterCode: `function verifyCapstoneSubmission(project) {
   const evaluatorScore = project.getEvaluatorScore();
@@ -211,8 +217,9 @@ const highlightJS = (codeLine: string) => {
   });
 };
 
-export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ courseId, courseTitle }) => {
-  const challenge = CHALLENGES[courseId] || CHALLENGES[1];
+export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ initialChallengeId = 1 }) => {
+  const [activeChallengeId, setActiveChallengeId] = useState<number>(initialChallengeId);
+  const challenge = CHALLENGES[activeChallengeId] || CHALLENGES[1];
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [executionStatus, setExecutionStatus] = useState<'idle' | 'running' | 'success' | 'error'>('idle');
   const [consoleLogs, setConsoleLogs] = useState<string[]>([]);
@@ -314,18 +321,43 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ courseId, cours
       
       <div className="relative z-10 bg-white rounded-[23px] overflow-hidden flex flex-col w-full h-full">
         {/* IDE Header Tab Bar */}
-        <div className="bg-slate-50/80 backdrop-blur-md px-5 py-3.5 flex items-center justify-between border-b border-slate-200/80">
-          <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-[#FF5F56] shadow-sm block"></span>
-            <span className="w-3 h-3 rounded-full bg-[#FFBD2E] shadow-sm block"></span>
-            <span className="w-3 h-3 rounded-full bg-[#27C93F] shadow-sm block"></span>
-            <span className="text-xs text-slate-500 font-bold ml-3 bg-white px-3 py-1 rounded-lg border border-slate-200/85 shadow-sm font-mono tracking-tight">
-              {challenge.fileName}
-            </span>
+        <div className="bg-slate-50/80 backdrop-blur-md px-5 py-2.5 flex items-center justify-between border-b border-slate-200/80 overflow-hidden">
+          <div className="flex items-center gap-4 flex-1 min-w-0">
+            <div className="flex items-center gap-1.5 flex-shrink-0">
+              <span className="w-3 h-3 rounded-full bg-[#FF5F56] shadow-sm block"></span>
+              <span className="w-3 h-3 rounded-full bg-[#FFBD2E] shadow-sm block"></span>
+              <span className="w-3 h-3 rounded-full bg-[#27C93F] shadow-sm block"></span>
+            </div>
+            
+            {/* Scrollable File Tabs */}
+            <div className="flex items-center gap-1 overflow-x-auto scrollbar-none py-1 flex-1">
+              {Object.entries(CHALLENGES).map(([idStr, ch]) => {
+                const id = Number(idStr);
+                const isActive = id === activeChallengeId;
+                return (
+                  <button
+                    key={id}
+                    onClick={() => {
+                      setActiveChallengeId(id);
+                      setSelectedOption(null);
+                      setExecutionStatus('idle');
+                      setConsoleLogs([]);
+                    }}
+                    className={`text-[11px] px-2.5 py-1 rounded-md font-mono tracking-tight border transition-all cursor-pointer whitespace-nowrap flex-shrink-0 ${
+                      isActive
+                        ? 'bg-white border-slate-200 text-[#58CC02] font-bold shadow-sm'
+                        : 'bg-transparent border-transparent text-slate-400 hover:text-slate-600'
+                    }`}
+                  >
+                    {ch.fileName}
+                  </button>
+                );
+              })}
+            </div>
           </div>
-          <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#58CC02] bg-[#58CC02]/8 px-3 py-1.5 rounded-full border border-[#58CC02]/20 shadow-sm flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 bg-[#58CC02] rounded-full animate-pulse" />
-            {courseTitle} Sandbox
+          <span className="text-[9px] font-extrabold uppercase tracking-widest text-[#58CC02] bg-[#58CC02]/8 px-2.5 py-1 rounded-full border border-[#58CC02]/20 shadow-sm flex items-center gap-1 flex-shrink-0 ml-3">
+            <span className="w-1 h-1 bg-[#58CC02] rounded-full animate-pulse" />
+            {challenge.courseTitle}
           </span>
         </div>
 

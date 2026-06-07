@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, BookOpen, GraduationCap, ClipboardList, Layers3, Sparkles, Brain } from 'lucide-react';
+import { BookOpen, GraduationCap, ClipboardList, Layers3, Sparkles, Brain } from 'lucide-react';
 import { InteractiveCodeSandbox } from '../ui/InteractiveCodeSandbox';
 import { PremiumMobileRoadmap } from '../ui/PremiumMobileRoadmap';
 
@@ -67,7 +67,6 @@ const courses: CourseItem[] = [
 ];
 
 export const MarqueeSection: React.FC = () => {
-  const [selectedCourse, setSelectedCourse] = useState<CourseItem>(courses[0]);
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
@@ -133,70 +132,37 @@ export const MarqueeSection: React.FC = () => {
 
         {/* Desktop split workspace view */}
         {isDesktop ? (
-          <div className="grid grid-cols-[1fr_500px] xl:grid-cols-[1fr_560px] gap-8 items-start w-full">
-            {/* Left Course Selection List */}
-            <div className="flex flex-col gap-4">
-              {courses.map((item) => {
-                const isSelected = selectedCourse.id === item.id;
-                
-                const getCategoryStyle = (cat: string) => {
-                  if (cat === 'Core LMS') return 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20';
-                  if (cat === 'Programming') return 'bg-sky-500/10 text-sky-600 border-sky-500/20';
-                  if (cat === 'Assessments') return 'bg-amber-500/10 text-amber-600 border-amber-500/20';
-                  return 'bg-indigo-500/10 text-indigo-600 border-indigo-500/20';
-                };
-
-                return (
-                  <motion.button
-                    key={item.id}
-                    onClick={() => setSelectedCourse(item)}
-                    whileHover={{ scale: 1.01, y: -1 }}
-                    whileTap={{ scale: 0.99 }}
-                    className={`w-full text-left p-6 rounded-2xl border transition-all duration-300 flex items-center justify-between cursor-pointer relative overflow-hidden pl-8 ${
-                      isSelected
-                        ? 'border-[#58CC02]/40 bg-white shadow-[0_10px_30px_rgba(88,204,2,0.06)]'
-                        : 'border-slate-200/80 bg-white hover:border-slate-300 hover:shadow-[0_4px_12px_rgba(0,0,0,0.015)]'
-                    }`}
-                  >
-                    {isSelected && (
-                      <motion.div
-                        layoutId="activeCourseIndicator"
-                        className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#58CC02] rounded-r-md"
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                      />
-                    )}
-                    <div className="flex items-center gap-5">
-                      <div className={`p-3 border rounded-xl transition-all duration-300 ${
-                        isSelected 
-                          ? 'bg-white border-[#58CC02]/25 shadow-sm' 
-                          : 'bg-slate-50/50 border-slate-200/50'
-                      }`}>
-                        {item.icon}
-                      </div>
-                      <div>
-                        <h3 className="text-base font-extrabold text-[#0F172A] tracking-tight">{item.title}</h3>
-                        <span className={`inline-block text-[9px] font-extrabold px-2.5 py-0.5 rounded-full border uppercase tracking-wider mt-1.5 ${getCategoryStyle(item.category)}`}>
-                          {item.category}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      {isSelected && (
-                        <span className="text-xs font-bold text-[#58CC02] flex items-center gap-1.5">
-                          <span className="w-2 h-2 bg-[#58CC02] rounded-full animate-ping" />
-                          Active
-                        </span>
-                      )}
-                      <ArrowRight className={`w-4 h-4 transition-transform duration-300 ${isSelected ? 'text-[#58CC02] translate-x-1.5' : 'text-slate-355'}`} />
-                    </div>
-                  </motion.button>
-                );
-              })}
+          <div className="grid grid-cols-[1fr_500px] xl:grid-cols-[1fr_560px] gap-8 items-center w-full">
+            {/* Left Thematic Visual Area */}
+            <div className="flex flex-col gap-6 pr-8 justify-center py-8">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#58CC02]/8 border border-[#58CC02]/15 text-[#46A302] text-[10px] font-extrabold tracking-wider uppercase w-fit">
+                <Sparkles className="w-3.5 h-3.5" />
+                Interactive Sandbox
+              </div>
+              
+              <h3 className="text-4xl lg:text-5xl font-black text-[#0F172A] tracking-tight leading-[1.1] font-sans">
+                Test your knowledge at <span className="bg-gradient-to-r from-[#58CC02] to-emerald-500 bg-clip-text text-transparent">the holy knowledge checkpoint.</span>
+              </h3>
+              
+              <p className="text-slate-500 text-sm leading-relaxed font-medium">
+                Tackle real-world upskilling challenges, test code implementations in real time, and verify candidate readiness against recruiter pipelines.
+              </p>
+              
+              <div className="relative w-72 h-72 select-none mt-4 flex items-center justify-center">
+                <div className="absolute inset-4 bg-[#58CC02]/5 rounded-full blur-3xl pointer-events-none" />
+                <motion.img
+                  src="/assets/projects/student_mascot_clay.png"
+                  alt="Student Mascot Guide"
+                  className="w-52 h-auto drop-shadow-[0_15px_30px_rgba(88,204,2,0.15)] relative z-10"
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                />
+              </div>
             </div>
 
             {/* Right Coding Sandbox Simulator */}
             <div className="sticky top-24">
-              <InteractiveCodeSandbox key={selectedCourse.id} courseId={selectedCourse.id} courseTitle={selectedCourse.title} />
+              <InteractiveCodeSandbox />
             </div>
           </div>
         ) : (
