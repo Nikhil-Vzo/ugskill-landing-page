@@ -96,37 +96,28 @@ export const MarqueeSection: React.FC = () => {
 
       <div className="relative z-10 w-full max-w-7xl px-6 md:px-12 flex flex-col">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
-          <div className="max-w-2xl text-center md:text-left">
-            <div className="overflow-hidden mb-6">
-              <motion.h2
-                initial={{ y: "100%" }}
-                whileInView={{ y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0F172A] tracking-tighter leading-none"
-              >
-                Interactive Course Library
-              </motion.h2>
-            </div>
-            <div className="overflow-hidden">
-              <motion.p
-                initial={{ y: "100%" }}
-                whileInView={{ y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="text-base md:text-lg text-slate-500 font-medium leading-relaxed"
-              >
-                Explore course paths, build coding solutions in real-time, and trace verified progress credentials dynamically.
-              </motion.p>
-            </div>
+        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16">
+          <div className="overflow-hidden mb-4">
+            <motion.h2
+              initial={{ y: "100%" }}
+              whileInView={{ y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0F172A] tracking-tighter leading-none"
+            >
+              Interactive Course Library
+            </motion.h2>
           </div>
-          <div className="relative w-32 md:w-44 h-32 md:h-44 flex-shrink-0 select-none pointer-events-none">
-            <img
-              src="/assets/projects/admin_mascot_clay.png"
-              alt="University Administrator Mascot"
-              className="w-full h-full object-contain"
-            />
+          <div className="overflow-hidden">
+            <motion.p
+              initial={{ y: "100%" }}
+              whileInView={{ y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="text-base md:text-lg text-slate-500 font-medium leading-relaxed"
+            >
+              Explore course paths, build coding solutions in real-time, and trace verified progress credentials dynamically.
+            </motion.p>
           </div>
         </div>
 
@@ -134,29 +125,39 @@ export const MarqueeSection: React.FC = () => {
         {isDesktop ? (
           <div className="grid grid-cols-[1fr_500px] xl:grid-cols-[1fr_560px] gap-8 items-center w-full">
             {/* Left Thematic Visual Area */}
-            <div className="flex flex-col gap-6 pr-8 justify-center py-8">
+            <div className="flex flex-col gap-6 pr-8 justify-center py-4">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#58CC02]/8 border border-[#58CC02]/15 text-[#46A302] text-[10px] font-extrabold tracking-wider uppercase w-fit">
                 <Sparkles className="w-3.5 h-3.5" />
                 Interactive Sandbox
               </div>
               
               <h3 className="text-4xl lg:text-5xl font-black text-[#0F172A] tracking-tight leading-[1.1] font-sans">
-                Test your knowledge at <span className="bg-gradient-to-r from-[#58CC02] to-emerald-500 bg-clip-text text-transparent">the holy knowledge checkpoint.</span>
+                The Holy <span className="bg-gradient-to-r from-[#58CC02] to-emerald-500 bg-clip-text text-transparent">Knowledge Checkpoint</span>
               </h3>
               
-              <p className="text-slate-500 text-sm leading-relaxed font-medium">
-                Tackle real-world upskilling challenges, test code implementations in real time, and verify candidate readiness against recruiter pipelines.
-              </p>
-              
-              <div className="relative w-72 h-72 select-none mt-4 flex items-center justify-center">
-                <div className="absolute inset-4 bg-[#58CC02]/5 rounded-full blur-3xl pointer-events-none" />
-                <motion.img
-                  src="/assets/projects/student_mascot_clay.png"
-                  alt="Student Mascot Guide"
-                  className="w-52 h-auto drop-shadow-[0_15px_30px_rgba(88,204,2,0.15)] relative z-10"
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                />
+              {/* Mascot Conversational Bubble */}
+              <div className="flex items-start gap-5 mt-4">
+                {/* Robot Mascot */}
+                <div className="relative w-28 h-28 flex-shrink-0 select-none">
+                  <div className="absolute inset-1 bg-[#58CC02]/10 rounded-full blur-xl pointer-events-none" />
+                  <motion.img
+                    src="/assets/projects/student_mascot_clay.png"
+                    alt="Student Mascot Guide"
+                    className="w-full h-auto drop-shadow-[0_8px_16px_rgba(88,204,2,0.12)] relative z-10"
+                    animate={{ y: [0, -6, 0] }}
+                    transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                  />
+                </div>
+                
+                {/* Speech Bubble */}
+                <div className="relative bg-[#FAFAFA] border border-slate-200/80 rounded-2xl p-4.5 shadow-sm flex-1">
+                  {/* Left pointing arrow tail */}
+                  <div className="absolute left-[-6px] top-9 w-3 h-3 bg-[#FAFAFA] border-l border-b border-slate-200/80 rotate-45" />
+                  <p className="text-xs text-slate-500 font-semibold leading-relaxed relative z-10 font-sans">
+                    <span className="text-[#46A302] font-extrabold uppercase tracking-wider text-[9px] block mb-1 font-sans">UG Bot</span>
+                    &quot;Tackle real-world upskilling challenges, test code implementations in real time, and verify candidate readiness against recruiter pipelines!&quot;
+                  </p>
+                </div>
               </div>
             </div>
 
