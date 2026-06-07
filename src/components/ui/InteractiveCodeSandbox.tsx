@@ -222,7 +222,7 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ courseId, cours
             <motion.div
               key={idx}
               {...motionProps}
-              className="bg-[#58CC02]/10 border-l-2 border-[#58CC02] px-2 py-0.5 my-1 text-[#58CC02] font-semibold font-mono"
+              className="bg-[#58CC02]/8 border-l-2 border-[#58CC02] px-2 py-0.5 my-1 text-[#46A302] font-semibold font-mono"
             >
               {indentation}{selectedOption}
             </motion.div>
@@ -232,7 +232,7 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ courseId, cours
             <motion.div
               key={idx}
               {...motionProps}
-              className="text-slate-500 italic bg-slate-900/40 px-2 py-0.5 my-1 border-l-2 border-slate-700 font-mono"
+              className="text-slate-400 italic bg-slate-100/60 px-2 py-0.5 my-1 border-l-2 border-slate-300 font-mono"
             >
               {line}
             </motion.div>
@@ -240,7 +240,7 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ courseId, cours
         }
       }
       return (
-        <motion.div key={idx} {...motionProps} className="px-2 text-slate-300 font-mono">
+        <motion.div key={idx} {...motionProps} className="px-2 text-slate-700 font-mono">
           {line}
         </motion.div>
       );
@@ -248,40 +248,40 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ courseId, cours
   };
 
   return (
-    <div className="w-full flex flex-col bg-[#0F172A] border border-slate-800 rounded-3xl overflow-hidden shadow-2xl text-slate-200 font-mono text-sm">
+    <div className="w-full flex flex-col bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-diffused text-slate-700 font-sans text-sm">
       {/* IDE Header Tab Bar */}
-      <div className="bg-[#1E293B] px-5 py-3.5 flex items-center justify-between border-b border-slate-800">
+      <div className="bg-slate-50 px-5 py-3.5 flex items-center justify-between border-b border-slate-200">
         <div className="flex items-center gap-2">
-          <span className="w-3 h-3 rounded-full bg-rose-500 block"></span>
-          <span className="w-3 h-3 rounded-full bg-amber-500 block"></span>
-          <span className="w-3 h-3 rounded-full bg-emerald-500 block"></span>
-          <span className="text-xs text-slate-400 font-semibold ml-3 bg-slate-900/60 px-3 py-1 rounded-md border border-slate-800/40">
+          <span className="w-3 h-3 rounded-full bg-rose-400 block"></span>
+          <span className="w-3 h-3 rounded-full bg-amber-400 block"></span>
+          <span className="w-3 h-3 rounded-full bg-emerald-400 block"></span>
+          <span className="text-xs text-slate-500 font-semibold ml-3 bg-white px-3 py-1 rounded-md border border-slate-200/80">
             {challenge.fileName}
           </span>
         </div>
-        <span className="text-xs font-bold uppercase tracking-wider text-[#58CC02] bg-[#58CC02]/10 px-2.5 py-1 rounded-full border border-[#58CC02]/20">
+        <span className="text-xs font-bold uppercase tracking-wider text-[#58CC02] bg-[#58CC02]/8 px-2.5 py-1 rounded-full border border-[#58CC02]/25">
           {courseTitle} Sandbox
         </span>
       </div>
 
       {/* Instructions */}
-      <div className="p-5 bg-slate-900/40 border-b border-slate-800/50">
-        <p className="text-xs text-slate-400 font-semibold leading-relaxed">
+      <div className="p-5 bg-slate-50/45 border-b border-slate-200/50">
+        <p className="text-xs text-slate-500 font-medium leading-relaxed">
           <span className="text-[#58CC02] font-bold">TASK INSTRUCTION: </span>
           {challenge.instructions}
         </p>
       </div>
 
       {/* Code Editor */}
-      <div className="p-4 bg-[#0B0F19] min-h-[160px] select-none leading-relaxed text-xs overflow-x-auto">
+      <div className="p-4 bg-[#F8FAFC] min-h-[160px] select-none leading-relaxed text-xs overflow-x-auto border-b border-slate-200/60">
         <pre className="font-mono">
           <code key={courseId}>{renderEditorCode()}</code>
         </pre>
       </div>
 
       {/* Bug Fixing Choices */}
-      <div className="p-5 bg-slate-900/30 border-t border-slate-800/50">
-        <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-3">
+      <div className="p-5 bg-white border-b border-slate-200/60">
+        <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-3">
           Select Line to Insert:
         </span>
         <div className="flex flex-col gap-2.5">
@@ -292,8 +292,8 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ courseId, cours
               disabled={executionStatus === 'running' || executionStatus === 'success'}
               className={`w-full text-left p-3.5 rounded-xl border font-mono text-xs transition-all duration-200 cursor-pointer ${
                 selectedOption === option
-                  ? 'border-[#58CC02] bg-[#58CC02]/10 text-[#58CC02]'
-                  : 'border-slate-800 bg-slate-950/50 text-slate-300 hover:border-slate-700'
+                  ? 'border-[#58CC02] bg-[#58CC02]/6 text-[#46A302] font-bold shadow-[0_2px_8px_rgba(88,204,2,0.08)]'
+                  : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-800 hover:bg-slate-50/50'
               } ${(executionStatus === 'running' || executionStatus === 'success') ? 'opacity-60 cursor-not-allowed' : ''}`}
             >
               {option}
@@ -303,9 +303,9 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ courseId, cours
       </div>
 
       {/* Action Button & Interactive Terminal */}
-      <div className="p-5 bg-slate-950 border-t border-slate-800 flex flex-col gap-4">
+      <div className="p-5 bg-slate-50 border-t border-slate-200/80 flex flex-col gap-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-slate-400 text-xs font-semibold">
+          <div className="flex items-center gap-2 text-slate-500 text-xs font-semibold">
             <Terminal className="w-4 h-4 text-[#58CC02]" />
             <span>Interactive Output Console</span>
           </div>
@@ -317,7 +317,7 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ courseId, cours
                   setExecutionStatus('idle');
                   setConsoleLogs([]);
                 }}
-                className="px-3 py-3 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-300 transition-all active:scale-95 cursor-pointer"
+                className="px-3 py-3 rounded-xl text-xs font-bold bg-white border border-slate-200 hover:bg-slate-50 text-slate-500 shadow-sm transition-all active:scale-95 cursor-pointer"
                 title="Reset Challenge"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
@@ -326,10 +326,10 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ courseId, cours
             <button
               onClick={handleRunTests}
               disabled={!selectedOption || executionStatus === 'running' || executionStatus === 'success'}
-              className={`px-5 py-3 rounded-xl text-xs font-bold flex items-center gap-2 cursor-pointer transition-all active:scale-95 ${
+              className={`px-5 py-3 rounded-xl text-xs font-bold flex items-center gap-2 cursor-pointer transition-all active:translate-y-[4px] active:shadow-none ${
                 !selectedOption || executionStatus === 'success'
-                  ? 'bg-slate-800 text-slate-500 cursor-not-allowed shadow-none'
-                  : 'bg-[#58CC02] hover:bg-[#4cb002] text-[#0F172A] shadow-[0_4px_14px_rgba(88,204,2,0.25)]'
+                  ? 'bg-slate-100 text-slate-450 border border-slate-200/50 cursor-not-allowed shadow-none'
+                  : 'bg-[#58CC02] hover:bg-[#61E002] text-white shadow-[0_4px_0_#46A302] border-b-[4px] border-[#46A302]'
               }`}
             >
               {executionStatus === 'running' ? (
@@ -338,7 +338,7 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ courseId, cours
                 </>
               ) : (
                 <>
-                  <Play className="w-3.5 h-3.5 fill-[#0F172A]" /> Run Tests
+                  <Play className="w-3.5 h-3.5 fill-white text-white" /> Run Tests
                 </>
               )}
             </button>
@@ -346,16 +346,16 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ courseId, cours
         </div>
 
         {consoleLogs.length > 0 && (
-          <div className="p-4 bg-black border border-slate-900 rounded-xl font-mono text-xs flex flex-col gap-1.5 min-h-[90px] leading-relaxed">
+          <div className="p-4 bg-[#0F172A] border border-slate-950 rounded-xl font-mono text-xs flex flex-col gap-1.5 min-h-[90px] leading-relaxed shadow-inner">
             {consoleLogs.map((log, idx) => (
               <div
                 key={idx}
                 className={
                   log.startsWith('✓') || log.includes('PASSED')
-                    ? 'text-[#58CC02]'
+                    ? 'text-[#58CC02] font-semibold'
                     : log.startsWith('FAIL') || log.startsWith('Compilation')
-                    ? 'text-rose-500'
-                    : 'text-slate-400'
+                    ? 'text-rose-400 font-semibold'
+                    : 'text-slate-350'
                 }
               >
                 {log}
@@ -365,14 +365,14 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ courseId, cours
         )}
 
         {executionStatus === 'success' && (
-          <div className="flex items-center gap-2 bg-[#58CC02]/8 border border-[#58CC02]/20 rounded-xl p-3.5 text-[#58CC02] text-xs font-semibold">
+          <div className="flex items-center gap-2 bg-[#58CC02]/8 border border-[#58CC02]/20 rounded-xl p-3.5 text-[#46A302] text-xs font-semibold">
             <CheckCircle2 className="w-4.5 h-4.5 flex-shrink-0" />
             <span>Check passed! Recruiter proof verification signature generated.</span>
           </div>
         )}
 
         {executionStatus === 'error' && (
-          <div className="flex items-center gap-2 bg-rose-500/8 border border-rose-500/20 rounded-xl p-3.5 text-rose-500 text-xs font-semibold">
+          <div className="flex items-center gap-2 bg-rose-500/8 border border-rose-500/20 rounded-xl p-3.5 text-rose-600 text-xs font-semibold">
             <AlertTriangle className="w-4.5 h-4.5 flex-shrink-0" />
             <span>Compilation error. Review selected options and run again.</span>
           </div>
