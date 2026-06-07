@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Lock, X } from 'lucide-react';
 
 interface CourseItem {
@@ -19,6 +19,25 @@ interface RoadmapProps {
 
 export const PremiumMobileRoadmap: React.FC<RoadmapProps> = ({ courses }) => {
   const [selectedCourse, setSelectedCourse] = useState<CourseItem | null>(null);
+  const [activeCourseId, setActiveCourseId] = useState<number>(2); // defaults to 2 (active)
+  const [mascotTime, setMascotTime] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMascotTime(Date.now() / 1000);
+    }, 50);
+    return () => clearInterval(interval);
+  }, []);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start']
+  });
+
+  const rawPathLength = useTransform(scrollYProgress, [0.15, 0.75], [0, 1]);
+  const pathLength = useSpring(rawPathLength, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   // Node configuration positions (winding offsets) matching the 6 modules
   const positions = [
@@ -30,6 +49,23 @@ export const PremiumMobileRoadmap: React.FC<RoadmapProps> = ({ courses }) => {
     { x: 150, y: 580, status: 'locked' }
   ];
 
+  // Map coordinates to dynamic status based on activeCourseId selection
+  const dynamicPositions = positions.map((pos, idx) => {
+    const course = courses[idx];
+    let status = 'locked';
+    if (course.id === activeCourseId) {
+      status = 'active';
+    } else if (course.id < activeCourseId) {
+      status = 'completed';
+    }
+    return { ...pos, status };
+  });
+
+  const activeIndex = courses.findIndex(c => c.id === activeCourseId);
+  const activeNode = dynamicPositions[activeIndex] || dynamicPositions[1];
+  const mascotX = activeNode.x + 10;
+  const mascotY = activeNode.y - 60;
+
   const getIconColor = (status: string) => {
     if (status === 'completed') return 'bg-gradient-to-tr from-[#58CC02] to-[#22C55E] text-white';
     if (status === 'active') return 'bg-gradient-to-tr from-[#0EA5E9] to-[#2563EB] text-white';
@@ -37,7 +73,7 @@ export const PremiumMobileRoadmap: React.FC<RoadmapProps> = ({ courses }) => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center py-6">
+    <div ref={containerRef} className="w-full flex flex-col items-center py-6">
       <div className="relative w-full max-w-[340px] aspect-[300/640] select-none">
         {/* Connecting SVG Path Winding Line */}
         <svg className="absolute inset-0 w-full h-full z-0 pointer-events-none" viewBox="0 0 300 640" fill="none">
@@ -50,21 +86,19 @@ export const PremiumMobileRoadmap: React.FC<RoadmapProps> = ({ courses }) => {
           />
           {/* Animated Completed Path (green) */}
           <motion.path
-            d="M 150 30 C 230 85, 230 85, 230 140"
+            d="M 150 30 C 230 85, 230 85, 230 140 C 230 195, 70 195, 70 250 C 70 305, 180 305, 180 360 C 180 415, 100 415, 100 470 C 100 525, 150 525, 150 580"
             stroke="#58CC02"
             strokeWidth="6"
             strokeLinecap="round"
-            initial={{ pathLength: 0 }}
-            animate={{ pathLength: 1 }}
-            transition={{ duration: 1.2, ease: 'easeInOut' }}
+            style={{ pathLength }}
           />
         </svg>
 
-        {/* Mascot floating companion next to Node 2 */}
+        {/* Mascot floating companion guide */}
         <motion.div
-          animate={{ y: [0, -6, 0] }}
-          transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
-          className="absolute left-[235px] top-[75px] z-10 w-14 h-14 pointer-events-none"
+          animate={{ x: mascotX, y: mascotY + Math.sin(Date.now() / 1000) * 4 }}
+          transition={{ type: 'spring', stiffness: 120, damping: 14 }}
+          className="absolute left-0 top-0 z-10 w-14 h-14 pointer-events-none"
         >
           <img
             src="/assets/projects/student_mascot_clay.png"
@@ -75,15 +109,19 @@ export const PremiumMobileRoadmap: React.FC<RoadmapProps> = ({ courses }) => {
 
         {/* Iterating Nodes */}
         {courses.map((course, idx) => {
-          const pos = positions[idx] || { x: 150, y: 30 + idx * 100, status: 'locked' };
+          const pos = dynamicPositions[idx] || { x: 150, y: 30 + idx * 100, status: 'locked' };
           const isActive = pos.status === 'active';
           const isCompleted = pos.status === 'completed';
 
           return (
-            <div
+            <motion.div
               key={course.id}
-              style={{ left: pos.x, top: pos.y }}
-              className="absolute -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center"
+              style={{ left: pos.x, top: pos.y, x: '-50%', y: '-50%' }}
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ type: 'spring', stiffness: 220, damping: 14, delay: idx * 0.08 }}
+              className="absolute z-10 flex flex-col items-center"
             >
               {/* Pulsing ring around active node */}
               {isActive && (
@@ -98,7 +136,10 @@ export const PremiumMobileRoadmap: React.FC<RoadmapProps> = ({ courses }) => {
               <motion.button
                 whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.9 }}
-                onClick={() => setSelectedCourse(course)}
+                onClick={() => {
+                  setSelectedCourse(course);
+                  setActiveCourseId(course.id);
+                }}
                 className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm border-4 border-white shadow-lg cursor-pointer transition-colors duration-200 ${getIconColor(
                   pos.status
                 )}`}
@@ -120,7 +161,7 @@ export const PremiumMobileRoadmap: React.FC<RoadmapProps> = ({ courses }) => {
                   </span>
                 </motion.div>
               )}
-            </div>
+            </motion.div>
           );
         })}
       </div>

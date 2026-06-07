@@ -215,26 +215,40 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ courseId, cours
   const renderEditorCode = () => {
     const lines = challenge.starterCode.split('\n');
     return lines.map((line, idx) => {
+      const motionProps = {
+        initial: { opacity: 0, x: -10 },
+        animate: { opacity: 1, x: 0 },
+        transition: { duration: 0.3, delay: idx * 0.04 }
+      };
+
       if (line.includes('// MISSING:')) {
         const indentation = line.match(/^\s*/)?.[0] || '';
         if (selectedOption) {
           return (
-            <div key={idx} className="bg-[#58CC02]/10 border-l-2 border-[#58CC02] px-2 py-0.5 my-1 text-[#58CC02] font-semibold">
+            <motion.div
+              key={idx}
+              {...motionProps}
+              className="bg-[#58CC02]/10 border-l-2 border-[#58CC02] px-2 py-0.5 my-1 text-[#58CC02] font-semibold font-mono"
+            >
               {indentation}{selectedOption}
-            </div>
+            </motion.div>
           );
         } else {
           return (
-            <div key={idx} className="text-slate-500 italic bg-slate-900/40 px-2 py-0.5 my-1 border-l-2 border-slate-700">
+            <motion.div
+              key={idx}
+              {...motionProps}
+              className="text-slate-500 italic bg-slate-900/40 px-2 py-0.5 my-1 border-l-2 border-slate-700 font-mono"
+            >
               {line}
-            </div>
+            </motion.div>
           );
         }
       }
       return (
-        <div key={idx} className="px-2 text-slate-300">
+        <motion.div key={idx} {...motionProps} className="px-2 text-slate-300 font-mono">
           {line}
-        </div>
+        </motion.div>
       );
     });
   };
@@ -267,7 +281,7 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ courseId, cours
       {/* Code Editor */}
       <div className="p-4 bg-[#0B0F19] min-h-[160px] select-none leading-relaxed text-xs overflow-x-auto">
         <pre className="font-mono">
-          <code>{renderEditorCode()}</code>
+          <code key={courseId}>{renderEditorCode()}</code>
         </pre>
       </div>
 

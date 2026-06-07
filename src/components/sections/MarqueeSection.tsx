@@ -99,12 +99,28 @@ export const MarqueeSection: React.FC = () => {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
           <div className="max-w-2xl text-center md:text-left">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0F172A] tracking-tighter leading-none mb-6">
-              Interactive Course Library
-            </h2>
-            <p className="text-base md:text-lg text-slate-500 font-medium leading-relaxed">
-              Explore course paths, build coding solutions in real-time, and trace verified progress credentials dynamically.
-            </p>
+            <div className="overflow-hidden mb-6">
+              <motion.h2
+                initial={{ y: "100%" }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0F172A] tracking-tighter leading-none"
+              >
+                Interactive Course Library
+              </motion.h2>
+            </div>
+            <div className="overflow-hidden">
+              <motion.p
+                initial={{ y: "100%" }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="text-base md:text-lg text-slate-500 font-medium leading-relaxed"
+              >
+                Explore course paths, build coding solutions in real-time, and trace verified progress credentials dynamically.
+              </motion.p>
+            </div>
           </div>
           <div className="relative w-32 md:w-44 h-32 md:h-44 flex-shrink-0 select-none pointer-events-none">
             <img
