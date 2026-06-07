@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar } from '@/components/layout/Navbar';
 import { HeroSection } from '@/components/sections/HeroSection';
-import { MarqueeSection } from '@/components/sections/MarqueeSection';
+import { PlacementPulseSection } from '@/components/sections/PlacementPulseSection';
 import { AboutSection } from '@/components/sections/AboutSection';
 import { ServicesSection } from '@/components/sections/ServicesSection';
 import { ProjectsSection } from '@/components/sections/ProjectsSection';
@@ -15,7 +15,7 @@ export default function Home() {
         <main className="flex-1 w-full">
           <HeroSection />
           <AboutSection />
-          <MarqueeSection />
+          <PlacementPulseSection />
           <ServicesSection />
           <ProjectsSection />
         </main>
@@ -23,4 +23,5 @@ export default function Home() {
     </SmoothScroll>
   );
 }
+
 

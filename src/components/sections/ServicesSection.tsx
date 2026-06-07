@@ -109,6 +109,10 @@ export const ServicesSection: React.FC = () => {
           {services.map((service, index) => (
             <motion.div
               key={service.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
               onMouseEnter={() => setHoveredId(service.id)}
               onMouseLeave={() => setHoveredId(null)}
               className="group relative flex flex-col md:flex-row md:items-start justify-between py-10 hover:bg-slate-50/50 transition-colors px-4 rounded-xl -mx-4 cursor-pointer"
@@ -133,40 +137,22 @@ export const ServicesSection: React.FC = () => {
               )}
 
               {/* Left Side: Number Index */}
-              <motion.div 
-                className="text-3xl md:text-4xl font-extrabold text-slate-300 group-hover:text-[#58CC02] transition-colors duration-300 md:w-24 origin-center"
-                initial={{ opacity: 0, rotate: -35 }}
-                whileInView={{ opacity: 1, rotate: 0 }}
-                viewport={{ once: true }}
-                transition={{ type: "spring", stiffness: 120, damping: 14 }}
-              >
+              <div className="text-3xl md:text-4xl font-extrabold text-slate-350 group-hover:text-[#58CC02] transition-colors duration-300 md:w-24 origin-center">
                 {service.id}
-              </motion.div>
+              </div>
 
               {/* Center: Title & Description */}
-              <motion.div 
-                className="flex-1 md:px-6 mt-4 md:mt-0 max-w-2xl"
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.05 }}
-              >
+              <div className="flex-1 md:px-6 mt-4 md:mt-0 max-w-2xl">
                 <h3 className="text-xl md:text-2xl font-bold text-[#0F172A] tracking-tight mb-3 group-hover:text-[#58CC02] transition-colors duration-300">
                   {service.title}
                 </h3>
                 <p className="text-sm md:text-base text-slate-500 font-medium leading-relaxed">
                   {service.description}
                 </p>
-              </motion.div>
+              </div>
 
               {/* Right Side: Key points and Arrow */}
-              <motion.div 
-                className="flex flex-wrap md:flex-col items-start gap-2 mt-6 md:mt-0 md:text-right min-w-[200px]"
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-              >
+              <div className="flex flex-wrap md:flex-col items-start gap-2 mt-6 md:mt-0 md:text-right min-w-[200px]">
                 {service.details.map((detail) => (
                   <span
                     key={detail}
@@ -175,18 +161,12 @@ export const ServicesSection: React.FC = () => {
                     {detail}
                   </span>
                 ))}
-              </motion.div>
+              </div>
 
               {/* Floating Action Arrow */}
-              <motion.div 
-                className="self-end md:self-start mt-6 md:mt-0 pl-4 text-slate-400 group-hover:text-[#0f172a] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300"
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.15 }}
-              >
+              <div className="self-end md:self-start mt-6 md:mt-0 pl-4 text-slate-400 group-hover:text-[#0f172a] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300">
                 <ArrowUpRight className="w-6 h-6" />
-              </motion.div>
+              </div>
             </motion.div>
           ))}
 
