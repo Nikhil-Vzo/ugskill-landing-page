@@ -5,6 +5,7 @@ import { PlacementPulseSection } from '@/components/sections/PlacementPulseSecti
 import { AboutSection } from '@/components/sections/AboutSection';
 import { ServicesSection } from '@/components/sections/ServicesSection';
 import { ProjectsSection } from '@/components/sections/ProjectsSection';
+import { FooterCTASection } from '@/components/sections/FooterCTASection';
 import { SmoothScroll } from '@/components/providers/SmoothScroll';
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
           <PlacementPulseSection />
           <ServicesSection />
           <ProjectsSection />
+          <FooterCTASection />
         </main>
       </div>
     </SmoothScroll>
