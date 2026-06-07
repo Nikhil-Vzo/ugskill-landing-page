@@ -36,6 +36,10 @@ export const AboutSection: React.FC = () => {
 
       <motion.div
         style={{ y: yStudy }}
+        initial={{ opacity: 0, x: -80 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ type: "spring", stiffness: 100, damping: 15, delay: 0.2 }}
         className="absolute left-[2%] top-[22%] hidden w-[130px] select-none pointer-events-none md:block lg:left-[5%] lg:w-[200px]"
       >
         <img
@@ -47,6 +51,10 @@ export const AboutSection: React.FC = () => {
 
       <motion.div
         style={{ y: ySuccess }}
+        initial={{ opacity: 0, x: 80 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ type: "spring", stiffness: 100, damping: 15, delay: 0.35 }}
         className="absolute bottom-[12%] right-[-4%] hidden w-[220px] select-none pointer-events-none md:block lg:right-[2%] lg:w-[360px]"
       >
         <img
@@ -70,21 +78,45 @@ export const AboutSection: React.FC = () => {
           </motion.div>
 
           <motion.h2
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.08 }}
             className="mt-6 text-5xl font-black leading-[0.92] tracking-tighter text-[#0F172A] md:text-7xl lg:text-[6.5rem]"
           >
-            <span className="block">One platform for</span>
-            <motion.span
-              className="block bg-gradient-to-r from-[#0F172A] via-[#58CC02] to-[#0F172A] bg-[length:220%_100%] bg-clip-text text-transparent"
-              animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
-              transition={{ duration: 9, repeat: Infinity, ease: 'linear' }}
-            >
-              learning, proof, and
-            </motion.span>
-            <span className="block text-[#58CC02]">placement.</span>
+            <div className="overflow-hidden py-1">
+              <motion.span
+                initial={{ y: "100%" }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="block"
+              >
+                One platform for
+              </motion.span>
+            </div>
+            <div className="overflow-hidden py-1">
+              <motion.span
+                initial={{ y: "100%" }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true }}
+                animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
+                transition={{
+                  y: { duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] },
+                  backgroundPosition: { duration: 9, repeat: Infinity, ease: 'linear' }
+                }}
+                className="block bg-gradient-to-r from-[#0F172A] via-[#58CC02] to-[#0F172A] bg-[length:220%_100%] bg-clip-text text-transparent"
+              >
+                learning, proof, and
+              </motion.span>
+            </div>
+            <div className="overflow-hidden py-1">
+              <motion.span
+                initial={{ y: "100%" }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                className="block text-[#58CC02]"
+              >
+                placement.
+              </motion.span>
+            </div>
           </motion.h2>
 
           <motion.p
