@@ -19,8 +19,8 @@ export default function PricingPage() {
         'Global batch standings leaderboard',
         'Unlimited sandbox editor practice'
       ],
-      ctaText: 'Try Interactive Demo',
-      ctaHref: '/auth/login?sandbox=true',
+      ctaText: 'Get a Quote',
+      ctaHref: '/auth/login',
       variant: 'secondary' as const,
       popular: false
     },
@@ -37,7 +37,7 @@ export default function PricingPage() {
         'Dedicated onboarding support'
       ],
       ctaText: 'Get a Quote',
-      ctaHref: '/auth/login?sandbox=true',
+      ctaHref: '/auth/login',
       variant: 'primary' as const,
       popular: true
     },
@@ -54,7 +54,7 @@ export default function PricingPage() {
         'Cryptographic certificate verification'
       ],
       ctaText: 'Get a Quote',
-      ctaHref: '/auth/login?sandbox=true',
+      ctaHref: '/auth/login',
       variant: 'secondary' as const,
       popular: false
     }

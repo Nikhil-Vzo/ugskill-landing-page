@@ -36,18 +36,18 @@ export const HeroSection: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const section2Ref = useRef<HTMLElement>(null);
-  const [heroVideoLoaded, setHeroVideoLoaded] = useState(false);
+  // Background video opacity handled natively
 
   const isSection2InView = useInView(section2Ref, { amount: 0.15 });
 
-  // Sync hero video opacity via CSS class instead of Framer Motion
+  // Autoplay hero background video on mount with explicit mute
   useEffect(() => {
     const video = heroVideoRef.current;
     if (!video) return;
-    const onCanPlay = () => setHeroVideoLoaded(true);
-    video.addEventListener('canplay', onCanPlay);
-    if (video.readyState >= 3) setHeroVideoLoaded(true);
-    return () => video.removeEventListener('canplay', onCanPlay);
+    video.muted = true;
+    video.play().catch(err => {
+      console.warn("Hero background video autoplay failed: ", err);
+    });
   }, []);
 
   // Controls video playback in section 2 based on viewport presence
@@ -55,6 +55,7 @@ export const HeroSection: React.FC = () => {
     const video = videoRef.current;
     if (!video) return;
     if (isSection2InView) {
+      video.muted = true;
       video.play().catch(err => console.warn("Video auto-play failed: ", err));
     } else {
       video.pause();
@@ -137,11 +138,11 @@ export const HeroSection: React.FC = () => {
       <div className="w-full bg-white flex flex-col">
         {/* ─── HERO SECTION ─── */}
         <section className="relative min-h-screen w-full overflow-hidden bg-slate-50">
-          {/* Mobile Background: soft gradients & neutral overlay pattern */}
-          <div className="sm:hidden absolute inset-0 bg-gradient-to-tr from-slate-100 via-white to-slate-50 flex items-center justify-center pointer-events-none">
-            <div className="absolute top-1/4 left-1/4 w-[250px] h-[250px] bg-[#58CC02]/5 blur-[70px] rounded-full" />
-            <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-emerald-500/5 blur-[80px] rounded-full" />
-            <div className="absolute inset-0 opacity-[0.12]" 
+          {/* Mobile Background: premium soft gradients & blueprint overlay pattern */}
+          <div className="sm:hidden absolute inset-0 bg-gradient-to-b from-green-50/50 via-white to-slate-50 flex items-center justify-center pointer-events-none">
+            <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-[#58CC02]/15 blur-[80px] rounded-full" />
+            <div className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] bg-emerald-500/10 blur-[90px] rounded-full" />
+            <div className="absolute inset-0 opacity-[0.18]" 
               style={{
                 backgroundImage: 'radial-gradient(#CBD5E1 1.5px, transparent 1.5px)',
                 backgroundSize: '24px 24px',
@@ -149,16 +150,16 @@ export const HeroSection: React.FC = () => {
             />
           </div>
 
-          {/* Plain <video> with CSS fade-in — hidden on mobile to save data/battery */}
+          {/* Plain <video> — hidden on mobile to save data/battery */}
           <video
             ref={heroVideoRef}
             src="/assets/hero/hero-section-video.mp4"
-            className={`hidden sm:block absolute inset-0 h-full w-full object-cover will-change-[opacity] ${heroVideoLoaded ? 'hero-video-loaded' : 'hero-video-hidden'}`}
+            className="hidden sm:block absolute inset-0 h-full w-full object-cover"
             autoPlay
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="auto"
           />
 
           <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col items-center justify-center px-6 pb-44 pt-28 text-center md:pb-36 md:pt-32">
@@ -166,9 +167,16 @@ export const HeroSection: React.FC = () => {
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="mx-auto max-w-4xl"
+              className="mx-auto max-w-4xl flex flex-col items-center"
             >
-              <div className="mt-9 flex lg:hidden flex-col items-center gap-3 sm:flex-row sm:justify-center">
+              <h1 className="text-5xl sm:text-6xl md:text-8xl xl:text-[7rem] font-black leading-[0.92] tracking-tight text-[#0F172A] mb-6">
+                From Campus
+                <span className="block text-[#58CC02]">To Corporate</span>
+              </h1>
+              <p className="text-slate-650 font-semibold text-lg md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed">
+                The all-in-one LMS, Exam, and Placement engine that connects student learning directly to corporate readiness.
+              </p>
+              <div className="mt-2 flex lg:hidden flex-col items-center gap-3 sm:flex-row sm:justify-center w-full">
                 <Link href="/auth/login?sandbox=true" className="w-full sm:w-auto no-underline">
                   <TactileButton variant="primary" className="w-full sm:w-auto px-8 py-4 text-base">
                     Try Interactive Demo
@@ -266,6 +274,7 @@ export const HeroSection: React.FC = () => {
                     ref={videoRef}
                     src="/assets/hero/ug_bot_removed_bg.mp4"
                     className="w-full h-full object-cover z-0"
+                    autoPlay
                     muted
                     loop
                     playsInline
