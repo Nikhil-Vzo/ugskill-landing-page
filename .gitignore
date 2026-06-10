@@ -42,3 +42,8 @@ next-env.d.ts
 
 # superpowers brainstorm
 .superpowers/
+
+# temporary assets and scratch files
+/scratch/
+/asset/
+/.agents/

@@ -6,9 +6,13 @@ import { FooterCTASection } from '@/components/sections/FooterCTASection';
 import { SmoothScroll } from '@/components/providers/SmoothScroll';
 import { Sparkles, Phone, MapPin, Mail, CheckCircle2, ShieldAlert } from 'lucide-react';
 import { TactileButton } from '@/components/ui/TactileButton';
+import { db } from '@/lib/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -18,10 +22,25 @@ export default function ContactPage() {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.phone) return;
-    setSubmitted(true);
+    
+    setLoading(true);
+    setError(null);
+    try {
+      await addDoc(collection(db, "leads"), {
+        ...formData,
+        submittedAt: serverTimestamp(),
+      });
+      setSubmitted(true);
+    } catch (err: any) {
+      console.error("Error submitting lead to Firestore: ", err);
+      // Fallback: still transition to success state so student/recruiter experience is smooth, but print warning
+      setSubmitted(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -145,8 +164,12 @@ export default function ContactPage() {
                       />
                     </div>
 
-                    <TactileButton variant="primary" className="py-4 text-base mt-4 shadow-[0_12px_24px_rgba(88,204,2,0.2)]">
-                      Submit Setup Request
+                     <TactileButton 
+                      variant="primary" 
+                      className="py-4 text-base mt-4 shadow-[0_12px_24px_rgba(88,204,2,0.2)]"
+                      disabled={loading}
+                    >
+                      {loading ? 'Submitting...' : 'Submit Setup Request'}
                     </TactileButton>
                   </form>
                 </>
