@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Navbar } from '@/components/layout/Navbar';
 import { FooterCTASection } from '@/components/sections/FooterCTASection';
 import { SmoothScroll } from '@/components/providers/SmoothScroll';
-import { Sparkles, Phone, MapPin, Mail, CheckCircle2, ShieldAlert } from 'lucide-react';
+import { Sparkles, CheckCircle2, ShieldAlert, Clock, UserCheck, Rocket } from 'lucide-react';
 import { TactileButton } from '@/components/ui/TactileButton';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -194,38 +194,39 @@ export default function ContactPage() {
 
             {/* Right Column: Info / Sidebar */}
             <div className="lg:col-span-5 flex flex-col gap-6 text-left">
+              {/* What happens next */}
               <div className="bg-white border border-zinc-200 shadow-lg rounded-[2.2rem] p-8 flex flex-col gap-6">
                 <h3 className="text-xl font-black text-zinc-950 tracking-tight leading-none mb-2">
-                  Direct Contact Info
+                  What Happens Next
                 </h3>
                 <div className="flex flex-col gap-5">
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-zinc-50 border border-zinc-200 flex items-center justify-center text-zinc-650 shrink-0">
-                      <Phone className="w-5 h-5" />
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-[#58CC02]/10 border border-[#58CC02]/20 flex items-center justify-center shrink-0">
+                      <Clock className="w-5 h-5 text-[#58CC02]" />
                     </div>
                     <div>
-                      <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider leading-none mb-1">Call Support</p>
-                      <p className="text-sm font-semibold text-zinc-850">+1 (555) 789-0123</p>
+                      <p className="text-xs text-zinc-400 font-bold uppercase tracking-wider leading-none mb-1">Within 24 hours</p>
+                      <p className="text-sm font-semibold text-zinc-800">Our onboarding coordinator reviews your request and reaches out to confirm details.</p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-zinc-50 border border-zinc-200 flex items-center justify-center text-zinc-650 shrink-0">
-                      <Mail className="w-5 h-5" />
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-[#58CC02]/10 border border-[#58CC02]/20 flex items-center justify-center shrink-0">
+                      <UserCheck className="w-5 h-5 text-[#58CC02]" />
                     </div>
                     <div>
-                      <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider leading-none mb-1">Email Inquiry</p>
-                      <p className="text-sm font-semibold text-zinc-850">partners@ugskill.com</p>
+                      <p className="text-xs text-zinc-400 font-bold uppercase tracking-wider leading-none mb-1">Custom Setup</p>
+                      <p className="text-sm font-semibold text-zinc-800">We configure a private trial environment tailored to your batch size and curriculum.</p>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-zinc-50 border border-zinc-200 flex items-center justify-center text-zinc-650 shrink-0">
-                      <MapPin className="w-5 h-5" />
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-[#58CC02]/10 border border-[#58CC02]/20 flex items-center justify-center shrink-0">
+                      <Rocket className="w-5 h-5 text-[#58CC02]" />
                     </div>
                     <div>
-                      <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider leading-none mb-1">Corporate HQ</p>
-                      <p className="text-sm font-semibold text-zinc-850">123 Campus Way, Silicon Valley, CA</p>
+                      <p className="text-xs text-zinc-400 font-bold uppercase tracking-wider leading-none mb-1">Go Live</p>
+                      <p className="text-sm font-semibold text-zinc-800">Onboarding takes under a week. Your students can start learning on day one.</p>
                     </div>
                   </div>
                 </div>
