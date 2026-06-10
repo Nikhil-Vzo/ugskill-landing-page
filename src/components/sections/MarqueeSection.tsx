@@ -83,9 +83,9 @@ export const MarqueeSection: React.FC = () => {
       className="section-overlap-up relative w-full py-24 lg:py-32 overflow-hidden flex flex-col items-center"
       style={{
         background: `
-          radial-gradient(ellipse 65% 40% at 50% -5%, rgba(88,204,2,0.13) 0%, transparent 60%),
-          radial-gradient(ellipse 40% 30% at 90% 90%, rgba(99,102,241,0.06) 0%, transparent 55%),
-          linear-gradient(180deg, #f8fafc 0%, #ffffff 30%)
+          radial-gradient(ellipse 60% 40% at 50% -5%, rgba(99,102,241,0.07) 0%, transparent 55%),
+          radial-gradient(ellipse 40% 30% at 90% 95%, rgba(88,204,2,0.06) 0%, transparent 50%),
+          linear-gradient(180deg, #f8fafc 0%, #ffffff 40%)
         `
       }}
     >

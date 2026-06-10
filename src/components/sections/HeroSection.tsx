@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, useInView } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Link from 'next/link';
-import { ArrowRight, Volume2, VolumeX, Play, Pause, ArrowUpRight, MousePointerClick } from "lucide-react";
+import { ArrowRight, ArrowUpRight, MousePointerClick } from "lucide-react";
 import { DashboardMockup } from "../ui/DashboardMockup";
 import { TactileButton } from "../ui/TactileButton";
 
@@ -35,12 +35,7 @@ const rightActionsChildVariants = {
 export const HeroSection: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
-  const section2Ref = useRef<HTMLDivElement>(null);
-  const [isMuted, setIsMuted] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [heroVideoLoaded, setHeroVideoLoaded] = useState(false);
-
-  const isSection2InView = useInView(section2Ref, { amount: 0.3 });
 
   // Sync hero video opacity via CSS class instead of Framer Motion
   useEffect(() => {
@@ -51,47 +46,6 @@ export const HeroSection: React.FC = () => {
     if (video.readyState >= 3) setHeroVideoLoaded(true);
     return () => video.removeEventListener('canplay', onCanPlay);
   }, []);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const syncVideoState = () => {
-      setIsMuted(video.muted);
-      setIsPlaying(!video.paused);
-    };
-
-    video.addEventListener("play", syncVideoState);
-    video.addEventListener("pause", syncVideoState);
-    video.addEventListener("volumechange", syncVideoState);
-
-    return () => {
-      video.removeEventListener("play", syncVideoState);
-      video.removeEventListener("pause", syncVideoState);
-      video.removeEventListener("volumechange", syncVideoState);
-    };
-  }, []);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (isSection2InView) {
-      video.muted = false;
-      video.play().catch(err => {
-        console.log("Autoplay unmuted blocked, falling back to muted", err);
-        if (videoRef.current) {
-          videoRef.current.muted = true;
-          videoRef.current.play().catch(playErr => {
-            console.error("Muted play failed as well", playErr);
-          });
-        }
-      });
-    } else {
-      video.pause();
-      video.muted = true;
-    }
-  }, [isSection2InView]);
 
   // Mouse-based 3D Parallax Physics (hover only) — motion values stay stable, no re-renders
   const x = useMotionValue(0);
@@ -107,25 +61,6 @@ export const HeroSection: React.FC = () => {
     ([latestX, latestY]: number[]) =>
       `radial-gradient(800px circle at ${latestX * 100 + 50}% ${latestY * 100 + 50}%, rgba(255,255,255,0.4), transparent 40%)`
   );
-
-  const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !videoRef.current.muted;
-      setIsMuted(videoRef.current.muted);
-    }
-  };
-
-  const togglePlay = () => {
-    if (videoRef.current) {
-      if (videoRef.current.paused) {
-        videoRef.current.play();
-        setIsPlaying(true);
-      } else {
-        videoRef.current.pause();
-        setIsPlaying(false);
-      }
-    }
-  };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -188,11 +123,23 @@ export const HeroSection: React.FC = () => {
       <div className="w-full bg-white flex flex-col">
         {/* ─── HERO SECTION ─── */}
         <section className="relative min-h-screen w-full overflow-hidden bg-slate-50">
-          {/* Plain <video> with CSS fade-in — no Framer overhead */}
+          {/* Mobile Background: soft gradients & neutral overlay pattern */}
+          <div className="sm:hidden absolute inset-0 bg-gradient-to-tr from-slate-100 via-white to-slate-50 flex items-center justify-center pointer-events-none">
+            <div className="absolute top-1/4 left-1/4 w-[250px] h-[250px] bg-[#58CC02]/5 blur-[70px] rounded-full" />
+            <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-emerald-500/5 blur-[80px] rounded-full" />
+            <div className="absolute inset-0 opacity-[0.12]" 
+              style={{
+                backgroundImage: 'radial-gradient(#CBD5E1 1.5px, transparent 1.5px)',
+                backgroundSize: '24px 24px',
+              }}
+            />
+          </div>
+
+          {/* Plain <video> with CSS fade-in — hidden on mobile to save data/battery */}
           <video
             ref={heroVideoRef}
             src="/assets/hero/hero-section-video.mp4"
-            className={`absolute inset-0 h-full w-full object-cover will-change-[opacity] ${heroVideoLoaded ? 'hero-video-loaded' : 'hero-video-hidden'}`}
+            className={`hidden sm:block absolute inset-0 h-full w-full object-cover will-change-[opacity] ${heroVideoLoaded ? 'hero-video-loaded' : 'hero-video-hidden'}`}
             autoPlay
             muted
             loop
@@ -267,7 +214,6 @@ export const HeroSection: React.FC = () => {
 
         {/* ─── SECTION 2: Video intro + Dashboard mockup ─── */}
         <motion.section
-          ref={section2Ref}
           className="relative w-full overflow-hidden bg-white py-20 lg:py-24"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -305,27 +251,11 @@ export const HeroSection: React.FC = () => {
                     ref={videoRef}
                     src="/assets/hero/ug_bot_removed_bg.mp4"
                     className="w-full h-full object-cover z-0"
+                    autoPlay
+                    muted
                     loop
                     playsInline
                   />
-
-                  {/* Controls */}
-                  <div className="absolute bottom-5 right-5 z-30 flex items-center gap-3 rounded-full border border-white/10 bg-black/60 px-4 py-2.5 text-white shadow-lg backdrop-blur-md transition-all hover:bg-black/80">
-                    <button
-                      onClick={toggleMute}
-                      className="rounded-full p-2 text-white transition-all hover:bg-white/10 active:scale-95"
-                      title={isMuted ? "Unmute" : "Mute"}
-                    >
-                      {isMuted ? <VolumeX className="w-5 h-5 text-white/80" /> : <Volume2 className="w-5 h-5 text-[#58CC02]" />}
-                    </button>
-                    <button
-                      onClick={togglePlay}
-                      className="rounded-full p-2 text-white transition-all hover:bg-white/10 active:scale-95"
-                      title={isPlaying ? "Pause" : "Play"}
-                    >
-                      {isPlaying ? <Pause className="w-5 h-5 text-white/80" /> : <Play className="w-5 h-5 text-[#58CC02]" />}
-                    </button>
-                  </div>
                 </motion.div>
               </div>
 

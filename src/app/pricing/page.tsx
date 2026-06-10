@@ -19,7 +19,7 @@ export default function PricingPage() {
         'Global batch standings leaderboard',
         'Unlimited sandbox editor practice'
       ],
-      ctaText: 'Start Coding Now',
+      ctaText: 'Try Interactive Demo',
       ctaHref: '/auth/login?sandbox=true',
       variant: 'secondary' as const,
       popular: false
@@ -36,8 +36,8 @@ export default function PricingPage() {
         'Cryptographic credential signatures',
         'Dedicated onboarding support'
       ],
-      ctaText: 'Setup Campus Portal',
-      ctaHref: '/company/contact',
+      ctaText: 'Get a Quote',
+      ctaHref: '/auth/login?sandbox=true',
       variant: 'primary' as const,
       popular: true
     },
@@ -53,8 +53,8 @@ export default function PricingPage() {
         'Direct student matchmaking matches',
         'Cryptographic certificate verification'
       ],
-      ctaText: 'Unlock Talent Access',
-      ctaHref: '/company/contact',
+      ctaText: 'Get a Quote',
+      ctaHref: '/auth/login?sandbox=true',
       variant: 'secondary' as const,
       popular: false
     }

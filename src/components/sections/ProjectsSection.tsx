@@ -53,6 +53,7 @@ const projectCards: ProjectCard[] = [
   },
 ];
 
+// Creative staggered offsets & skew rotations for the stacking deck
 const cardRotations = [-2.2, 1.8, -1.2];
 const cardOffsets = [-16, 16, -8];
 
@@ -63,22 +64,19 @@ interface ProjectCardComponentProps {
 }
 
 const ProjectCardComponent: React.FC<ProjectCardComponentProps> = ({ card, index, isDesktop }) => {
-  const cardProgress = 1 - (projectCards.length - 1 - index) * 0.03;
+  // Subtle progressive scale so earlier cards look slightly "behind"
+  const cardProgress = 1 - (projectCards.length - 1 - index) * 0.025;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ type: "spring", stiffness: 80, damping: 16, delay: index * 0.08 }}
+    <div
       style={{
-        scale: cardProgress,
         backgroundColor: card.color,
         borderColor: card.borderColor,
-        rotate: isDesktop ? cardRotations[index] : 0,
-        x: isDesktop ? cardOffsets[index] : 0,
+        transform: isDesktop
+          ? `scale(${cardProgress}) rotate(${cardRotations[index]}deg) translateX(${cardOffsets[index]}px)`
+          : 'none',
       }}
-      className="w-full min-h-[380px] sm:min-h-[420px] lg:min-h-[480px] border rounded-3xl p-6 sm:p-8 lg:p-12 shadow-diffused flex flex-col lg:flex-row gap-8 lg:gap-12 items-center overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+      className="w-full min-h-[380px] sm:min-h-[420px] lg:min-h-[480px] border rounded-3xl p-6 sm:p-8 lg:p-12 shadow-[0_8px_40px_-12px_rgba(15,23,42,0.12)] flex flex-col lg:flex-row gap-8 lg:gap-12 items-center overflow-hidden hover:shadow-2xl transition-shadow duration-300 origin-center"
     >
       {/* Left Side: Card Text Info */}
       <div className="flex-1 flex flex-col items-start z-10">
@@ -107,16 +105,16 @@ const ProjectCardComponent: React.FC<ProjectCardComponentProps> = ({ card, index
         </div>
       </div>
 
-      {/* Right Side: Illustration — CSS hover scale, no scroll-linked JS */}
-      <div className="w-full lg:w-[45%] h-[180px] sm:h-[240px] md:h-[300px] lg:h-[340px] flex items-center justify-center relative group select-none pointer-events-none overflow-hidden">
+      {/* Right Side: Illustration */}
+      <div className="w-full lg:w-[45%] h-[180px] sm:h-[240px] md:h-[300px] lg:h-[340px] flex items-center justify-center relative select-none pointer-events-none overflow-hidden">
         <img
           src={card.imageUrl}
           alt={card.title}
-          className="max-w-full max-h-full object-contain transition-transform duration-700 ease-out group-hover:scale-105"
+          className="max-w-full max-h-full object-contain transition-transform duration-700 ease-out hover:scale-105"
           style={{ filter: `drop-shadow(0 15px 30px ${card.shadowColor})` }}
         />
       </div>
-    </motion.div>
+    </div>
   );
 };
 
@@ -138,18 +136,19 @@ export const ProjectsSection: React.FC = () => {
       id="projects-stack"
       style={{
         background: `
-          radial-gradient(ellipse 70% 40% at 50% 100%, rgba(88,204,2,0.10) 0%, transparent 60%),
-          radial-gradient(ellipse 50% 35% at 5% 20%, rgba(14,165,233,0.07) 0%, transparent 50%),
-          linear-gradient(160deg, #111827 0%, #0f172a 50%, #111827 100%)
-        `
+          radial-gradient(ellipse 70% 50% at 50% 0%, rgba(88,204,2,0.07) 0%, transparent 60%),
+          radial-gradient(ellipse 50% 35% at 90% 100%, rgba(14,165,233,0.05) 0%, transparent 55%),
+          linear-gradient(180deg, #f8fafc 0%, #ffffff 50%)
+        `,
       }}
     >
+      {/* Blueprint grid */}
       <div
-        className="absolute inset-0 pointer-events-none z-0 opacity-40"
+        className="absolute inset-0 pointer-events-none z-0 opacity-50"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(226, 232, 240, 0.75) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(226, 232, 240, 0.75) 1px, transparent 1px)
+            linear-gradient(to right, rgba(226, 232, 240, 0.8) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(226, 232, 240, 0.8) 1px, transparent 1px)
           `,
           backgroundSize: '48px 48px',
           maskImage: 'radial-gradient(ellipse at center, black, transparent 85%)',
@@ -158,28 +157,47 @@ export const ProjectsSection: React.FC = () => {
       />
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
-        <div className="max-w-3xl mb-16 md:mb-24">
-          <span className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full bg-white/8 border border-white/12 text-white/60 text-xs font-semibold tracking-widest uppercase mb-4 shadow-sm backdrop-blur-sm">
+        {/* Section Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-3xl mb-16 md:mb-24"
+        >
+          <span className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full bg-slate-50 border border-slate-200 text-slate-600 text-xs font-semibold tracking-widest uppercase mb-4 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-[#58CC02]" />
             Career Pipeline Stacking
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tighter leading-none mb-6">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0F172A] tracking-tighter leading-none mb-6">
             The Three-Step Funnel
           </h2>
-          <p className="text-lg text-white/50 max-w-xl font-medium leading-relaxed">
+          <p className="text-lg text-slate-500 max-w-xl font-medium leading-relaxed">
             See how UGSkill guides students from first-day learning all the way to finalized enterprise recruitment.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Stacking Cards — static stack without sticky+useScroll overhead */}
-        <div className="relative flex flex-col gap-8">
+        {/* Stacking Sticky Cards */}
+        <div className="relative">
           {projectCards.map((card, index) => (
-            <ProjectCardComponent
+            <div
               key={card.id}
-              card={card}
-              index={index}
-              isDesktop={isDesktop}
-            />
+              className="sticky w-full"
+              style={{
+                top: isDesktop ? '112px' : '80px',
+                paddingTop: isDesktop ? `${index * 24}px` : `${index * 16}px`,
+                paddingBottom: index < projectCards.length - 1
+                  ? (isDesktop ? '96px' : '64px')
+                  : '0px',
+                zIndex: 10 + index,
+              }}
+            >
+              <ProjectCardComponent
+                card={card}
+                index={index}
+                isDesktop={isDesktop}
+              />
+            </div>
           ))}
         </div>
       </div>
