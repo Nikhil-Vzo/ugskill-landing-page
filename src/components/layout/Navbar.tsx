@@ -9,8 +9,16 @@ export const Navbar: React.FC = () => {
   const pathname = usePathname();
 
   const navItems = [
-    { label: 'Platform', href: '/platform/lms' },
-    { label: 'Solutions', href: '/solutions/universities' },
+    { 
+      label: 'Solutions', 
+      href: '/platform/lms',
+      subItems: [
+        { label: 'LMS Platform', href: '/platform/lms' },
+        { label: 'Exams & Proctoring', href: '/platform/exams' },
+        { label: 'Placements Engine', href: '/platform/placements' },
+        { label: 'HR Talent Portal', href: '/platform/hr-portal' }
+      ]
+    },
     { label: 'Pricing', href: '/pricing' },
     { label: 'Resources', href: '/resources' },
     { label: 'Login', href: '/auth/login' },

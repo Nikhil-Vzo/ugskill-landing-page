@@ -6,6 +6,7 @@ export type PillNavItem = {
   label: string;
   href: string;
   ariaLabel?: string;
+  subItems?: Array<{ label: string; href: string }>;
 };
 
 export interface PillNavProps {
@@ -372,7 +373,7 @@ const PillNav: React.FC<PillNavProps> = ({
                 <li
                   key={item.href}
                   role="none"
-                  className="flex h-full"
+                  className="flex h-full relative group"
                 >
                   {isRouterLink(item.href) ? (
                     <Link
@@ -398,6 +399,22 @@ const PillNav: React.FC<PillNavProps> = ({
                     >
                       {PillContent}
                     </a>
+                  )}
+
+                  {/* Desktop Hover Dropdown */}
+                  {item.subItems && (
+                    <div className="absolute top-[105%] left-1/2 -translate-x-1/2 mt-1 py-1.5 px-1.5 bg-white/95 border border-slate-200/80 rounded-2xl shadow-xl min-w-[210px] flex flex-col gap-0.5 z-[1000] text-left pointer-events-none opacity-0 scale-95 origin-top -translate-y-2 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0">
+                      {item.subItems.map((sub) => (
+                        <Link
+                          key={sub.href}
+                          href={sub.href}
+                          className="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-slate-700 hover:text-white rounded-xl hover:bg-[#58CC02] transition-colors flex items-center justify-between group/item"
+                        >
+                          <span>{sub.label}</span>
+                          <span className="opacity-0 translate-x-[-4px] group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-white">→</span>
+                        </Link>
+                      ))}
+                    </div>
                   )}
                 </li>
               );
@@ -478,7 +495,7 @@ const PillNav: React.FC<PillNavProps> = ({
               'block py-3 px-5 text-[14px] uppercase tracking-[0.5px] font-semibold rounded-[50px] transition-all duration-200';
 
             return (
-              <li key={item.href}>
+              <li key={item.href} className="flex flex-col gap-0.5">
                 {isRouterLink(item.href) ? (
                   <Link
                     href={item.href}
@@ -497,6 +514,21 @@ const PillNav: React.FC<PillNavProps> = ({
                   >
                     {item.label}
                   </a>
+                )}
+                {item.subItems && (
+                  <ul className="list-none pl-4 pr-2 flex flex-col gap-1 border-l-2 border-slate-150 ml-5 py-1 text-left">
+                    {item.subItems.map((sub) => (
+                      <li key={sub.href}>
+                        <Link
+                          href={sub.href}
+                          className="block py-2 px-3 text-[12px] uppercase tracking-[0.5px] font-bold text-slate-500 hover:text-[#58CC02] transition-colors"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          {sub.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
                 )}
               </li>
             );
