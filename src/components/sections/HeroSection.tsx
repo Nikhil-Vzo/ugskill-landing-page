@@ -157,16 +157,16 @@ export const HeroSection: React.FC = () => {
       <div className="w-full bg-white flex flex-col">
         {/* ─── HERO SECTION ─── */}
         <section className="relative min-h-screen w-full overflow-hidden bg-slate-50">
-          {/* Mobile Background: premium soft gradients & blueprint overlay pattern */}
-          <div className="sm:hidden absolute inset-0 bg-gradient-to-b from-green-50/50 via-white to-slate-50 flex items-center justify-center pointer-events-none">
-            <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-[#58CC02]/15 blur-[80px] rounded-full" />
-            <div className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] bg-emerald-500/10 blur-[90px] rounded-full" />
-            <div className="absolute inset-0 opacity-[0.18]" 
-              style={{
-                backgroundImage: 'radial-gradient(#CBD5E1 1.5px, transparent 1.5px)',
-                backgroundSize: '24px 24px',
-              }}
+          {/* Mobile Background: generated hero image — only visible on phones */}
+          <div className="sm:hidden absolute inset-0 pointer-events-none">
+            <img
+              src="/assets/hero/mobile_hero_bg.png"
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover"
+              aria-hidden="true"
             />
+            {/* Overlay to darken for text legibility */}
+            <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-slate-950/40 to-slate-950/70" />
           </div>
 
           {/* Plain <video> — hidden on mobile to save data/battery */}
@@ -188,12 +188,13 @@ export const HeroSection: React.FC = () => {
               transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="mx-auto max-w-4xl flex flex-col items-center"
             >
-              <h1 className="text-5xl sm:text-6xl md:text-8xl xl:text-[7rem] font-black leading-[0.92] tracking-tight text-[#0F172A] mb-6">
+              {/* Mobile-only headline & subtext */}
+              <h1 className="sm:hidden text-5xl font-black leading-[0.92] tracking-tight text-white mb-5 drop-shadow-[0_2px_16px_rgba(0,0,0,0.5)]">
                 From Campus
-                <span className="block text-[#58CC02]">To Corporate</span>
+                <span className="block text-[#58CC02] drop-shadow-[0_0_20px_rgba(88,204,2,0.6)]">To Corporate</span>
               </h1>
-              <p className="text-slate-650 font-semibold text-lg md:text-xl max-w-2xl mx-auto mb-8 leading-relaxed">
-                The all-in-one LMS, Exam, and Placement engine that connects student learning directly to corporate readiness.
+              <p className="sm:hidden text-white/80 font-semibold text-base max-w-sm mx-auto mb-8 leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)]">
+                The all-in-one LMS, Exam &amp; Placement engine — connecting learning to corporate readiness.
               </p>
               <div className="mt-2 flex lg:hidden flex-col items-center gap-3 sm:flex-row sm:justify-center w-full">
                 <Link href="/auth/login?sandbox=true" className="w-full sm:w-auto no-underline">
