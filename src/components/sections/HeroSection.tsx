@@ -3,7 +3,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, useInView } from "framer-motion";
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight, MousePointerClick } from "lucide-react";
+import { ArrowRight, ArrowUpRight, MousePointerClick, Volume2, VolumeX } from "lucide-react";
 import { DashboardMockup } from "../ui/DashboardMockup";
 import { TactileButton } from "../ui/TactileButton";
 
@@ -36,7 +36,7 @@ export const HeroSection: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const section2Ref = useRef<HTMLElement>(null);
-  // Background video opacity handled natively
+  const [isMuted, setIsMuted] = useState(false);
 
   const isSection2InView = useInView(section2Ref, { amount: 0.15 });
 
@@ -50,17 +50,36 @@ export const HeroSection: React.FC = () => {
     });
   }, []);
 
-  // Controls video playback in section 2 based on viewport presence
+  // Section 2 video: play with audio when in view, pause + mute when out
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
     if (isSection2InView) {
-      video.muted = true;
-      video.play().catch(err => console.warn("Video auto-play failed: ", err));
+      // Try unmuted first (requires prior user interaction); fall back to muted
+      video.muted = false;
+      video.play().catch(() => {
+        // Browser blocked unmuted autoplay — fall back to muted play
+        if (videoRef.current) {
+          videoRef.current.muted = true;
+          setIsMuted(true);
+          videoRef.current.play().catch(err =>
+            console.warn('Video play failed: ', err)
+          );
+        }
+      });
     } else {
       video.pause();
+      video.muted = true;
+      setIsMuted(true);
     }
   }, [isSection2InView]);
+
+  const toggleMute = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = !video.muted;
+    setIsMuted(video.muted);
+  };
 
   // Mouse-based 3D Parallax Physics (hover only) — motion values stay stable, no re-renders
   const x = useMotionValue(0);
@@ -274,11 +293,21 @@ export const HeroSection: React.FC = () => {
                     ref={videoRef}
                     src="/assets/hero/ug_bot_removed_bg.mp4"
                     className="w-full h-full object-cover z-0"
-                    autoPlay
-                    muted
                     loop
                     playsInline
                   />
+
+                  {/* Mute/Unmute toggle button */}
+                  <button
+                    onClick={toggleMute}
+                    className="absolute bottom-4 right-4 z-30 flex items-center gap-2 rounded-full border border-white/15 bg-black/55 px-3 py-2 text-white text-xs font-bold shadow-lg backdrop-blur-md transition-all hover:bg-black/75 active:scale-95"
+                    title={isMuted ? 'Unmute' : 'Mute'}
+                  >
+                    {isMuted
+                      ? <VolumeX className="w-4 h-4 text-white/70" />
+                      : <Volume2 className="w-4 h-4 text-[#58CC02]" />}
+                    <span>{isMuted ? 'Unmute' : 'Mute'}</span>
+                  </button>
                 </motion.div>
               </div>
 
