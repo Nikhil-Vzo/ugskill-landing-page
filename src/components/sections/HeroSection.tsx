@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useInView } from "framer-motion";
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight, MousePointerClick } from "lucide-react";
 import { DashboardMockup } from "../ui/DashboardMockup";
@@ -35,7 +35,10 @@ const rightActionsChildVariants = {
 export const HeroSection: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const section2Ref = useRef<HTMLElement>(null);
   const [heroVideoLoaded, setHeroVideoLoaded] = useState(false);
+
+  const isSection2InView = useInView(section2Ref, { amount: 0.15 });
 
   // Sync hero video opacity via CSS class instead of Framer Motion
   useEffect(() => {
@@ -46,6 +49,17 @@ export const HeroSection: React.FC = () => {
     if (video.readyState >= 3) setHeroVideoLoaded(true);
     return () => video.removeEventListener('canplay', onCanPlay);
   }, []);
+
+  // Controls video playback in section 2 based on viewport presence
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (isSection2InView) {
+      video.play().catch(err => console.warn("Video auto-play failed: ", err));
+    } else {
+      video.pause();
+    }
+  }, [isSection2InView]);
 
   // Mouse-based 3D Parallax Physics (hover only) — motion values stay stable, no re-renders
   const x = useMotionValue(0);
@@ -214,6 +228,7 @@ export const HeroSection: React.FC = () => {
 
         {/* ─── SECTION 2: Video intro + Dashboard mockup ─── */}
         <motion.section
+          ref={section2Ref}
           className="relative w-full overflow-hidden bg-white py-20 lg:py-24"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -251,7 +266,7 @@ export const HeroSection: React.FC = () => {
                     ref={videoRef}
                     src="/assets/hero/ug_bot_removed_bg.mp4"
                     className="w-full h-full object-cover z-0"
-                    autoPlay
+                    muted
                     loop
                     playsInline
                   />
