@@ -1,0 +1,26 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Contact form submissions — anyone can create, no one can read/edit
+    match /leads/{docId} {
+      allow create: if request.resource.data.keys().hasAll(['name', 'email', 'phone'])
+                    && request.resource.data.name is string
+                    && request.resource.data.email is string
+                    && request.resource.data.phone is string;
+      allow read, update, delete: if false;
+    }
+
+    // Demo request registrations
+    match /demo_requests/{docId} {
+      allow create: if request.resource.data.keys().hasAll(['email'])
+                    && request.resource.data.email is string;
+      allow read, update, delete: if false;
+    }
+
+    // Block everything else
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

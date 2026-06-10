@@ -35,9 +35,8 @@ export default function ContactPage() {
       });
       setSubmitted(true);
     } catch (err: any) {
-      console.error("Error submitting lead to Firestore: ", err);
-      // Fallback: still transition to success state so student/recruiter experience is smooth, but print warning
-      setSubmitted(true);
+      console.error("Firestore save failed:", err);
+      setError("Submission failed — please check your connection and try again. (" + (err?.code || err?.message || "unknown error") + ")");
     } finally {
       setLoading(false);
     }
@@ -163,6 +162,13 @@ export default function ContactPage() {
                         className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#58CC02] focus:ring-2 focus:ring-[#58CC02]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold resize-none"
                       />
                     </div>
+
+                     {error && (
+                      <div className="flex items-start gap-3 rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700 font-semibold">
+                        <span className="shrink-0 mt-0.5">⚠️</span>
+                        <span>{error}</span>
+                      </div>
+                    )}
 
                      <TactileButton 
                       variant="primary" 
