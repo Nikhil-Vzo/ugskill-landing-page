@@ -73,7 +73,16 @@ export const FooterCTASection: React.FC = () => {
   };
 
   return (
-    <section className="relative w-full bg-white py-24 lg:py-32 flex flex-col items-center overflow-hidden border-t border-zinc-200/85">
+    <section
+      className="section-overlap-up relative w-full py-24 lg:py-32 flex flex-col items-center overflow-hidden"
+      style={{
+        background: `
+          radial-gradient(ellipse 60% 50% at 50% 0%, rgba(88,204,2,0.12) 0%, transparent 55%),
+          radial-gradient(ellipse 40% 35% at 10% 80%, rgba(88,204,2,0.06) 0%, transparent 50%),
+          linear-gradient(175deg, #fafffe 0%, #f0fdf4 30%, #f8fafc 100%)
+        `
+      }}
+    >
       {/* Background Volumetric Glowing Orbs (Soft green) */}
       <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-[#58CC02]/5 to-transparent blur-3xl rounded-full pointer-events-none z-0" />
       <div className="absolute bottom-1/3 right-1/4 translate-x-1/2 translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-bl from-[#58CC02]/3 to-transparent blur-3xl rounded-full pointer-events-none z-0" />
@@ -95,15 +104,7 @@ export const FooterCTASection: React.FC = () => {
         <div className="w-full rounded-[2.5rem] bg-zinc-50 border border-zinc-200/80 p-8 md:p-12 lg:p-16 overflow-hidden relative shadow-[0_20px_50px_-12px_rgba(0,0,0,0.03)] mb-28">
           {/* Subtle Green Overlay inside card */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden z-0 rounded-[2.5rem]">
-            <motion.div 
-              className="absolute -top-40 -left-40 w-96 h-96 bg-[#58CC02]/8 blur-[100px] rounded-full"
-              animate={{ 
-                scale: [1, 1.15, 1],
-                x: [0, 20, 0],
-                y: [0, -20, 0]
-              }}
-              transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
-            />
+            <div className="dot-pulse absolute -top-40 -left-40 w-96 h-96 bg-[#58CC02]/8 blur-[100px] rounded-full" />
             {/* Subtle Grid Overlay inside card */}
             <div 
               className="absolute inset-0 opacity-[0.05] pointer-events-none"
@@ -232,13 +233,9 @@ export const FooterCTASection: React.FC = () => {
                 whileHover={{ rotate: 0, scale: 1.03, borderColor: "rgba(88,204,2,0.4)" }}
                 className="w-full max-w-[300px] rounded-3xl border border-zinc-200 bg-white p-4.5 shadow-[0_8px_30px_rgb(0,0,0,0.03)] flex items-center gap-3.5 transition-all duration-300"
               >
-                <motion.div 
-                  className="w-9 h-9 rounded-xl bg-[#58CC02]/10 flex items-center justify-center text-[#58CC02] shadow-sm shrink-0"
-                  animate={{ scale: [1, 1.08, 1] }}
-                  transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-                >
+                <div className="dot-pulse w-9 h-9 rounded-xl bg-[#58CC02]/10 flex items-center justify-center text-[#58CC02] shadow-sm shrink-0">
                   <Flame className="w-5 h-5 fill-[#58CC02]/10" />
-                </motion.div>
+              </div>
                 <div className="text-left">
                   <h5 className="text-xs font-black text-zinc-950 leading-none">Daily Coding Streaks</h5>
                   <p className="text-[10px] text-[#58CC02] font-bold mt-1.5">🔥 124 students active today</p>
@@ -275,7 +272,7 @@ export const FooterCTASection: React.FC = () => {
               {/* Newsletter block */}
               <div className="flex flex-col gap-3 mt-2">
                 <span className="text-xs font-bold text-zinc-900 uppercase tracking-widest">Stay Updated</span>
-                <form onSubmit={(e) => e.preventDefault()} className="flex items-center gap-2 max-w-[340px]">
+                <form onSubmit={(e) => e.preventDefault()} className="flex flex-col xs:flex-row items-stretch gap-2 max-w-[340px] w-full">
                   <input 
                     type="email" 
                     placeholder="Enter your email" 

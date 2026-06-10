@@ -77,21 +77,28 @@ export const ServicesSection: React.FC = () => {
     <section 
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="section-overlap-up relative w-full bg-white py-24 md:py-32 px-6 md:px-12"
+      className="section-overlap-up relative w-full py-24 md:py-32 px-4 sm:px-6 md:px-12"
       id="solutions"
+      style={{
+        background: `
+          radial-gradient(ellipse 60% 50% at 80% 20%, rgba(14,165,233,0.09) 0%, transparent 55%),
+          radial-gradient(ellipse 50% 45% at 10% 80%, rgba(88,204,2,0.08) 0%, transparent 50%),
+          linear-gradient(145deg, #0f172a 0%, #0d1b2a 50%, #111827 100%)
+        `
+      }}
     >
       <div className="max-w-7xl mx-auto w-full">
         {/* Section Heading */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-24 gap-8">
           <div className="max-w-xl">
-            <span className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full bg-slate-50 border border-slate-200 text-slate-600 text-xs font-semibold tracking-widest uppercase mb-4 shadow-sm">
+            <span className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full bg-white/8 border border-white/12 text-white/70 text-xs font-semibold tracking-widest uppercase mb-4 shadow-sm backdrop-blur-sm">
               <span className="w-2 h-2 rounded-full bg-[#58CC02]" />
               Modular Core Engine
             </span>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-[#0F172A] tracking-tighter leading-none">
+            <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tighter leading-none">
               Unified Platform Features
             </h2>
-            <p className="text-base md:text-lg text-slate-500 mt-6 font-medium leading-relaxed">
+            <p className="text-base md:text-lg text-white/55 mt-6 font-medium leading-relaxed">
               Five core systems integrated into one interface to deliver seamless training and recruitment outcomes.
             </p>
           </div>
@@ -115,38 +122,20 @@ export const ServicesSection: React.FC = () => {
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
               onMouseEnter={() => setHoveredId(service.id)}
               onMouseLeave={() => setHoveredId(null)}
-              className="group relative flex flex-col md:flex-row md:items-start justify-between py-10 hover:bg-slate-50/50 transition-colors px-4 rounded-xl -mx-4 cursor-pointer"
+              className="group relative flex flex-col md:flex-row md:items-start justify-between py-8 md:py-10 hover:bg-white/5 transition-colors px-3 md:px-4 rounded-xl -mx-3 md:-mx-4 cursor-pointer border-b border-white/8 last:border-b-0"
             >
-              {/* Divider Line */}
-              <motion.div
-                className="absolute top-0 left-0 right-0 h-[1px] bg-slate-200/80 origin-left"
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              />
+              {/* Divider Line — only on dark bg variant, handled via border-b above */}
 
-              {index === services.length - 1 && (
-                <motion.div
-                  className="absolute bottom-0 left-0 right-0 h-[1px] bg-slate-200/80 origin-left"
-                  initial={{ scaleX: 0 }}
-                  whileInView={{ scaleX: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-                />
-              )}
-
-              {/* Left Side: Number Index */}
-              <div className="text-3xl md:text-4xl font-extrabold text-slate-350 group-hover:text-[#58CC02] transition-colors duration-300 md:w-24 origin-center">
+              <div className="text-2xl md:text-4xl font-extrabold text-white/30 group-hover:text-[#58CC02] transition-colors duration-300 md:w-24">
                 {service.id}
               </div>
 
               {/* Center: Title & Description */}
               <div className="flex-1 md:px-6 mt-4 md:mt-0 max-w-2xl">
-                <h3 className="text-xl md:text-2xl font-bold text-[#0F172A] tracking-tight mb-3 group-hover:text-[#58CC02] transition-colors duration-300">
+                <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight mb-3 group-hover:text-[#58CC02] transition-colors duration-300">
                   {service.title}
                 </h3>
-                <p className="text-sm md:text-base text-slate-500 font-medium leading-relaxed">
+                <p className="text-sm md:text-base text-white/55 font-medium leading-relaxed">
                   {service.description}
                 </p>
               </div>
@@ -156,15 +145,14 @@ export const ServicesSection: React.FC = () => {
                 {service.details.map((detail) => (
                   <span
                     key={detail}
-                    className="inline-flex items-center text-xs font-bold bg-slate-100/80 text-slate-600 px-3 py-1 rounded-full border border-slate-200/60"
+                    className="inline-flex items-center text-xs font-bold bg-white/8 text-white/70 px-3 py-1 rounded-full border border-white/10"
                   >
                     {detail}
                   </span>
                 ))}
               </div>
 
-              {/* Floating Action Arrow */}
-              <div className="self-end md:self-start mt-6 md:mt-0 pl-4 text-slate-400 group-hover:text-[#0f172a] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300">
+              <div className="self-end md:self-start mt-6 md:mt-0 pl-4 text-white/30 group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300">
                 <ArrowUpRight className="w-6 h-6" />
               </div>
             </motion.div>
@@ -184,8 +172,7 @@ export const ServicesSection: React.FC = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.85 }}
                 transition={{ duration: 0.2, ease: 'easeOut' }}
-                className="absolute pointer-events-none z-50 w-[240px] md:w-[360px] aspect-video hidden md:flex items-center justify-center filter drop-shadow-[0_15px_30px_rgba(15,23,42,0.15)]"
-              >
+                className="absolute pointer-events-none z-50 w-[200px] md:w-[320px] aspect-video hidden md:flex items-center justify-center filter drop-shadow-[0_15px_30px_rgba(15,23,42,0.25)] overflow-hidden rounded-xl"              >
                 <img
                   src={serviceImages[hoveredId]}
                   alt="Platform preview"

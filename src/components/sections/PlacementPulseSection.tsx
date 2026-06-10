@@ -30,7 +30,7 @@ const StepCard: React.FC<StepCardProps> = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ type: "spring", stiffness: 80, damping: 15, delay }}
-      className="relative flex flex-col items-center text-center group z-10 w-full py-6 px-4"
+      className="relative flex flex-col items-center text-center group z-10 w-full py-6 px-2 sm:px-4"
     >
       {/* Soft floating background ambient glow behind each step */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-to-tr from-[#58CC02]/[0.04] to-[#46A302]/[0.01] blur-3xl rounded-full -z-10 group-hover:scale-125 transition-transform duration-500 pointer-events-none" />
@@ -122,15 +122,24 @@ const ArrowConnector: React.FC = () => {
 export const PlacementPulseSection: React.FC = () => {
   return (
     <section
-      className="section-overlap-up relative w-full bg-white py-24 lg:py-32 overflow-hidden flex flex-col items-center"
+      className="section-overlap-up relative w-full py-24 lg:py-32 overflow-hidden flex flex-col items-center"
       id="placement-funnel"
+      style={{
+        background: `
+          radial-gradient(ellipse 70% 55% at 50% 0%, rgba(88,204,2,0.10) 0%, transparent 65%),
+          radial-gradient(ellipse 50% 40% at 20% 100%, rgba(88,204,2,0.07) 0%, transparent 55%),
+          linear-gradient(180deg, #f0fdf4 0%, #ffffff 40%, #fafffe 100%)
+        `
+      }}
     >
-      {/* Decorative subtle dot pattern background */}
-      <div 
-        className="absolute inset-0 opacity-[0.4] pointer-events-none z-0"
+      {/* Dot grid */}
+      <div
+        className="absolute inset-0 opacity-[0.35] pointer-events-none z-0"
         style={{
-          backgroundImage: 'radial-gradient(#E2E8F0 1.5px, transparent 1.5px)',
-          backgroundSize: '32px 32px'
+          backgroundImage: 'radial-gradient(#86efac 1.5px, transparent 1.5px)',
+          backgroundSize: '32px 32px',
+          maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)'
         }}
       />
 
@@ -175,7 +184,7 @@ export const PlacementPulseSection: React.FC = () => {
         </div>
 
         {/* 3-Section Horizontal path cards layout */}
-        <div className="relative flex flex-col lg:flex-row gap-4 items-center w-full mx-auto">
+        <div className="relative flex flex-col lg:flex-row gap-0 lg:gap-4 items-center w-full mx-auto">
           
           {/* Card 1: Study */}
           <StepCard 

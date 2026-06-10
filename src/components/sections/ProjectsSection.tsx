@@ -134,8 +134,15 @@ export const ProjectsSection: React.FC = () => {
   return (
     <section
       ref={containerRef}
-      className="section-overlap-up relative w-full bg-white py-24 md:py-32 px-6 md:px-12 overflow-visible"
+      className="section-overlap-up relative w-full py-24 md:py-32 px-4 sm:px-6 md:px-12 overflow-visible"
       id="projects-stack"
+      style={{
+        background: `
+          radial-gradient(ellipse 70% 40% at 50% 100%, rgba(88,204,2,0.10) 0%, transparent 60%),
+          radial-gradient(ellipse 50% 35% at 5% 20%, rgba(14,165,233,0.07) 0%, transparent 50%),
+          linear-gradient(160deg, #111827 0%, #0f172a 50%, #111827 100%)
+        `
+      }}
     >
       <div
         className="absolute inset-0 pointer-events-none z-0 opacity-40"
@@ -152,14 +159,14 @@ export const ProjectsSection: React.FC = () => {
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
         <div className="max-w-3xl mb-16 md:mb-24">
-          <span className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full bg-slate-50 border border-slate-200 text-slate-600 text-xs font-semibold tracking-widest uppercase mb-4 shadow-sm">
+          <span className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full bg-white/8 border border-white/12 text-white/60 text-xs font-semibold tracking-widest uppercase mb-4 shadow-sm backdrop-blur-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-[#58CC02]" />
             Career Pipeline Stacking
           </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0F172A] tracking-tighter leading-none mb-6">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tighter leading-none mb-6">
             The Three-Step Funnel
           </h2>
-          <p className="text-lg text-slate-500 max-w-xl font-medium leading-relaxed">
+          <p className="text-lg text-white/50 max-w-xl font-medium leading-relaxed">
             See how UGSkill guides students from first-day learning all the way to finalized enterprise recruitment.
           </p>
         </div>
