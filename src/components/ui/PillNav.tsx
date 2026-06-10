@@ -378,35 +378,35 @@ const PillNav: React.FC<PillNavProps> = ({
 
                   {/* Desktop Hover Dropdown */}
                   {item.subItems && (
-                    <div className="absolute top-[calc(100%+10px)] left-1/2 -translate-x-1/2 w-[320px] z-[1000] pointer-events-none opacity-0 scale-95 origin-top -translate-y-2 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0">
+                    <div className="absolute top-[calc(100%+10px)] left-1/2 -translate-x-1/2 w-[300px] z-[1000] pointer-events-none opacity-0 scale-95 origin-top -translate-y-2 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0">
                       {/* Arrow */}
-                      <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rotate-45 bg-slate-950 border-l border-t border-[#0052ff]/30 z-10" />
+                      <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rotate-45 bg-white border-l border-t border-[#58CC02]/30 z-10" />
                       {/* Card */}
-                      <div className="relative rounded-[1.5rem] bg-slate-950/98 border border-[#0052ff]/25 shadow-[0_24px_60px_-12px_rgba(0,0,0,0.6),0_0_0_1px_rgba(0, 82, 255,0.08)] backdrop-blur-2xl overflow-hidden">
+                      <div className="relative rounded-[1.5rem] bg-white border border-[#58CC02]/25 shadow-[0_20px_50px_-12px_rgba(88,204,2,0.15),0_8px_24px_-4px_rgba(0,0,0,0.08)] overflow-hidden">
                         {/* Green top accent bar */}
-                        <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-[#0052ff] to-transparent opacity-60" />
+                        <div className="h-1 w-full bg-gradient-to-r from-[#58CC02] via-[#46A302] to-[#58CC02]" />
                         <div className="p-2">
                           {item.subItems.map((sub, subIdx) => (
                             <Link
                               key={sub.href}
                               href={sub.href}
-                              className="flex items-center gap-3.5 px-4 py-3.5 rounded-xl text-left group/item hover:bg-[#0052ff]/12 transition-all duration-150"
+                              className="flex items-center gap-3.5 px-4 py-3 rounded-xl text-left group/item hover:bg-[#f0fdf4] transition-all duration-150"
                             >
                               {/* Numbered icon */}
-                              <div className="w-8 h-8 rounded-lg bg-[#0052ff]/15 border border-[#0052ff]/20 flex items-center justify-center shrink-0 group-hover/item:bg-[#0052ff]/25 transition-colors">
-                                <span className="text-[#0052ff] text-xs font-black">{String(subIdx + 1).padStart(2,'0')}</span>
+                              <div className="w-8 h-8 rounded-lg bg-[#58CC02]/10 border border-[#58CC02]/20 flex items-center justify-center shrink-0 group-hover/item:bg-[#58CC02] transition-colors">
+                                <span className="text-[#58CC02] group-hover/item:text-white text-xs font-black transition-colors">{String(subIdx + 1).padStart(2,'0')}</span>
                               </div>
                               <div className="flex-1 min-w-0">
-                                <p className="text-white text-[13px] font-bold leading-none mb-1 group-hover/item:text-[#0052ff] transition-colors">{sub.label}</p>
+                                <p className="text-zinc-800 text-[13px] font-bold leading-none group-hover/item:text-[#46A302] transition-colors">{sub.label}</p>
                               </div>
-                              <span className="text-[#0052ff]/40 group-hover/item:text-[#0052ff] group-hover/item:translate-x-0.5 transition-all text-sm">→</span>
+                              <span className="text-[#58CC02]/40 group-hover/item:text-[#58CC02] group-hover/item:translate-x-0.5 transition-all text-sm">→</span>
                             </Link>
                           ))}
                         </div>
                         {/* Footer */}
-                        <div className="border-t border-white/5 px-4 py-3 flex items-center justify-between">
-                          <span className="text-[10px] font-bold uppercase tracking-widest text-white/25">UGSkill Platform</span>
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#0052ff] animate-pulse" />
+                        <div className="border-t border-zinc-100 px-4 py-3 flex items-center justify-between bg-[#f0fdf4]/60">
+                          <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">UGSkill Platform</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#58CC02] animate-pulse" />
                         </div>
                       </div>
                     </div>
