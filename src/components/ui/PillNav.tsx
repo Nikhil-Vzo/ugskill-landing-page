@@ -251,7 +251,7 @@ const PillNav: React.FC<PillNavProps> = ({
   return (
     <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[1000] w-[92%] lg:w-[80vw] xl:w-[70vw] max-w-[1000px] flex justify-center">
       <nav
-        className={`w-full flex items-center justify-between box-border px-4 lg:px-6 py-1.5 lg:py-1 rounded-full border border-white/10 lg:border-white/60 bg-slate-950/80 lg:bg-white/55 backdrop-blur-xl shadow-[0_12px_32px_-12px_rgba(15,23,42,0.25)] ${className}`}
+        className={`w-full flex items-center justify-between box-border px-4 lg:px-6 py-1.5 lg:py-1 rounded-full border border-[#58CC02]/40 lg:border-white/60 bg-[#0a2f00]/80 lg:bg-white/55 backdrop-blur-xl shadow-[0_12px_32px_-12px_rgba(88,204,2,0.25)] lg:shadow-[0_12px_32px_-12px_rgba(15,23,42,0.12)] ${className}`}
         aria-label="Primary"
         style={cssVars}
       >
@@ -477,7 +477,7 @@ const PillNav: React.FC<PillNavProps> = ({
 
       <div
         ref={mobileMenuRef}
-        className="lg:hidden absolute top-[4em] left-0 right-0 rounded-[27px] shadow-[0_16px_48px_rgba(15,23,42,0.45)] border border-white/10 z-[998] origin-top bg-slate-950/95 backdrop-blur-2xl p-2"
+        className="lg:hidden absolute top-[4em] left-0 right-0 rounded-[27px] shadow-[0_16px_48px_rgba(88,204,2,0.25)] border border-[#58CC02]/30 z-[998] origin-top bg-[#071a00]/95 backdrop-blur-2xl p-2"
         style={{
           ...cssVars
         }}
@@ -487,12 +487,12 @@ const PillNav: React.FC<PillNavProps> = ({
             const isCTA = item.label === 'Try Demo';
             
             const defaultStyle: React.CSSProperties = {
-              background: isCTA ? '#58CC02' : 'rgba(255,255,255,0.06)',
+              background: isCTA ? '#58CC02' : 'rgba(88,204,2,0.08)',
               color: isCTA ? '#ffffff' : 'rgba(255,255,255,0.9)'
             };
 
             const linkClasses =
-              'block py-3 px-5 text-[14px] uppercase tracking-[0.5px] font-semibold rounded-[50px] transition-all duration-200';
+              'block py-3 px-5 text-[14px] uppercase tracking-[0.5px] font-semibold rounded-[50px] transition-all duration-200 hover:bg-[#58CC02]/20 hover:text-[#58CC02]';
 
             return (
               <li key={item.href} className="flex flex-col gap-0.5">
@@ -516,12 +516,12 @@ const PillNav: React.FC<PillNavProps> = ({
                   </a>
                 )}
                 {item.subItems && (
-                  <ul className="list-none pl-4 pr-2 flex flex-col gap-1 border-l-2 border-slate-150 ml-5 py-1 text-left">
+                  <ul className="list-none pl-4 pr-2 flex flex-col gap-1 border-l-2 border-[#58CC02]/30 ml-5 py-1 text-left">
                     {item.subItems.map((sub) => (
                       <li key={sub.href}>
                         <Link
                           href={sub.href}
-                          className="block py-2 px-3 text-[12px] uppercase tracking-[0.5px] font-bold text-white/50 hover:text-[#58CC02] transition-colors"
+                          className="block py-2 px-3 text-[12px] uppercase tracking-[0.5px] font-bold text-[#58CC02]/70 hover:text-[#58CC02] transition-colors"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           {sub.label}
