@@ -252,7 +252,6 @@ export const HeroSection: React.FC = () => {
                     src="/assets/hero/ug_bot_removed_bg.mp4"
                     className="w-full h-full object-cover z-0"
                     autoPlay
-                    muted
                     loop
                     playsInline
                   />
