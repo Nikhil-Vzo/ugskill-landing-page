@@ -251,7 +251,7 @@ const PillNav: React.FC<PillNavProps> = ({
   return (
     <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[1000] w-[92%] lg:w-[80vw] xl:w-[70vw] max-w-[1000px] flex justify-center">
       <nav
-        className={`w-full flex items-center justify-between box-border px-4 lg:px-6 py-1.5 lg:py-1 rounded-full border border-[#58CC02]/40 lg:border-white/60 bg-[#0a2f00]/80 lg:bg-white/55 backdrop-blur-xl shadow-[0_12px_32px_-12px_rgba(88,204,2,0.25)] lg:shadow-[0_12px_32px_-12px_rgba(15,23,42,0.12)] ${className}`}
+        className={`w-full flex items-center justify-between box-border px-4 lg:px-6 py-1.5 lg:py-1 rounded-full border border-[#0052ff]/40 lg:border-[#0052ff]/25 bg-[#00133c]/80 lg:bg-[#eff6ff]/85 backdrop-blur-xl shadow-[0_12px_32px_-12px_rgba(0, 82, 255,0.25)] lg:shadow-[0_8px_32px_-8px_rgba(0, 82, 255,0.15)] ${className}`}
         aria-label="Primary"
         style={cssVars}
       >
@@ -305,7 +305,7 @@ const PillNav: React.FC<PillNavProps> = ({
                   <span
                     className="hover-circle absolute left-1/2 bottom-0 rounded-full z-[1] block pointer-events-none"
                     style={{
-                      background: isCTA ? '#46A302' : 'var(--base, #0f172a)',
+                      background: isCTA ? '#0041cc' : 'var(--base, #0f172a)',
                       willChange: 'transform'
                     }}
                     aria-hidden="true"
@@ -378,17 +378,37 @@ const PillNav: React.FC<PillNavProps> = ({
 
                   {/* Desktop Hover Dropdown */}
                   {item.subItems && (
-                    <div className="absolute top-[105%] left-1/2 -translate-x-1/2 mt-1 py-1.5 px-1.5 bg-white/95 border border-slate-200/80 rounded-2xl shadow-xl min-w-[210px] flex flex-col gap-0.5 z-[1000] text-left pointer-events-none opacity-0 scale-95 origin-top -translate-y-2 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0">
-                      {item.subItems.map((sub) => (
-                        <Link
-                          key={sub.href}
-                          href={sub.href}
-                          className="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-slate-700 hover:text-white rounded-xl hover:bg-[#58CC02] transition-colors flex items-center justify-between group/item"
-                        >
-                          <span>{sub.label}</span>
-                          <span className="opacity-0 translate-x-[-4px] group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all text-white">→</span>
-                        </Link>
-                      ))}
+                    <div className="absolute top-[calc(100%+10px)] left-1/2 -translate-x-1/2 w-[320px] z-[1000] pointer-events-none opacity-0 scale-95 origin-top -translate-y-2 transition-all duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0">
+                      {/* Arrow */}
+                      <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rotate-45 bg-slate-950 border-l border-t border-[#0052ff]/30 z-10" />
+                      {/* Card */}
+                      <div className="relative rounded-[1.5rem] bg-slate-950/98 border border-[#0052ff]/25 shadow-[0_24px_60px_-12px_rgba(0,0,0,0.6),0_0_0_1px_rgba(0, 82, 255,0.08)] backdrop-blur-2xl overflow-hidden">
+                        {/* Green top accent bar */}
+                        <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-[#0052ff] to-transparent opacity-60" />
+                        <div className="p-2">
+                          {item.subItems.map((sub, subIdx) => (
+                            <Link
+                              key={sub.href}
+                              href={sub.href}
+                              className="flex items-center gap-3.5 px-4 py-3.5 rounded-xl text-left group/item hover:bg-[#0052ff]/12 transition-all duration-150"
+                            >
+                              {/* Numbered icon */}
+                              <div className="w-8 h-8 rounded-lg bg-[#0052ff]/15 border border-[#0052ff]/20 flex items-center justify-center shrink-0 group-hover/item:bg-[#0052ff]/25 transition-colors">
+                                <span className="text-[#0052ff] text-xs font-black">{String(subIdx + 1).padStart(2,'0')}</span>
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-white text-[13px] font-bold leading-none mb-1 group-hover/item:text-[#0052ff] transition-colors">{sub.label}</p>
+                              </div>
+                              <span className="text-[#0052ff]/40 group-hover/item:text-[#0052ff] group-hover/item:translate-x-0.5 transition-all text-sm">→</span>
+                            </Link>
+                          ))}
+                        </div>
+                        {/* Footer */}
+                        <div className="border-t border-white/5 px-4 py-3 flex items-center justify-between">
+                          <span className="text-[10px] font-bold uppercase tracking-widest text-white/25">UGSkill Platform</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#0052ff] animate-pulse" />
+                        </div>
+                      </div>
                     </div>
                   )}
                 </li>
@@ -400,7 +420,7 @@ const PillNav: React.FC<PillNavProps> = ({
         {/* Try Demo CTA Button on desktop */}
         {items.filter(item => item.label === 'Try Demo').map((item) => {
           const basePillClasses =
-            'relative overflow-hidden inline-flex items-center justify-center h-[38px] no-underline rounded-full box-border font-semibold text-[13px] uppercase tracking-[0.5px] whitespace-nowrap cursor-pointer select-none px-6 bg-[#58CC02] text-white hover:bg-[#46A302] active:scale-95 transition-all duration-200 shadow-sm';
+            'relative overflow-hidden inline-flex items-center justify-center h-[38px] no-underline rounded-full box-border font-semibold text-[13px] uppercase tracking-[0.5px] whitespace-nowrap cursor-pointer select-none px-6 bg-[#0052ff] text-white hover:bg-[#0041cc] active:scale-95 transition-all duration-200 shadow-sm';
 
           return (
             <div key={item.href} className="hidden lg:flex items-center">
@@ -452,7 +472,7 @@ const PillNav: React.FC<PillNavProps> = ({
 
       <div
         ref={mobileMenuRef}
-        className="lg:hidden absolute top-[4em] left-0 right-0 rounded-[27px] shadow-[0_16px_48px_rgba(88,204,2,0.25)] border border-[#58CC02]/30 z-[998] origin-top bg-[#071a00]/95 backdrop-blur-2xl p-2"
+        className="lg:hidden absolute top-[4em] left-0 right-0 rounded-[27px] shadow-[0_16px_48px_rgba(0, 82, 255,0.25)] border border-[#0052ff]/30 z-[998] origin-top bg-[#000c26]/95 backdrop-blur-2xl p-2"
         style={{
           ...cssVars
         }}
@@ -462,12 +482,12 @@ const PillNav: React.FC<PillNavProps> = ({
             const isCTA = item.label === 'Try Demo';
             
             const defaultStyle: React.CSSProperties = {
-              background: isCTA ? '#58CC02' : 'rgba(88,204,2,0.08)',
+              background: isCTA ? '#0052ff' : 'rgba(0, 82, 255,0.08)',
               color: isCTA ? '#ffffff' : 'rgba(255,255,255,0.9)'
             };
 
             const linkClasses =
-              'block py-3 px-5 text-[14px] uppercase tracking-[0.5px] font-semibold rounded-[50px] transition-all duration-200 hover:bg-[#58CC02]/20 hover:text-[#58CC02]';
+              'block py-3 px-5 text-[14px] uppercase tracking-[0.5px] font-semibold rounded-[50px] transition-all duration-200 hover:bg-[#0052ff]/20 hover:text-[#0052ff]';
 
             return (
               <li key={item.href} className="flex flex-col gap-0.5">
@@ -491,12 +511,12 @@ const PillNav: React.FC<PillNavProps> = ({
                   </a>
                 )}
                 {item.subItems && (
-                  <ul className="list-none pl-4 pr-2 flex flex-col gap-1 border-l-2 border-[#58CC02]/30 ml-5 py-1 text-left">
+                  <ul className="list-none pl-4 pr-2 flex flex-col gap-1 border-l-2 border-[#0052ff]/30 ml-5 py-1 text-left">
                     {item.subItems.map((sub) => (
                       <li key={sub.href}>
                         <Link
                           href={sub.href}
-                          className="block py-2 px-3 text-[12px] uppercase tracking-[0.5px] font-bold text-[#58CC02]/70 hover:text-[#58CC02] transition-colors"
+                          className="block py-2 px-3 text-[12px] uppercase tracking-[0.5px] font-bold text-[#0052ff]/70 hover:text-[#0052ff] transition-colors"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           {sub.label}
