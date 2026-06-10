@@ -8,7 +8,7 @@ import { SmoothScroll } from '@/components/providers/SmoothScroll';
 import { Sparkles, Terminal, ShieldAlert, Award, CheckCircle2, User, Mail, Phone, Building } from 'lucide-react';
 import { TactileButton } from '@/components/ui/TactileButton';
 import { db } from '@/lib/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
 
 function LoginContent() {
   const searchParams = useSearchParams();
@@ -26,39 +26,114 @@ function LoginContent() {
   });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [generatedKey, setGeneratedKey] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
   const handleDemoSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.phone) return;
     
     setLoading(true);
+    setError(null);
+    const generatedPass = `UG-DEMO-${Math.floor(1000 + Math.random() * 9000)}`;
+    setGeneratedKey(generatedPass);
+
+    const leadData = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      institution: formData.institution || 'Demo User',
+      password: generatedPass,
+      type: "interactive_demo",
+    };
+
+    // 1. Immediately save to localStorage as fallback so it works instantly even if Firestore fails or hangs
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ug_demo_user', JSON.stringify(leadData));
+    }
+
+    // 2. Propose saving to Firestore with a strict timeout so we never hang the UI
     try {
-      await addDoc(collection(db, "leads"), {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        institution: formData.institution || 'Demo User',
-        type: "interactive_demo",
+      const savePromise = addDoc(collection(db, "leads"), {
+        ...leadData,
         submittedAt: serverTimestamp(),
       });
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error("Network timeout")), 2500)
+      );
+      await Promise.race([savePromise, timeoutPromise]);
       setSubmitted(true);
     } catch (err: any) {
-      console.error("Error submitting lead to Firestore: ", err);
-      // Fallback: still show success state so UX is smooth
+      console.warn("Firestore save failed or timed out. Local fallback used: ", err);
+      // Fallback: still show success state because localStorage was saved successfully
       setSubmitted(true);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleLoginSubmit = (e: React.FormEvent) => {
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!loginData.email || !loginData.password) return;
+    
     setLoading(true);
-    setTimeout(() => {
+    setError(null);
+
+    const inputEmail = loginData.email.trim().toLowerCase();
+    const inputPassword = loginData.password.trim();
+
+    // 1. Check Default Sandbox Credentials
+    if (inputEmail === 'sandbox@ugskill.com' && inputPassword === 'sandbox123') {
       setLoading(false);
       setSubmitted(true);
-    }, 1000);
+      return;
+    }
+
+    // 2. Check localStorage Fallback Credentials
+    if (typeof window !== 'undefined') {
+      const storedUserRaw = localStorage.getItem('ug_demo_user');
+      if (storedUserRaw) {
+        try {
+          const storedUser = JSON.parse(storedUserRaw);
+          if (
+            storedUser.email.trim().toLowerCase() === inputEmail &&
+            storedUser.password.trim() === inputPassword
+          ) {
+            setLoading(false);
+            setSubmitted(true);
+            return;
+          }
+        } catch (err) {
+          console.error("Error parsing local demo user: ", err);
+        }
+      }
+    }
+
+    // 3. Query Firestore Credentials with strict timeout
+    try {
+      const q = query(
+        collection(db, "leads"),
+        where("email", "==", loginData.email.trim()),
+        where("password", "==", inputPassword)
+      );
+      const fetchPromise = getDocs(q);
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error("Timeout")), 3000)
+      );
+      const querySnapshot = (await Promise.race([fetchPromise, timeoutPromise])) as any;
+
+      if (!querySnapshot.empty) {
+        setLoading(false);
+        setSubmitted(true);
+        return;
+      }
+    } catch (err) {
+      console.warn("Firestore authentication check timed out or failed: ", err);
+    }
+
+    // If all checks fail
+    setLoading(false);
+    setError("Invalid email address or access key. Please check your credentials and try again.");
   };
 
   if (submitted) {
@@ -74,11 +149,28 @@ function LoginContent() {
               Demo Access Registered!
             </h3>
             <p className="text-zinc-500 font-semibold text-sm max-w-md leading-relaxed mb-6">
-              Thank you, <strong className="text-zinc-800">{formData.name}</strong>. Your sandbox access has been recorded. An onboarding coordinator will call you at <strong className="text-zinc-800">{formData.phone}</strong> shortly to provision your interactive live-coding terminal.
+              Thank you, <strong className="text-zinc-800">{formData.name}</strong>. Your sandbox access has been recorded. Use the generated credentials below to sign in to the platform sandbox console:
             </p>
+            
+            {/* Credentials box */}
+            <div className="w-full bg-zinc-50 border border-zinc-150 rounded-2xl p-5 mb-6 text-left flex flex-col gap-2.5 font-semibold text-sm text-zinc-700">
+              <div>
+                <span className="text-xs font-bold text-zinc-400 uppercase block tracking-wider mb-1">Sandbox Login Email</span>
+                <span className="text-zinc-800 font-bold font-mono select-all bg-white border border-zinc-200 rounded-lg px-2.5 py-1.5 block">{formData.email}</span>
+              </div>
+              <div>
+                <span className="text-xs font-bold text-zinc-400 uppercase block tracking-wider mb-1">Access Key / Password</span>
+                <span className="text-[#58CC02] font-black font-mono select-all bg-white border border-zinc-200 rounded-lg px-2.5 py-1.5 block tracking-widest">{generatedKey}</span>
+              </div>
+            </div>
+
+            <p className="text-[11px] font-semibold text-zinc-400 leading-normal mb-6">
+              Our onboarding coordinator will reach out to you at <strong className="text-zinc-700">{formData.phone}</strong> to guide you through your first live coding challenge batch.
+            </p>
+
             <div className="w-full rounded-2xl bg-zinc-50 border border-zinc-150 p-4 text-left text-[11px] text-zinc-400 font-bold uppercase tracking-wider flex items-center gap-3">
               <Terminal className="w-5 h-5 text-[#58CC02] shrink-0" />
-              Recruiter sandbox dashboard instance queued.
+              Recruiter sandbox dashboard instance configured.
             </div>
           </>
         ) : (
@@ -121,6 +213,14 @@ function LoginContent() {
             : 'Access your learning, exam, or placement dashboard'}
         </p>
       </div>
+
+      {/* Error Message */}
+      {error && (
+        <div className="mb-6 p-4 text-xs font-bold uppercase tracking-wide text-rose-600 bg-rose-50 border border-rose-150 rounded-2xl flex items-center gap-2.5">
+          <ShieldAlert className="w-5 h-5 text-rose-500 shrink-0" />
+          <span>{error}</span>
+        </div>
+      )}
 
       {isSandbox ? (
         /* Sandbox Interactive Demo Lead Form */
