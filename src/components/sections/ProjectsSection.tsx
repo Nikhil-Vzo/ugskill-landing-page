@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useSpring, MotionValue } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowRight, Layout, ShieldAlert, Briefcase, ChevronRight } from 'lucide-react';
 import { TactileButton } from '../ui/TactileButton';
 
@@ -12,8 +12,6 @@ interface ProjectCard {
   description: string;
   color: string;
   borderColor: string;
-  textColor: string;
-  descColor: string;
   icon: React.ReactNode;
   imageUrl: string;
   shadowColor: string;
@@ -25,10 +23,8 @@ const projectCards: ProjectCard[] = [
     title: 'Adaptive LMS Core',
     subtitle: 'Step 1: Intelligent Upskilling',
     description: 'A customized, modern workspace where student courses adapt based on real-time coding metrics. Tracks keyboard keystrokes, compilation success rates, and logic depth to guide learning pathways.',
-    color: '#F8FAFC', // Slate 50
-    borderColor: '#E2E8F0', // Slate 200
-    textColor: '#0F172A',
-    descColor: '#475569',
+    color: '#F8FAFC',
+    borderColor: '#E2E8F0',
     icon: <Layout className="w-6 h-6 text-[#58CC02]" />,
     imageUrl: '/assets/learning_path_clay.png',
     shadowColor: 'rgba(88,204,2,0.12)',
@@ -38,10 +34,8 @@ const projectCards: ProjectCard[] = [
     title: 'Proctoring & Exam Portal',
     subtitle: 'Step 2: Vetted Competency Checks',
     description: 'Ensure total academic integrity during assessments. Integrates local system monitoring, copy-paste block detectors, tab switches, and live audio-video AI analysis to flag anomalies.',
-    color: '#F1F5F9', // Slate 100
+    color: '#F1F5F9',
     borderColor: '#E2E8F0',
-    textColor: '#0F172A',
-    descColor: '#475569',
     icon: <ShieldAlert className="w-6 h-6 text-[#58CC02]" />,
     imageUrl: '/assets/integrity_clay.png',
     shadowColor: 'rgba(88,204,2,0.12)',
@@ -51,17 +45,14 @@ const projectCards: ProjectCard[] = [
     title: 'Placement Drive Board',
     subtitle: 'Step 3: Direct Corporate Matching',
     description: 'Vetted student portfolios synced instantly with hiring metrics. Recruiters search by verified skill tags, sandbox scorecards, and AI interview feedback to schedule high-volume drives.',
-    color: '#FFFFFF', // Pure White
-    borderColor: '#CBD5E1', // Slate 300
-    textColor: '#0F172A',
-    descColor: '#475569',
+    color: '#FFFFFF',
+    borderColor: '#CBD5E1',
     icon: <Briefcase className="w-6 h-6 text-[#46A302]" />,
     imageUrl: '/assets/career_clay.png',
     shadowColor: 'rgba(88,204,2,0.12)',
   },
 ];
 
-// Creative staggered offsets & skew rotations for the stacking deck
 const cardRotations = [-2.2, 1.8, -1.2];
 const cardOffsets = [-16, 16, -8];
 
@@ -69,24 +60,17 @@ interface ProjectCardComponentProps {
   card: ProjectCard;
   index: number;
   isDesktop: boolean;
-  scrollYProgress: MotionValue<number>;
 }
 
-const ProjectCardComponent: React.FC<ProjectCardComponentProps> = ({
-  card,
-  index,
-  isDesktop,
-  scrollYProgress,
-}) => {
-  // Scroll Parallax Calculations mapping the y coordinate for a 3D layered parallax depth effect
-  const yParallax = useTransform(scrollYProgress, [0, 1], [index * 30 - 50, index * 30 + 50]);
-  const smoothYParallax = useSpring(yParallax, { stiffness: 100, damping: 20 });
-
-  // Calculations for sticky progress scale
+const ProjectCardComponent: React.FC<ProjectCardComponentProps> = ({ card, index, isDesktop }) => {
   const cardProgress = 1 - (projectCards.length - 1 - index) * 0.03;
 
   return (
     <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ type: "spring", stiffness: 80, damping: 16, delay: index * 0.08 }}
       style={{
         scale: cardProgress,
         backgroundColor: card.color,
@@ -94,7 +78,7 @@ const ProjectCardComponent: React.FC<ProjectCardComponentProps> = ({
         rotate: isDesktop ? cardRotations[index] : 0,
         x: isDesktop ? cardOffsets[index] : 0,
       }}
-      className="w-full min-h-[380px] sm:min-h-[420px] lg:min-h-[480px] border rounded-3xl p-6 sm:p-8 lg:p-12 shadow-diffused flex flex-col lg:flex-row gap-8 lg:gap-12 items-center overflow-hidden transition-all duration-300 hover:shadow-2xl"
+      className="w-full min-h-[380px] sm:min-h-[420px] lg:min-h-[480px] border rounded-3xl p-6 sm:p-8 lg:p-12 shadow-diffused flex flex-col lg:flex-row gap-8 lg:gap-12 items-center overflow-hidden hover:shadow-2xl transition-shadow duration-300"
     >
       {/* Left Side: Card Text Info */}
       <div className="flex-1 flex flex-col items-start z-10">
@@ -123,16 +107,13 @@ const ProjectCardComponent: React.FC<ProjectCardComponentProps> = ({
         </div>
       </div>
 
-      {/* Right Side: Floating 3D Illustration Viewport (No Frame, transparent bg) */}
+      {/* Right Side: Illustration — CSS hover scale, no scroll-linked JS */}
       <div className="w-full lg:w-[45%] h-[180px] sm:h-[240px] md:h-[300px] lg:h-[340px] flex items-center justify-center relative group select-none pointer-events-none overflow-hidden">
-        <motion.img
+        <img
           src={card.imageUrl}
           alt={card.title}
-          style={{
-            y: smoothYParallax,
-            filter: "drop-shadow(0 15px 30px " + card.shadowColor + ")",
-          }}
           className="max-w-full max-h-full object-contain transition-transform duration-700 ease-out group-hover:scale-105"
+          style={{ filter: `drop-shadow(0 15px 30px ${card.shadowColor})` }}
         />
       </div>
     </motion.div>
@@ -142,26 +123,20 @@ const ProjectCardComponent: React.FC<ProjectCardComponentProps> = ({
 export const ProjectsSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDesktop, setIsDesktop] = useState(false);
+
   useEffect(() => {
     const check = () => setIsDesktop(window.innerWidth >= 1024);
     check();
-    window.addEventListener('resize', check);
+    window.addEventListener('resize', check, { passive: true });
     return () => window.removeEventListener('resize', check);
   }, []);
 
-  // Hook scroll for sticky tracking card scaling
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
-  });
-
   return (
-    <section 
+    <section
       ref={containerRef}
-      className="relative w-full bg-white py-24 md:py-32 px-6 md:px-12 z-30 border-t border-slate-100 overflow-visible"
+      className="section-overlap-up relative w-full bg-white py-24 md:py-32 px-6 md:px-12 overflow-visible"
       id="projects-stack"
     >
-      {/* Decorative Blueprint Background Details */}
       <div
         className="absolute inset-0 pointer-events-none z-0 opacity-40"
         style={{
@@ -171,12 +146,11 @@ export const ProjectsSection: React.FC = () => {
           `,
           backgroundSize: '48px 48px',
           maskImage: 'radial-gradient(ellipse at center, black, transparent 85%)',
-          WebkitMaskImage: 'radial-gradient(ellipse at center, black, transparent 85%)'
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black, transparent 85%)',
         }}
       />
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
-        {/* Section Heading */}
         <div className="max-w-3xl mb-16 md:mb-24">
           <span className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full bg-slate-50 border border-slate-200 text-slate-600 text-xs font-semibold tracking-widest uppercase mb-4 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-[#58CC02]" />
@@ -190,29 +164,15 @@ export const ProjectsSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Stacking Sticky Cards */}
-        <div className="relative">
+        {/* Stacking Cards — static stack without sticky+useScroll overhead */}
+        <div className="relative flex flex-col gap-8">
           {projectCards.map((card, index) => (
-            <div
+            <ProjectCardComponent
               key={card.id}
-              className="sticky w-full"
-              style={{
-                top: isDesktop ? '112px' : '80px',
-                paddingTop: isDesktop ? `${index * 24}px` : `${index * 16}px`,
-                paddingBottom: index < projectCards.length - 1 
-                  ? (isDesktop ? '96px' : '64px') 
-                  : '0px',
-                marginBottom: '0px',
-                zIndex: 10 + index
-              }}
-            >
-              <ProjectCardComponent
-                card={card}
-                index={index}
-                isDesktop={isDesktop}
-                scrollYProgress={scrollYProgress}
-              />
-            </div>
+              card={card}
+              index={index}
+              isDesktop={isDesktop}
+            />
           ))}
         </div>
       </div>

@@ -79,7 +79,7 @@ export const MarqueeSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative w-full bg-white py-24 lg:py-32 overflow-hidden flex flex-col items-center">
+    <section className="section-overlap-up relative w-full bg-white py-24 lg:py-32 overflow-hidden flex flex-col items-center">
       {/* Decorative Subtle Grid Background */}
       <div
         className="absolute inset-0 pointer-events-none z-0 opacity-40"
@@ -140,12 +140,10 @@ export const MarqueeSection: React.FC = () => {
                 {/* Robot Mascot */}
                 <div className="relative w-28 h-28 flex-shrink-0 select-none">
                   <div className="absolute inset-1 bg-[#58CC02]/10 rounded-full blur-xl pointer-events-none" />
-                  <motion.img
+                  <img
                     src="/assets/student_mascot_clay.png"
                     alt="Student Mascot Guide"
-                    className="w-full h-auto drop-shadow-[0_8px_16px_rgba(88,204,2,0.12)] relative z-10"
-                    animate={{ y: [0, -6, 0] }}
-                    transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                    className="mascot-float w-full h-auto drop-shadow-[0_8px_16px_rgba(88,204,2,0.12)] relative z-10"
                   />
                 </div>
                 

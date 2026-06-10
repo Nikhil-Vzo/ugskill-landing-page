@@ -256,9 +256,80 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+    /* Prevent overscroll rubber-band flash */
+    overscroll-behavior: none;
   }
   html {
     @apply font-sans;
+    /* Native smooth scroll fallback (Lenis overrides this) */
+    scroll-behavior: smooth;
+  }
+}
+
+/* ── Global GPU hints ── */
+.will-change-transform {
+  will-change: transform;
+}
+
+/* ── Section transition: reveal from below with overlap ── */
+@keyframes sectionReveal {
+  from { opacity: 0; transform: translateY(48px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.section-reveal {
+  animation: sectionReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 30%;
+}
+
+/* ── CSS-only mascot float (replaces all Framer infinite loops) ── */
+@keyframes mascotFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+.mascot-float {
+  animation: mascotFloat 4.5s ease-in-out infinite;
+  will-change: transform;
+}
+.mascot-float-slow {
+  animation: mascotFloat 5.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* ── CSS gradient text shimmer (replaces Framer backgroundPosition loop) ── */
+@keyframes gradientShimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.shimmer-text {
+  animation: gradientShimmer 9s linear infinite;
+  will-change: background-position;
+}
+
+/* ── CSS SVG dash animation (replaces Framer strokeDashoffset loops) ── */
+@keyframes svgDashFlow {
+  to { stroke-dashoffset: -52; }
+}
+.svg-dash-animate {
+  stroke-dasharray: 12 40;
+  stroke-dashoffset: 0;
+  animation: svgDashFlow 1.5s linear infinite;
+  will-change: stroke-dashoffset;
+}
+
+/* ── Inter-section seam styles ── */
+.section-overlap-up {
+  position: relative;
+  z-index: 10;
+  border-radius: 40px 40px 0 0;
+  margin-top: -32px;
+  box-shadow: 0 -20px 60px -20px rgba(15, 23, 42, 0.08);
+}
+@media (min-width: 768px) {
+  .section-overlap-up {
+    border-radius: 60px 60px 0 0;
+    margin-top: -48px;
   }
 }
 

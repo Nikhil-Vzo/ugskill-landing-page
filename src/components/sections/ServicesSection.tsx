@@ -77,7 +77,7 @@ export const ServicesSection: React.FC = () => {
     <section 
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative w-full bg-white rounded-t-[40px] md:rounded-t-[60px] py-24 md:py-32 px-6 md:px-12 z-20 shadow-[0_-20px_40px_-15px_rgba(15,23,42,0.05)] border-t border-slate-200"
+      className="section-overlap-up relative w-full bg-white py-24 md:py-32 px-6 md:px-12"
       id="solutions"
     >
       <div className="max-w-7xl mx-auto w-full">

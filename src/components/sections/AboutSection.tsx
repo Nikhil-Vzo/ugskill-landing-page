@@ -1,24 +1,13 @@
 'use client';
 
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { Users, ArrowRight, Sparkles } from 'lucide-react';
 
 export const AboutSection: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const yStudy = useTransform(scrollYProgress, [0, 1], [-70, 70]);
-  const ySuccess = useTransform(scrollYProgress, [0, 1], [60, -60]);
-
   return (
     <section
-      ref={containerRef}
-      className="relative flex min-h-screen w-full items-center overflow-hidden border-t border-slate-200/80 bg-slate-50/60 px-6 py-20 md:py-24"
+      className="section-overlap-up relative flex min-h-screen w-full items-center overflow-hidden border-t border-slate-200/80 bg-slate-50/60 px-6 py-20 md:py-24"
       id="about-platform"
     >
       <div
@@ -34,8 +23,8 @@ export const AboutSection: React.FC = () => {
         }}
       />
 
+      {/* Left mascot — entry via Framer (one-shot), float via CSS */}
       <motion.div
-        style={{ y: yStudy }}
         initial={{ opacity: 0, x: -80 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, margin: "-50px" }}
@@ -45,12 +34,12 @@ export const AboutSection: React.FC = () => {
         <img
           src="/assets/pointing_robo_green.png"
           alt="Pointing Green Robot Mascot"
-          className="h-auto w-full object-contain drop-shadow-[0_18px_30px_rgba(88,204,2,0.12)]"
+          className="mascot-float h-auto w-full object-contain drop-shadow-[0_18px_30px_rgba(88,204,2,0.12)]"
         />
       </motion.div>
 
+      {/* Right mascot — entry via Framer (one-shot), float via CSS */}
       <motion.div
-        style={{ y: ySuccess }}
         initial={{ opacity: 0, x: 80 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, margin: "-50px" }}
@@ -60,7 +49,7 @@ export const AboutSection: React.FC = () => {
         <img
           src="/assets/student_placed_success-removebg-preview.png"
           alt="Student celebrating placement success"
-          className="h-auto w-full object-contain drop-shadow-[0_18px_30px_rgba(14,165,233,0.12)]"
+          className="mascot-float-slow h-auto w-full object-contain drop-shadow-[0_18px_30px_rgba(14,165,233,0.12)]"
         />
       </motion.div>
 
@@ -96,12 +85,9 @@ export const AboutSection: React.FC = () => {
                 initial={{ y: "100%" }}
                 whileInView={{ y: 0 }}
                 viewport={{ once: true }}
-                animate={{ backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'] }}
-                transition={{
-                  y: { duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] },
-                  backgroundPosition: { duration: 9, repeat: Infinity, ease: 'linear' }
-                }}
-                className="block bg-gradient-to-r from-[#0F172A] via-[#58CC02] to-[#0F172A] bg-[length:220%_100%] bg-clip-text text-transparent"
+                transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                // CSS shimmer replaces Framer backgroundPosition infinite loop
+                className="shimmer-text block bg-gradient-to-r from-[#0F172A] via-[#58CC02] to-[#0F172A] bg-[length:220%_100%] bg-clip-text text-transparent"
               >
                 learning, proof, and
               </motion.span>

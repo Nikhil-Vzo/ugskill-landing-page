@@ -9,28 +9,23 @@ interface SmoothScrollProps {
 
 export const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
   useEffect(() => {
-    // Initialize Lenis smooth scroll
     const lenis = new Lenis({
-      duration: 1.1,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      // Tighter duration = feels responsive, not sluggish
+      duration: 0.75,
+      easing: (t) => 1 - Math.pow(1 - t, 3), // cubic ease-out — snappy start, smooth stop
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1.0,
-      touchMultiplier: 1.5,
+      wheelMultiplier: 1.2,   // slightly more momentum per wheel tick
+      touchMultiplier: 1.8,   // responsive on touch
     });
 
     let animationFrameId: number;
-
     const raf = (time: number) => {
       lenis.raf(time);
       animationFrameId = requestAnimationFrame(raf);
     };
-
     animationFrameId = requestAnimationFrame(raf);
-
-    // Lenis automatically dispatches native window scroll events during animation.
-    // Framer Motion listens to these native scroll events, so manual sync is unnecessary.
 
     return () => {
       lenis.destroy();

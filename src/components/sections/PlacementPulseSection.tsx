@@ -51,12 +51,11 @@ const StepCard: React.FC<StepCardProps> = ({
           {/* Subtle reflection/shadow below illustration */}
           <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-36 h-3.5 bg-slate-900/[0.04] blur-md rounded-full group-hover:w-40 group-hover:bg-slate-900/[0.06] transition-all duration-300" />
           
-          <motion.img 
+          <img
             src={imageSrc}
             alt={title}
-            animate={{ y: [0, -6, 0] }}
-            transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: delay * 1.5 }}
-            className="max-h-full object-contain group-hover:scale-110 group-hover:-translate-y-2 transition-transform duration-300"
+            className="mascot-float max-h-full object-contain group-hover:scale-110 group-hover:-translate-y-2 transition-transform duration-300"
+            style={{ animationDelay: `${delay * 1.5}s` }}
           />
         </div>
 
@@ -78,14 +77,12 @@ const ArrowConnector: React.FC = () => {
           {/* Base Arrow Line */}
           <path d="M2 12H62M62 12L52 2M62 12L52 22" stroke="#E2E8F0" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
           {/* Animated Active Line */}
-          <motion.path 
-            d="M2 12H62" 
-            stroke="url(#green-gradient)" 
-            strokeWidth="3" 
+          <path
+            d="M2 12H62"
+            stroke="url(#green-gradient)"
+            strokeWidth="3"
             strokeLinecap="round"
-            strokeDasharray="12 40"
-            animate={{ strokeDashoffset: [0, -52] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+            className="svg-dash-animate"
           />
           <defs>
             <linearGradient id="green-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -102,14 +99,12 @@ const ArrowConnector: React.FC = () => {
           {/* Base Arrow Line */}
           <path d="M12 2V62M12 62L2 52M12 62L22 52" stroke="#E2E8F0" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
           {/* Animated Active Line */}
-          <motion.path 
-            d="M12 2V62" 
-            stroke="url(#green-gradient-v)" 
-            strokeWidth="3" 
+          <path
+            d="M12 2V62"
+            stroke="url(#green-gradient-v)"
+            strokeWidth="3"
             strokeLinecap="round"
-            strokeDasharray="12 40"
-            animate={{ strokeDashoffset: [0, -52] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+            className="svg-dash-animate"
           />
           <defs>
             <linearGradient id="green-gradient-v" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -126,8 +121,8 @@ const ArrowConnector: React.FC = () => {
 
 export const PlacementPulseSection: React.FC = () => {
   return (
-    <section 
-      className="relative w-full bg-slate-50/50 py-24 lg:py-32 overflow-hidden flex flex-col items-center border-t border-slate-200/80"
+    <section
+      className="section-overlap-up relative w-full bg-white py-24 lg:py-32 overflow-hidden flex flex-col items-center"
       id="placement-funnel"
     >
       {/* Decorative subtle dot pattern background */}
