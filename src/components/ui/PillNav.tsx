@@ -251,7 +251,7 @@ const PillNav: React.FC<PillNavProps> = ({
   return (
     <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[1000] w-[92%] lg:w-[80vw] xl:w-[70vw] max-w-[1000px] flex justify-center">
       <nav
-        className={`w-full flex items-center justify-between box-border px-4 lg:px-6 py-1.5 lg:py-1 rounded-full border border-white/60 bg-white/55 backdrop-blur-xl shadow-[0_12px_32px_-12px_rgba(15,23,42,0.12)] ${className}`}
+        className={`w-full flex items-center justify-between box-border px-4 lg:px-6 py-1.5 lg:py-1 rounded-full border border-white/10 lg:border-white/60 bg-slate-950/80 lg:bg-white/55 backdrop-blur-xl shadow-[0_12px_32px_-12px_rgba(15,23,42,0.25)] ${className}`}
         aria-label="Primary"
         style={cssVars}
       >
@@ -477,7 +477,7 @@ const PillNav: React.FC<PillNavProps> = ({
 
       <div
         ref={mobileMenuRef}
-        className="lg:hidden absolute top-[4em] left-0 right-0 rounded-[27px] shadow-[0_12px_32px_rgba(15,23,42,0.12)] border border-slate-200/50 z-[998] origin-top bg-white p-2"
+        className="lg:hidden absolute top-[4em] left-0 right-0 rounded-[27px] shadow-[0_16px_48px_rgba(15,23,42,0.45)] border border-white/10 z-[998] origin-top bg-slate-950/95 backdrop-blur-2xl p-2"
         style={{
           ...cssVars
         }}
@@ -487,8 +487,8 @@ const PillNav: React.FC<PillNavProps> = ({
             const isCTA = item.label === 'Try Demo';
             
             const defaultStyle: React.CSSProperties = {
-              background: isCTA ? '#58CC02' : 'var(--pill-bg, #f8fafc)',
-              color: isCTA ? '#ffffff' : 'var(--pill-text, #0f172a)'
+              background: isCTA ? '#58CC02' : 'rgba(255,255,255,0.06)',
+              color: isCTA ? '#ffffff' : 'rgba(255,255,255,0.9)'
             };
 
             const linkClasses =
@@ -521,7 +521,7 @@ const PillNav: React.FC<PillNavProps> = ({
                       <li key={sub.href}>
                         <Link
                           href={sub.href}
-                          className="block py-2 px-3 text-[12px] uppercase tracking-[0.5px] font-bold text-slate-500 hover:text-[#58CC02] transition-colors"
+                          className="block py-2 px-3 text-[12px] uppercase tracking-[0.5px] font-bold text-white/50 hover:text-[#58CC02] transition-colors"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           {sub.label}
