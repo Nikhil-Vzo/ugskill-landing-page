@@ -5,6 +5,7 @@ import { DeviceMockup, MockupTab } from '@/components/ui/DeviceMockup';
 import { FooterCTASection } from '@/components/sections/FooterCTASection';
 import { SmoothScroll } from '@/components/providers/SmoothScroll';
 import { Sparkles, Users } from 'lucide-react';
+import { PageHero } from '@/components/sections/PageHero';
 
 export default function PlatformHRPortalPage() {
   const hrTabs: MockupTab[] = [
@@ -45,33 +46,16 @@ export default function PlatformHRPortalPage() {
         <Navbar />
         
         {/* Hero Section */}
-        <section className="relative w-full pt-32 pb-20 flex flex-col items-center justify-center bg-white border-b border-zinc-100">
-          <div className="absolute inset-0 pointer-events-none opacity-40" 
-            style={{
-              backgroundImage: 'radial-gradient(#D4D4D8 1.5px, transparent 1.5px)',
-              backgroundSize: '24px 24px',
-              maskImage: 'radial-gradient(circle at center, black, transparent 80%)',
-              WebkitMaskImage: 'radial-gradient(circle at center, black, transparent 80%)'
-            }}
-          />
-          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[350px] w-[500px] bg-[#58CC02]/5 blur-[90px] rounded-full pointer-events-none -z-10" />
-
-          <div className="w-full max-w-5xl px-6 flex flex-col items-center text-center relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#58CC02]/10 border border-[#58CC02]/20 text-[#46A302] text-xs font-bold uppercase tracking-wider mb-6">
-              <Users className="w-4 h-4" />
-              HR Portal
-            </div>
-
-            <h1 className="text-5xl md:text-7xl font-black text-zinc-950 tracking-tighter leading-[0.95] mb-6">
-              Corporate HR Portal <br />
-              <span className="text-[#58CC02]">To Source Vetted Talent</span>
-            </h1>
-
-            <p className="text-zinc-550 font-medium text-lg md:text-xl max-w-2xl leading-relaxed mb-8">
-              Enable corporate partners to source, assess, and verify candidate skills in a single unified dashboard. Audit logs, verified proctor results, and hash check tools build hiring trust.
-            </p>
-          </div>
-        </section>
+        <PageHero
+          badge="HR Talent Portal"
+          badgeIcon={<Users className="w-4 h-4" />}
+          title="Source Verified"
+          titleAccent="Tech Talent"
+          description="Find pre-screened, proctor-tested graduates. Browse verified skill profiles, audit cryptographic credentials, and schedule campus drives — all in one portal."
+          gradientFrom="from-orange-950"
+          gradientTo="to-slate-950"
+          accentColor="#F97316"
+        />
 
         {/* Platform Sub-Nav */}
         <PlatformNav />

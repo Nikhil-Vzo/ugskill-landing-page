@@ -5,6 +5,7 @@ import { DeviceMockup, MockupTab } from '@/components/ui/DeviceMockup';
 import { FooterCTASection } from '@/components/sections/FooterCTASection';
 import { SmoothScroll } from '@/components/providers/SmoothScroll';
 import { Sparkles, Trophy, Code2, Heart } from 'lucide-react';
+import { PageHero } from '@/components/sections/PageHero';
 
 export default function PlatformLMSPage() {
   const lmsTabs: MockupTab[] = [
@@ -56,33 +57,16 @@ export default function PlatformLMSPage() {
         <Navbar />
         
         {/* Hero Section */}
-        <section className="relative w-full pt-32 pb-20 flex flex-col items-center justify-center bg-white border-b border-zinc-100">
-          <div className="absolute inset-0 pointer-events-none opacity-40" 
-            style={{
-              backgroundImage: 'radial-gradient(#D4D4D8 1.5px, transparent 1.5px)',
-              backgroundSize: '24px 24px',
-              maskImage: 'radial-gradient(circle at center, black, transparent 80%)',
-              WebkitMaskImage: 'radial-gradient(circle at center, black, transparent 80%)'
-            }}
-          />
-          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[350px] w-[500px] bg-[#58CC02]/5 blur-[90px] rounded-full pointer-events-none -z-10" />
-
-          <div className="w-full max-w-5xl px-6 flex flex-col items-center text-center relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#58CC02]/10 border border-[#58CC02]/20 text-[#46A302] text-xs font-bold uppercase tracking-wider mb-6">
-              <Sparkles className="w-4 h-4" />
-              Gamified LMS
-            </div>
-
-            <h1 className="text-5xl md:text-7xl font-black text-zinc-950 tracking-tighter leading-[0.95] mb-6">
-              Adaptive Learning <br />
-              <span className="text-[#58CC02]">Powered by Play</span>
-            </h1>
-
-            <p className="text-zinc-500 font-medium text-lg md:text-xl max-w-2xl leading-relaxed mb-8">
-              Turn syllabus-aligned courses into a rewarding daily challenge. Students build streaks, level up their XP, and prove their skills in real-time sandboxes.
-            </p>
-          </div>
-        </section>
+        <PageHero
+          badge="Gamified LMS"
+          badgeIcon={<Sparkles className="w-4 h-4" />}
+          title="Adaptive Learning"
+          titleAccent="Powered by Play"
+          description="Turn syllabus-aligned courses into a rewarding daily challenge. Students build streaks, level up their XP, and prove their skills in real-time sandboxes."
+          gradientFrom="from-emerald-950"
+          gradientTo="to-slate-900"
+          accentColor="#58CC02"
+        />
 
         {/* Platform Sub-Nav */}
         <PlatformNav />
