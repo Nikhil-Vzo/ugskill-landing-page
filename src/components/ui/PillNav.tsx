@@ -255,9 +255,8 @@ const PillNav: React.FC<PillNavProps> = ({
         aria-label="Primary"
         style={cssVars}
       >
-        {isRouterLink(items?.[0]?.href) ? (
-          <Link
-            href={items[0].href}
+        <Link
+            href="/"
             aria-label="Home"
             onMouseEnter={handleLogoEnter}
             role="menuitem"
@@ -277,30 +276,6 @@ const PillNav: React.FC<PillNavProps> = ({
               </span>
             )}
           </Link>
-        ) : (
-          <a
-            href={items?.[0]?.href || '#'}
-            aria-label="Home"
-            onMouseEnter={handleLogoEnter}
-            ref={el => {
-              logoRef.current = el as unknown as HTMLAnchorElement;
-            }}
-            className="rounded-full p-2 inline-flex items-center justify-center overflow-hidden hover:scale-105 transition-transform"
-            style={{
-              width: 'var(--nav-h)',
-              height: 'var(--nav-h)',
-              background: 'var(--base, #0f172a)'
-            }}
-          >
-            {logo ? (
-              <img src={logo} alt={logoAlt} ref={logoImgRef as React.RefObject<HTMLImageElement>} className="w-full h-full object-cover block" />
-            ) : (
-              <span ref={logoImgRef as React.RefObject<HTMLSpanElement>} className="text-white font-extrabold text-xs tracking-tighter select-none">
-                UG
-              </span>
-            )}
-          </a>
-        )}
 
         <div
           ref={navItemsRef}
