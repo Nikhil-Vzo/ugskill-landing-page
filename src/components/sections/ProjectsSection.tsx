@@ -30,7 +30,7 @@ const projectCards: ProjectCard[] = [
     textColor: '#0F172A',
     descColor: '#475569',
     icon: <Layout className="w-6 h-6 text-[#58CC02]" />,
-    imageUrl: '/assets/projects/learning_path_clay.png',
+    imageUrl: '/assets/learning_path_clay.png',
     shadowColor: 'rgba(88,204,2,0.12)',
   },
   {
@@ -43,7 +43,7 @@ const projectCards: ProjectCard[] = [
     textColor: '#0F172A',
     descColor: '#475569',
     icon: <ShieldAlert className="w-6 h-6 text-[#58CC02]" />,
-    imageUrl: '/assets/projects/integrity_clay.png',
+    imageUrl: '/assets/integrity_clay.png',
     shadowColor: 'rgba(88,204,2,0.12)',
   },
   {
@@ -56,7 +56,7 @@ const projectCards: ProjectCard[] = [
     textColor: '#0F172A',
     descColor: '#475569',
     icon: <Briefcase className="w-6 h-6 text-[#46A302]" />,
-    imageUrl: '/assets/projects/career_clay.png',
+    imageUrl: '/assets/career_clay.png',
     shadowColor: 'rgba(88,204,2,0.12)',
   },
 ];

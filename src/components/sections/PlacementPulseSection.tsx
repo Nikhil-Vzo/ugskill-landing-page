@@ -186,7 +186,7 @@ export const PlacementPulseSection: React.FC = () => {
           <StepCard 
             step="Stage 01"
             title="Continuous Learning"
-            imageSrc="/assets/projects/student_studying.png"
+            imageSrc="/assets/student_studying.png"
             icon={<BookOpen className="w-5 h-5" />}
             delay={0}
           />
@@ -197,7 +197,7 @@ export const PlacementPulseSection: React.FC = () => {
           <StepCard 
             step="Stage 02"
             title="Verified Assessments"
-            imageSrc="/assets/projects/student_testing.png"
+            imageSrc="/assets/student_testing.png"
             icon={<ShieldCheck className="w-5 h-5" />}
             delay={0.15}
           />
@@ -208,7 +208,7 @@ export const PlacementPulseSection: React.FC = () => {
           <StepCard 
             step="Stage 03"
             title="Direct Placement"
-            imageSrc="/assets/projects/student_placed.png"
+            imageSrc="/assets/student_placed.png"
             icon={<Award className="w-5 h-5" />}
             delay={0.3}
           />

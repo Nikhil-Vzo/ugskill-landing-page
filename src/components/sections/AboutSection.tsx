@@ -43,7 +43,7 @@ export const AboutSection: React.FC = () => {
         className="absolute left-[2%] top-[22%] hidden w-[130px] select-none pointer-events-none md:block lg:left-[5%] lg:w-[200px]"
       >
         <img
-          src="/assets/projects/pointing_robo_green.png"
+          src="/assets/pointing_robo_green.png"
           alt="Pointing Green Robot Mascot"
           className="h-auto w-full object-contain drop-shadow-[0_18px_30px_rgba(88,204,2,0.12)]"
         />
@@ -58,7 +58,7 @@ export const AboutSection: React.FC = () => {
         className="absolute bottom-[12%] right-[-4%] hidden w-[220px] select-none pointer-events-none md:block lg:right-[2%] lg:w-[360px]"
       >
         <img
-          src="/assets/hero/student_placed_success-removebg-preview.png"
+          src="/assets/student_placed_success-removebg-preview.png"
           alt="Student celebrating placement success"
           className="h-auto w-full object-contain drop-shadow-[0_18px_30px_rgba(14,165,233,0.12)]"
         />

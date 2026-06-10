@@ -45,11 +45,11 @@ const services: ServiceItem[] = [
 ];
 
 const serviceImages: Record<string, string> = {
-  '01': '/assets/projects/sandbox_fullstack.png',
-  '02': '/assets/projects/sandbox_terminal.png',
-  '03': '/assets/sandboxes/sandbox_webgl.png',
-  '04': '/assets/sandboxes/sandbox_api.png',
-  '05': '/assets/projects/sandbox_jupyter.png',
+  '01': '/assets/sandbox_fullstack.png',
+  '02': '/assets/sandbox_terminal.png',
+  '03': '/assets/sandbox_webgl.png',
+  '04': '/assets/sandbox_api.png',
+  '05': '/assets/sandbox_jupyter.png',
 };
 
 export const ServicesSection: React.FC = () => {
@@ -97,7 +97,7 @@ export const ServicesSection: React.FC = () => {
           </div>
           <div className="relative w-32 h-32 md:w-40 md:h-40 flex-shrink-0 select-none pointer-events-none self-center md:self-end">
             <img
-              src="/assets/projects/student_mascot_clay.png"
+              src="/assets/student_mascot_clay.png"
               alt="Coding Student Mascot"
               className="w-full h-full object-contain drop-shadow-[0_12px_24px_rgba(88,204,2,0.15)]"
             />

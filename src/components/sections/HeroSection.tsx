@@ -185,7 +185,7 @@ export const HeroSection: React.FC = () => {
                 }}
               >
                 <img
-                  src="/assets/hero/195-removebg-preview.png"
+                  src="/assets/195-removebg-preview.png"
                   alt="Robot Mascot Companion"
                   className="w-full h-auto drop-shadow-[0_12px_24px_rgba(88,204,2,0.18)]"
                 />

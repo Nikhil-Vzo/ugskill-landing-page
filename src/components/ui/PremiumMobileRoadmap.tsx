@@ -101,7 +101,7 @@ export const PremiumMobileRoadmap: React.FC<RoadmapProps> = ({ courses }) => {
           className="absolute left-0 top-0 z-10 w-14 h-14 pointer-events-none"
         >
           <img
-            src="/assets/projects/student_mascot_clay.png"
+            src="/assets/student_mascot_clay.png"
             alt="Floating Mascot Guide"
             className="w-full h-auto drop-shadow-[0_8px_16px_rgba(88,204,2,0.25)]"
           />
