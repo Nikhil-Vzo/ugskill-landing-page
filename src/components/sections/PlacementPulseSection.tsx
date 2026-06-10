@@ -33,15 +33,15 @@ const StepCard: React.FC<StepCardProps> = ({
       className="relative flex flex-col items-center text-center group z-10 w-full py-6 px-2 sm:px-4"
     >
       {/* Soft floating background ambient glow behind each step */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-to-tr from-[#58CC02]/[0.04] to-[#46A302]/[0.01] blur-3xl rounded-full -z-10 group-hover:scale-125 transition-transform duration-500 pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-to-tr from-[#0052ff]/[0.04] to-[#0041cc]/[0.01] blur-3xl rounded-full -z-10 group-hover:scale-125 transition-transform duration-500 pointer-events-none" />
 
       <div className="flex flex-col items-center w-full">
         {/* Step Badge with Glassmorphism */}
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-xl bg-white/80 backdrop-blur-md border border-slate-200/60 flex items-center justify-center text-[#58CC02] shadow-[0_4px_12px_rgba(0,0,0,0.02)] group-hover:rotate-[10deg] group-hover:scale-110 transition-all duration-300">
+          <div className="w-10 h-10 rounded-xl bg-white/80 backdrop-blur-md border border-slate-200/60 flex items-center justify-center text-[#0052ff] shadow-[0_4px_12px_rgba(0,0,0,0.02)] group-hover:rotate-[10deg] group-hover:scale-110 transition-all duration-300">
             {icon}
           </div>
-          <span className="text-[10px] font-black text-[#46A302] bg-[#58CC02]/8 border border-[#58CC02]/15 px-3 py-1 rounded-full uppercase tracking-widest">
+          <span className="text-[10px] font-black text-[#0041cc] bg-[#0052ff]/8 border border-[#0052ff]/15 px-3 py-1 rounded-full uppercase tracking-widest">
             {step}
           </span>
         </div>
@@ -60,7 +60,7 @@ const StepCard: React.FC<StepCardProps> = ({
         </div>
 
         {/* Title using premium typography and hover color transitions */}
-        <h3 className="text-2xl md:text-3xl font-black text-[#0F172A] tracking-tight group-hover:text-[#58CC02] transition-colors duration-300">
+        <h3 className="text-2xl md:text-3xl font-black text-[#0F172A] tracking-tight group-hover:text-[#0052ff] transition-colors duration-300">
           {title}
         </h3>
       </div>
@@ -70,7 +70,7 @@ const StepCard: React.FC<StepCardProps> = ({
 
 const ArrowConnector: React.FC = () => {
   return (
-    <div className="flex items-center justify-center min-w-[3.5rem] lg:min-w-[5rem] text-[#58CC02] z-20">
+    <div className="flex items-center justify-center min-w-[3.5rem] lg:min-w-[5rem] text-[#0052ff] z-20">
       {/* Desktop Arrow with Flying Dot */}
       <div className="hidden lg:block relative w-16 h-8">
         <svg width="64" height="24" viewBox="0 0 64 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -79,16 +79,16 @@ const ArrowConnector: React.FC = () => {
           {/* Animated Active Line */}
           <path
             d="M2 12H62"
-            stroke="url(#green-gradient)"
+            stroke="url(#blue-gradient)"
             strokeWidth="3"
             strokeLinecap="round"
             className="svg-dash-animate"
           />
           <defs>
-            <linearGradient id="green-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#58CC02" stopOpacity="0"/>
-              <stop offset="50%" stopColor="#58CC02" stopOpacity="1"/>
-              <stop offset="100%" stopColor="#46A302" stopOpacity="0"/>
+            <linearGradient id="blue-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#0052ff" stopOpacity="0"/>
+              <stop offset="50%" stopColor="#0052ff" stopOpacity="1"/>
+              <stop offset="100%" stopColor="#0041cc" stopOpacity="0"/>
             </linearGradient>
           </defs>
         </svg>
@@ -101,16 +101,16 @@ const ArrowConnector: React.FC = () => {
           {/* Animated Active Line */}
           <path
             d="M12 2V62"
-            stroke="url(#green-gradient-v)"
+            stroke="url(#blue-gradient-v)"
             strokeWidth="3"
             strokeLinecap="round"
             className="svg-dash-animate"
           />
           <defs>
-            <linearGradient id="green-gradient-v" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#58CC02" stopOpacity="0"/>
-              <stop offset="50%" stopColor="#58CC02" stopOpacity="1"/>
-              <stop offset="100%" stopColor="#46A302" stopOpacity="0"/>
+            <linearGradient id="blue-gradient-v" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#0052ff" stopOpacity="0"/>
+              <stop offset="50%" stopColor="#0052ff" stopOpacity="1"/>
+              <stop offset="100%" stopColor="#0041cc" stopOpacity="0"/>
             </linearGradient>
           </defs>
         </svg>
@@ -126,9 +126,9 @@ export const PlacementPulseSection: React.FC = () => {
       id="placement-funnel"
       style={{
         background: `
-          radial-gradient(ellipse 70% 55% at 50% 0%, rgba(88,204,2,0.10) 0%, transparent 65%),
-          radial-gradient(ellipse 50% 40% at 20% 100%, rgba(88,204,2,0.07) 0%, transparent 55%),
-          linear-gradient(180deg, #f0fdf4 0%, #ffffff 40%, #fafffe 100%)
+          radial-gradient(ellipse 70% 55% at 50% 0%, rgba(0, 82, 255,0.10) 0%, transparent 65%),
+          radial-gradient(ellipse 50% 40% at 20% 100%, rgba(0, 82, 255,0.07) 0%, transparent 55%),
+          linear-gradient(180deg, #eff6ff 0%, #ffffff 40%, #fafcff 100%)
         `
       }}
     >
@@ -136,7 +136,7 @@ export const PlacementPulseSection: React.FC = () => {
       <div
         className="absolute inset-0 opacity-[0.35] pointer-events-none z-0"
         style={{
-          backgroundImage: 'radial-gradient(#86efac 1.5px, transparent 1.5px)',
+          backgroundImage: 'radial-gradient(#bfdbfe 1.5px, transparent 1.5px)',
           backgroundSize: '32px 32px',
           maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
           WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)'
@@ -152,7 +152,7 @@ export const PlacementPulseSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#58CC02]/8 border border-[#58CC02]/15 text-[#46A302] text-xs font-bold tracking-wider uppercase mb-5"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0052ff]/8 border border-[#0052ff]/15 text-[#0041cc] text-xs font-bold tracking-wider uppercase mb-5"
           >
             <Sparkles className="w-4 h-4" />
             Placement Pulse

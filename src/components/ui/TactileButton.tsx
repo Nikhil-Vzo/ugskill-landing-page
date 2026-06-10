@@ -23,7 +23,7 @@ export function TactileButton({
   const variants = {
     primary: disabled
       ? "bg-slate-200 text-slate-400 shadow-[0_4px_0_#cbd5e1] cursor-not-allowed pointer-events-none opacity-60"
-      : "bg-[#58CC02] text-white shadow-[0_4px_0_#46A302] hover:bg-[#61E002] active:shadow-[0_0px_0_#46A302] active:translate-y-[4px] cursor-pointer",
+      : "bg-[#0052ff] text-white shadow-[0_4px_0_#0041cc] hover:bg-[#1a66ff] active:shadow-[0_0px_0_#0041cc] active:translate-y-[4px] cursor-pointer",
     secondary: disabled
       ? "bg-slate-50 text-slate-300 shadow-[0_4px_0_#e2e8f0] border border-slate-200 cursor-not-allowed pointer-events-none opacity-60"
       : "bg-white text-slate-700 shadow-[0_4px_0_#cbd5e1] border border-slate-250 hover:bg-slate-50 active:shadow-[0_0px_0_#cbd5e1] active:translate-y-[4px] cursor-pointer",

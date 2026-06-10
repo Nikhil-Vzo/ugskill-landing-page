@@ -281,13 +281,13 @@ export const DashboardMockup: React.FC<DashboardMockupProps> = ({ activeTabOverr
 
           {/* LAYER 2: Placement Readiness overlay */}
           <div
-            className="absolute bottom-6 right-6 w-[56%] h-[82%] rounded-2xl border border-slate-200/80 bg-white p-4 shadow-[0_15px_35px_-8px_rgba(15,23,42,0.12)] z-10 border-t-2 border-t-[#58CC02]"
+            className="absolute bottom-6 right-6 w-[56%] h-[82%] rounded-2xl border border-slate-200/80 bg-white p-4 shadow-[0_15px_35px_-8px_rgba(15,23,42,0.12)] z-10 border-t-2 border-t-[#0052ff]"
             style={{ transform: 'translate3d(15px, 10px, 50px)', transformStyle: 'preserve-3d' }}
           >
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 select-none">
               <div className="flex items-center gap-2">
-                <div className="h-6 w-6 rounded-md bg-[#58CC02]/10 flex items-center justify-center text-[#58CC02]">
-                  <Sparkles className="h-3.5 w-3.5 fill-[#58CC02]/20" />
+                <div className="h-6 w-6 rounded-md bg-[#0052ff]/10 flex items-center justify-center text-[#0052ff]">
+                  <Sparkles className="h-3.5 w-3.5 fill-[#0052ff]/20" />
                 </div>
                 <span className="text-[10px] font-bold text-slate-400 tracking-wider uppercase">Recruiter Insights</span>
               </div>
@@ -308,7 +308,7 @@ export const DashboardMockup: React.FC<DashboardMockupProps> = ({ activeTabOverr
                         cy="28"
                         r="23"
                         fill="transparent"
-                        stroke="#58CC02"
+                        stroke="#0052ff"
                         strokeWidth="4.5"
                         className={`circle-progress ${isMounted ? 'circle-progress-filled' : ''}`}
                       />
@@ -413,7 +413,7 @@ export const DashboardMockup: React.FC<DashboardMockupProps> = ({ activeTabOverr
                         </div>
                       </div>
                       <div className="text-right">
-                        <span className="text-[8px] font-bold text-[#58CC02] bg-[#58CC02]/10 px-2 py-0.5 rounded-full inline-block leading-none">
+                        <span className="text-[8px] font-bold text-[#0052ff] bg-[#0052ff]/10 px-2 py-0.5 rounded-full inline-block leading-none">
                           {job.match}% Match
                         </span>
                       </div>
@@ -431,7 +431,7 @@ export const DashboardMockup: React.FC<DashboardMockupProps> = ({ activeTabOverr
             transition={{ delay: 1.2, type: "spring", stiffness: 200, damping: 15 }}
             className="absolute -right-8 top-12 bg-white p-3 pr-5 rounded-2xl shadow-xl border border-slate-100 z-20 flex items-center gap-3"
           >
-            <div className="w-10 h-10 rounded-full bg-[#58CC02]/10 flex items-center justify-center text-[#58CC02]">
+            <div className="w-10 h-10 rounded-full bg-[#0052ff]/10 flex items-center justify-center text-[#0052ff]">
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
             </div>
             <div>
@@ -447,7 +447,7 @@ export const DashboardMockup: React.FC<DashboardMockupProps> = ({ activeTabOverr
             transition={{ delay: 1.4, type: "spring", stiffness: 200, damping: 15 }}
             className="absolute -left-6 bottom-16 bg-white p-3 pr-5 rounded-2xl shadow-xl border border-slate-100 z-20 flex items-center gap-3"
           >
-            <div className="w-10 h-10 rounded-full bg-[#58CC02]/10 flex items-center justify-center text-[#58CC02] font-bold">
+            <div className="w-10 h-10 rounded-full bg-[#0052ff]/10 flex items-center justify-center text-[#0052ff] font-bold">
               7
             </div>
             <div>

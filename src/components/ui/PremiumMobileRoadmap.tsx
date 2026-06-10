@@ -68,7 +68,7 @@ export const PremiumMobileRoadmap: React.FC<RoadmapProps> = ({ courses }) => {
 
     const getIconColor = (status: string) => {
     if (status === 'completed') return 'bg-slate-900 text-white border-slate-900 shadow-sm';
-    if (status === 'active') return 'bg-gradient-to-tr from-[#58CC02] to-[#61E002] text-white shadow-[0_4px_12px_rgba(88,204,2,0.25)]';
+    if (status === 'active') return 'bg-gradient-to-tr from-[#0052ff] to-[#1a66ff] text-white shadow-[0_4px_12px_rgba(0, 82, 255,0.25)]';
     return 'bg-slate-100 text-slate-400 border-slate-200';
   };
 
@@ -87,7 +87,7 @@ export const PremiumMobileRoadmap: React.FC<RoadmapProps> = ({ courses }) => {
           {/* Animated Completed Path (green) */}
           <motion.path
             d="M 150 30 C 230 85, 230 85, 230 140 C 230 195, 70 195, 70 250 C 70 305, 180 305, 180 360 C 180 415, 100 415, 100 470 C 100 525, 150 525, 150 580"
-            stroke="#58CC02"
+            stroke="#0052ff"
             strokeWidth="6"
             strokeLinecap="round"
             style={{ pathLength }}
@@ -103,7 +103,7 @@ export const PremiumMobileRoadmap: React.FC<RoadmapProps> = ({ courses }) => {
           <img
             src="/assets/student_mascot_clay.png"
             alt="Floating Mascot Guide"
-            className="w-full h-auto drop-shadow-[0_8px_16px_rgba(88,204,2,0.25)]"
+            className="w-full h-auto drop-shadow-[0_8px_16px_rgba(0, 82, 255,0.25)]"
           />
         </motion.div>
 
@@ -128,7 +128,7 @@ export const PremiumMobileRoadmap: React.FC<RoadmapProps> = ({ courses }) => {
                 <motion.div
                   animate={{ scale: [0.95, 1.35, 0.95], opacity: [0.8, 0, 0.8] }}
                   transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-                  className="absolute -inset-2 rounded-full border-2 border-[#58CC02] bg-[#58CC02]/10 pointer-events-none"
+                  className="absolute -inset-2 rounded-full border-2 border-[#0052ff] bg-[#0052ff]/10 pointer-events-none"
                 />
               )}
 
@@ -153,9 +153,9 @@ export const PremiumMobileRoadmap: React.FC<RoadmapProps> = ({ courses }) => {
                   initial={{ opacity: 0, scale: 0.85, y: 8 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   transition={{ type: 'spring', stiffness: 300, damping: 20, delay: 0.3 }}
-                  className="absolute top-14 bg-white/90 backdrop-blur-md border border-[#58CC02]/25 rounded-xl px-3 py-1.5 shadow-md flex flex-col items-center min-w-[110px] z-20"
+                  className="absolute top-14 bg-white/90 backdrop-blur-md border border-[#0052ff]/25 rounded-xl px-3 py-1.5 shadow-md flex flex-col items-center min-w-[110px] z-20"
                 >
-                  <span className="text-[9px] font-extrabold text-[#46A302] leading-none tracking-wider">ACTIVE</span>
+                  <span className="text-[9px] font-extrabold text-[#0041cc] leading-none tracking-wider">ACTIVE</span>
                   <span className="text-[9.5px] font-bold text-slate-700 leading-none mt-1 truncate max-w-[95px]">
                     {course.title}
                   </span>
@@ -190,7 +190,7 @@ export const PremiumMobileRoadmap: React.FC<RoadmapProps> = ({ courses }) => {
 
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <span className="text-xs font-bold text-[#58CC02] bg-[#58CC02]/8 px-3 py-1 rounded-full uppercase tracking-wider">
+                  <span className="text-xs font-bold text-[#0052ff] bg-[#0052ff]/8 px-3 py-1 rounded-full uppercase tracking-wider">
                     Module 0{selectedCourse.id}
                   </span>
                 </div>
@@ -224,7 +224,7 @@ export const PremiumMobileRoadmap: React.FC<RoadmapProps> = ({ courses }) => {
 
               <button
                 onClick={() => setSelectedCourse(null)}
-                className="w-full py-4 rounded-2xl bg-[#58CC02] hover:bg-[#4cb002] active:scale-[0.98] text-[#0F172A] font-extrabold text-sm shadow-[0_4px_14px_rgba(88,204,2,0.25)] transition-all duration-150 cursor-pointer"
+                className="w-full py-4 rounded-2xl bg-[#0052ff] hover:bg-[#0048e0] active:scale-[0.98] text-[#0F172A] font-extrabold text-sm shadow-[0_4px_14px_rgba(0, 82, 255,0.25)] transition-all duration-150 cursor-pointer"
               >
                 Start Lesson
               </button>

@@ -82,7 +82,7 @@ export const ServicesSection: React.FC = () => {
       style={{
         background: `
           radial-gradient(ellipse 60% 50% at 80% 20%, rgba(99,102,241,0.05) 0%, transparent 55%),
-          radial-gradient(ellipse 50% 45% at 10% 80%, rgba(88,204,2,0.06) 0%, transparent 50%),
+          radial-gradient(ellipse 50% 45% at 10% 80%, rgba(0, 82, 255,0.06) 0%, transparent 50%),
           linear-gradient(145deg, #f8fafc 0%, #ffffff 50%, #f8fafc 100%)
         `
       }}
@@ -92,7 +92,7 @@ export const ServicesSection: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-24 gap-8">
           <div className="max-w-xl">
             <span className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full bg-slate-50 border border-slate-200 text-slate-600 text-xs font-semibold tracking-widest uppercase mb-4 shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-[#58CC02]" />
+              <span className="w-2 h-2 rounded-full bg-[#0052ff]" />
               Modular Core Engine
             </span>
             <h2 className="text-4xl md:text-5xl font-extrabold text-[#0F172A] tracking-tighter leading-none">
@@ -106,7 +106,7 @@ export const ServicesSection: React.FC = () => {
             <img
               src="/assets/student_mascot_clay.png"
               alt="Coding Student Mascot"
-              className="w-full h-full object-contain drop-shadow-[0_12px_24px_rgba(88,204,2,0.15)]"
+              className="w-full h-full object-contain drop-shadow-[0_12px_24px_rgba(0, 82, 255,0.15)]"
             />
           </div>
         </div>
@@ -126,13 +126,13 @@ export const ServicesSection: React.FC = () => {
             >
               {/* Divider Line — only on dark bg variant, handled via border-b above */}
 
-              <div className="text-2xl md:text-4xl font-extrabold text-slate-300 group-hover:text-[#58CC02] transition-colors duration-300 md:w-24">
+              <div className="text-2xl md:text-4xl font-extrabold text-slate-300 group-hover:text-[#0052ff] transition-colors duration-300 md:w-24">
                 {service.id}
               </div>
 
               {/* Center: Title & Description */}
               <div className="flex-1 md:px-6 mt-4 md:mt-0 max-w-2xl">
-                <h3 className="text-xl md:text-2xl font-bold text-[#0F172A] tracking-tight mb-3 group-hover:text-[#58CC02] transition-colors duration-300">
+                <h3 className="text-xl md:text-2xl font-bold text-[#0F172A] tracking-tight mb-3 group-hover:text-[#0052ff] transition-colors duration-300">
                   {service.title}
                 </h3>
                 <p className="text-sm md:text-base text-slate-500 font-medium leading-relaxed">

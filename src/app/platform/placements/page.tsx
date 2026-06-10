@@ -73,7 +73,7 @@ export default function PlatformPlacementsPage() {
               </p>
             </div>
 
-            <DeviceMockup tabs={placementTabs} urlPath="ugskill.com/platform/placements" glowColor="#58CC02" />
+            <DeviceMockup tabs={placementTabs} urlPath="ugskill.com/platform/placements" glowColor="#0052ff" />
 
           </div>
         </section>
@@ -83,7 +83,7 @@ export default function PlatformPlacementsPage() {
           <div className="max-w-5xl mx-auto px-6">
             
             <div className="mb-16 text-left">
-              <span className="text-xs font-extrabold text-[#58CC02] uppercase tracking-widest bg-[#58CC02]/8 px-3 py-1.5 rounded-full">
+              <span className="text-xs font-extrabold text-[#0052ff] uppercase tracking-widest bg-[#0052ff]/8 px-3 py-1.5 rounded-full">
                 Placements Engine
               </span>
               <h2 className="text-3xl md:text-4xl font-black text-zinc-950 mt-6 tracking-tight">

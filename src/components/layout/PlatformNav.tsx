@@ -25,13 +25,13 @@ export const PlatformNav: React.FC = () => {
               key={link.href}
               href={link.href}
               className={`relative px-4 py-2 rounded-xl text-xs md:text-sm font-bold uppercase tracking-wider transition-all duration-300 no-underline whitespace-nowrap ${
-                isActive ? 'text-[#46A302]' : 'text-zinc-550 hover:text-zinc-800'
+                isActive ? 'text-[#0041cc]' : 'text-zinc-550 hover:text-zinc-800'
               }`}
             >
               {isActive && (
                 <motion.span
                   layoutId="activePlatformSubNav"
-                  className="absolute inset-0 rounded-xl bg-[#58CC02]/8 border border-[#58CC02]/25 z-0"
+                  className="absolute inset-0 rounded-xl bg-[#0052ff]/8 border border-[#0052ff]/25 z-0"
                   transition={{ type: 'spring', stiffness: 350, damping: 28 }}
                 />
               )}

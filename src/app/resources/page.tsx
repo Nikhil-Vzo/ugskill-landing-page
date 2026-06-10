@@ -48,17 +48,17 @@ export default function ResourcesPage() {
               WebkitMaskImage: 'radial-gradient(circle at center, black, transparent 80%)'
             }}
           />
-          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[350px] w-[500px] bg-[#58CC02]/5 blur-[90px] rounded-full pointer-events-none -z-10" />
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[350px] w-[500px] bg-[#0052ff]/5 blur-[90px] rounded-full pointer-events-none -z-10" />
 
           <div className="w-full max-w-5xl px-6 flex flex-col items-center text-center relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#58CC02]/10 border border-[#58CC02]/20 text-[#46A302] text-xs font-bold uppercase tracking-wider mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0052ff]/10 border border-[#0052ff]/20 text-[#0041cc] text-xs font-bold uppercase tracking-wider mb-6">
               <Sparkles className="w-4 h-4" />
               Resources & Blog
             </div>
 
             <h1 className="text-5xl md:text-7xl font-black text-zinc-950 tracking-tighter leading-[0.95] mb-6">
               Campus Sourcing & <br />
-              <span className="text-[#58CC02]">Upskilling Insights</span>
+              <span className="text-[#0052ff]">Upskilling Insights</span>
             </h1>
 
             <p className="text-zinc-550 font-medium text-lg md:text-xl max-w-2xl leading-relaxed mb-8">
@@ -79,11 +79,11 @@ export default function ResourcesPage() {
                   <div className="p-8 text-left flex flex-col gap-4">
                     {/* Meta info */}
                     <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-zinc-400">
-                      <span className="text-[#46A302] bg-[#58CC02]/10 px-2.5 py-0.5 rounded-full">{art.category}</span>
+                      <span className="text-[#0041cc] bg-[#0052ff]/10 px-2.5 py-0.5 rounded-full">{art.category}</span>
                       <span>{art.readTime}</span>
                     </div>
 
-                    <h3 className="text-xl font-extrabold text-zinc-950 mt-2 hover:text-[#58CC02] transition-colors leading-snug">
+                    <h3 className="text-xl font-extrabold text-zinc-950 mt-2 hover:text-[#0052ff] transition-colors leading-snug">
                       {art.title}
                     </h3>
                     
@@ -98,7 +98,7 @@ export default function ResourcesPage() {
                       <Calendar className="w-4 h-4 text-zinc-300" />
                       {art.date}
                     </span>
-                    <Link href="#" className="no-underline text-[#58CC02] hover:text-[#46A302] inline-flex items-center gap-1 text-sm font-extrabold transition-colors">
+                    <Link href="#" className="no-underline text-[#0052ff] hover:text-[#0041cc] inline-flex items-center gap-1 text-sm font-extrabold transition-colors">
                       Read More <ArrowRight className="w-4 h-4" />
                     </Link>
                   </div>

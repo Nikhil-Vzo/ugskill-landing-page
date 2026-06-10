@@ -57,7 +57,7 @@ export default function ContactPage() {
               WebkitMaskImage: 'radial-gradient(circle at center, black, transparent 80%)'
             }}
           />
-          <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#58CC02]/4 blur-[100px] rounded-full pointer-events-none z-0" />
+          <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#0052ff]/4 blur-[100px] rounded-full pointer-events-none z-0" />
           
           <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-10 items-start relative z-10">
             
@@ -66,7 +66,7 @@ export default function ContactPage() {
               {!submitted ? (
                 <>
                   <div className="mb-8">
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#58CC02]/10 border border-[#58CC02]/20 text-[#46A302] text-xs font-bold uppercase tracking-wider mb-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0052ff]/10 border border-[#0052ff]/20 text-[#0041cc] text-xs font-bold uppercase tracking-wider mb-4">
                       <Sparkles className="w-4 h-4" />
                       Request Demo
                     </div>
@@ -90,7 +90,7 @@ export default function ContactPage() {
                           value={formData.name}
                           onChange={(e) => setFormData({...formData, name: e.target.value})}
                           placeholder="John Doe" 
-                          className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#58CC02] focus:ring-2 focus:ring-[#58CC02]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
+                          className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#0052ff] focus:ring-2 focus:ring-[#0052ff]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
                         />
                       </div>
                       <div>
@@ -103,7 +103,7 @@ export default function ContactPage() {
                           value={formData.institution}
                           onChange={(e) => setFormData({...formData, institution: e.target.value})}
                           placeholder="Stanford University" 
-                          className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#58CC02] focus:ring-2 focus:ring-[#58CC02]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
+                          className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#0052ff] focus:ring-2 focus:ring-[#0052ff]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
                         />
                       </div>
                     </div>
@@ -119,7 +119,7 @@ export default function ContactPage() {
                           value={formData.email}
                           onChange={(e) => setFormData({...formData, email: e.target.value})}
                           placeholder="johndoe@university.edu" 
-                          className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#58CC02] focus:ring-2 focus:ring-[#58CC02]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
+                          className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#0052ff] focus:ring-2 focus:ring-[#0052ff]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
                         />
                       </div>
                       <div>
@@ -132,7 +132,7 @@ export default function ContactPage() {
                           value={formData.phone}
                           onChange={(e) => setFormData({...formData, phone: e.target.value})}
                           placeholder="+1 (555) 000-0000" 
-                          className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#58CC02] focus:ring-2 focus:ring-[#58CC02]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
+                          className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#0052ff] focus:ring-2 focus:ring-[#0052ff]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
                         />
                       </div>
                     </div>
@@ -146,7 +146,7 @@ export default function ContactPage() {
                         value={formData.address}
                         onChange={(e) => setFormData({...formData, address: e.target.value})}
                         placeholder="123 Campus Drive, Palo Alto, CA" 
-                        className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#58CC02] focus:ring-2 focus:ring-[#58CC02]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
+                        className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#0052ff] focus:ring-2 focus:ring-[#0052ff]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
                       />
                     </div>
 
@@ -159,7 +159,7 @@ export default function ContactPage() {
                         value={formData.message}
                         onChange={(e) => setFormData({...formData, message: e.target.value})}
                         placeholder="Tell us about your batch size and specific goals..." 
-                        className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#58CC02] focus:ring-2 focus:ring-[#58CC02]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold resize-none"
+                        className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#0052ff] focus:ring-2 focus:ring-[#0052ff]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold resize-none"
                       />
                     </div>
 
@@ -172,7 +172,7 @@ export default function ContactPage() {
 
                      <TactileButton 
                       variant="primary" 
-                      className="py-4 text-base mt-4 shadow-[0_12px_24px_rgba(88,204,2,0.2)]"
+                      className="py-4 text-base mt-4 shadow-[0_12px_24px_rgba(0, 82, 255,0.2)]"
                       disabled={loading}
                     >
                       {loading ? 'Submitting...' : 'Submit Setup Request'}
@@ -181,7 +181,7 @@ export default function ContactPage() {
                 </>
               ) : (
                 <div className="flex flex-col items-center text-center py-12 px-4">
-                  <div className="w-16 h-16 rounded-full bg-[#58CC02]/10 flex items-center justify-center text-[#58CC02] mb-6 animate-bounce">
+                  <div className="w-16 h-16 rounded-full bg-[#0052ff]/10 flex items-center justify-center text-[#0052ff] mb-6 animate-bounce">
                     <CheckCircle2 className="w-10 h-10" />
                   </div>
                   <h3 className="text-3xl font-black text-zinc-950 tracking-tight mb-4">
@@ -207,8 +207,8 @@ export default function ContactPage() {
                 </h3>
                 <div className="flex flex-col gap-5">
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-[#58CC02]/10 border border-[#58CC02]/20 flex items-center justify-center shrink-0">
-                      <Clock className="w-5 h-5 text-[#58CC02]" />
+                    <div className="w-10 h-10 rounded-xl bg-[#0052ff]/10 border border-[#0052ff]/20 flex items-center justify-center shrink-0">
+                      <Clock className="w-5 h-5 text-[#0052ff]" />
                     </div>
                     <div>
                       <p className="text-xs text-zinc-400 font-bold uppercase tracking-wider leading-none mb-1">Within 24 hours</p>
@@ -217,8 +217,8 @@ export default function ContactPage() {
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-[#58CC02]/10 border border-[#58CC02]/20 flex items-center justify-center shrink-0">
-                      <UserCheck className="w-5 h-5 text-[#58CC02]" />
+                    <div className="w-10 h-10 rounded-xl bg-[#0052ff]/10 border border-[#0052ff]/20 flex items-center justify-center shrink-0">
+                      <UserCheck className="w-5 h-5 text-[#0052ff]" />
                     </div>
                     <div>
                       <p className="text-xs text-zinc-400 font-bold uppercase tracking-wider leading-none mb-1">Custom Setup</p>
@@ -227,8 +227,8 @@ export default function ContactPage() {
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-[#58CC02]/10 border border-[#58CC02]/20 flex items-center justify-center shrink-0">
-                      <Rocket className="w-5 h-5 text-[#58CC02]" />
+                    <div className="w-10 h-10 rounded-xl bg-[#0052ff]/10 border border-[#0052ff]/20 flex items-center justify-center shrink-0">
+                      <Rocket className="w-5 h-5 text-[#0052ff]" />
                     </div>
                     <div>
                       <p className="text-xs text-zinc-400 font-bold uppercase tracking-wider leading-none mb-1">Go Live</p>
@@ -239,7 +239,7 @@ export default function ContactPage() {
               </div>
 
               <div className="bg-zinc-900 border border-zinc-800 text-white rounded-[2.2rem] p-8 flex flex-col gap-4">
-                <h4 className="text-xs font-black uppercase tracking-widest text-[#58CC02] leading-none">
+                <h4 className="text-xs font-black uppercase tracking-widest text-[#0052ff] leading-none">
                   Live System Check
                 </h4>
                 <p className="text-zinc-400 font-semibold text-xs leading-relaxed">

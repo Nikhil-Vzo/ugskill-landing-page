@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-plus-jakarta-sans",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "UGSkill -- Campus Upskilling & Recruitment Platform",
@@ -14,9 +21,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="h-full antialiased"
+      className={`h-full antialiased ${plusJakartaSans.variable}`}
     >
       <body className="min-h-full flex flex-col font-sans">{children}</body>
     </html>
   );
 }
+

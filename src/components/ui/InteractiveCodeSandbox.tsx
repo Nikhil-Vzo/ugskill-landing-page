@@ -201,7 +201,7 @@ const highlightJS = (codeLine: string) => {
     }
     // Check methods/properties
     if (/^\b(?:every|some|includes|forEach|map|filter|reduce|shift|push|add|has|getRequirements|getRequiredSkills|getEvaluatorScore|addEventListener|removeEventListener|triggerWarning|length|status|skills|currentWeek|neighbors|activeWeek|focusViolations|handleBlur)\b$/.test(part)) {
-      return <span key={index} className="text-[#58CC02] font-semibold font-mono">{part}</span>;
+      return <span key={index} className="text-[#0052ff] font-semibold font-mono">{part}</span>;
     }
     // Check numbers
     if (/^\d+$/.test(part)) {
@@ -274,9 +274,9 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ initialChalleng
             <motion.div
               key={idx}
               {...motionProps}
-              className="flex items-start my-1.5 py-1 px-4 bg-[#58CC02]/5 border-l-[3px] border-[#58CC02] text-[#46A302] font-semibold font-mono"
+              className="flex items-start my-1.5 py-1 px-4 bg-[#0052ff]/5 border-l-[3px] border-[#0052ff] text-[#0041cc] font-semibold font-mono"
             >
-              <span className="w-6 text-right select-none text-[#58CC02]/45 text-[10px] mr-4 font-mono pt-0.5">
+              <span className="w-6 text-right select-none text-[#0052ff]/45 text-[10px] mr-4 font-mono pt-0.5">
                 {idx + 1}
               </span>
               <span className="flex-1 font-mono text-xs leading-relaxed whitespace-pre font-bold">
@@ -345,7 +345,7 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ initialChalleng
                     }}
                     className={`text-[11px] px-2.5 py-1 rounded-md font-mono tracking-tight border transition-all cursor-pointer whitespace-nowrap flex-shrink-0 ${
                       isActive
-                        ? 'bg-white border-slate-200 text-[#58CC02] font-bold shadow-sm'
+                        ? 'bg-white border-slate-200 text-[#0052ff] font-bold shadow-sm'
                         : 'bg-transparent border-transparent text-slate-400 hover:text-slate-600'
                     }`}
                   >
@@ -355,8 +355,8 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ initialChalleng
               })}
             </div>
           </div>
-          <span className="text-[9px] font-extrabold uppercase tracking-widest text-[#58CC02] bg-[#58CC02]/8 px-2.5 py-1 rounded-full border border-[#58CC02]/20 shadow-sm flex items-center gap-1 flex-shrink-0 ml-3">
-            <span className="w-1 h-1 bg-[#58CC02] rounded-full animate-pulse" />
+          <span className="text-[9px] font-extrabold uppercase tracking-widest text-[#0052ff] bg-[#0052ff]/8 px-2.5 py-1 rounded-full border border-[#0052ff]/20 shadow-sm flex items-center gap-1 flex-shrink-0 ml-3">
+            <span className="w-1 h-1 bg-[#0052ff] rounded-full animate-pulse" />
             {challenge.courseTitle}
           </span>
         </div>
@@ -364,7 +364,7 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ initialChalleng
         {/* Instructions */}
         <div className="p-5 bg-slate-50/30 border-b border-slate-200/60 backdrop-blur-sm">
           <div className="flex items-start gap-3">
-            <div className="p-1.5 bg-[#58CC02]/10 border border-[#58CC02]/20 rounded-lg text-[#58CC02] mt-0.5">
+            <div className="p-1.5 bg-[#0052ff]/10 border border-[#0052ff]/20 rounded-lg text-[#0052ff] mt-0.5">
               <Terminal className="w-3.5 h-3.5" />
             </div>
             <p className="text-xs text-slate-600 font-semibold leading-relaxed pt-0.5">
@@ -394,13 +394,13 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ initialChalleng
                   disabled={executionStatus === 'running' || executionStatus === 'success'}
                   className={`w-full text-left p-4 rounded-xl border font-mono text-xs transition-all duration-200 cursor-pointer flex items-center gap-3 relative group/option ${
                     isSelected
-                      ? 'border-[#58CC02] bg-[#58CC02]/5 text-[#46A302] font-semibold shadow-[0_2px_12px_rgba(88,204,2,0.06)]'
+                      ? 'border-[#0052ff] bg-[#0052ff]/5 text-[#0041cc] font-semibold shadow-[0_2px_12px_rgba(0, 82, 255,0.06)]'
                       : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50/40 shadow-sm'
                   } ${(executionStatus === 'running' || executionStatus === 'success') ? 'opacity-60 cursor-not-allowed' : ''}`}
                 >
                   <div className={`w-4 h-4 rounded-full border flex items-center justify-center flex-shrink-0 transition-all duration-200 ${
                     isSelected 
-                      ? 'border-[#58CC02] bg-[#58CC02]' 
+                      ? 'border-[#0052ff] bg-[#0052ff]' 
                       : 'border-slate-300 bg-white group-hover/option:border-slate-400'
                   }`}>
                     {isSelected && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
@@ -418,7 +418,7 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ initialChalleng
         <div className="p-5 bg-slate-50 border-t border-slate-200/80 flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-slate-500 text-xs font-semibold">
-              <Terminal className="w-4 h-4 text-[#58CC02]" />
+              <Terminal className="w-4 h-4 text-[#0052ff]" />
               <span>Interactive Output Console</span>
             </div>
             <div className="flex gap-2">
@@ -441,7 +441,7 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ initialChalleng
                 className={`px-5 py-3 rounded-xl text-xs font-bold flex items-center gap-2 cursor-pointer transition-all ${
                   !selectedOption || executionStatus === 'success'
                     ? 'bg-slate-105 text-slate-400 border border-slate-200/50 cursor-not-allowed shadow-none active:translate-y-0'
-                    : 'bg-[#58CC02] hover:bg-[#61E002] text-white shadow-[0_4px_0_#46A302] border-b-[4px] border-[#46A302] active:translate-y-[4px] active:shadow-none'
+                    : 'bg-[#0052ff] hover:bg-[#1a66ff] text-white shadow-[0_4px_0_#0041cc] border-b-[4px] border-[#0041cc] active:translate-y-[4px] active:shadow-none'
                 }`}
               >
                 {executionStatus === 'running' ? (
@@ -467,7 +467,7 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ initialChalleng
                   transition={{ duration: 0.2 }}
                   className={
                     log.startsWith('✓') || log.includes('PASSED')
-                      ? 'text-[#58CC02] font-semibold flex items-center gap-1.5'
+                      ? 'text-[#0052ff] font-semibold flex items-center gap-1.5'
                       : log.startsWith('FAIL') || log.startsWith('Compilation')
                       ? 'text-rose-400 font-semibold flex items-center gap-1.5'
                       : 'text-slate-300 font-medium'
@@ -480,7 +480,7 @@ export const InteractiveCodeSandbox: React.FC<SandboxProps> = ({ initialChalleng
           )}
 
           {executionStatus === 'success' && (
-            <div className="flex items-center gap-2 bg-[#58CC02]/8 border border-[#58CC02]/20 rounded-xl p-3.5 text-[#46A302] text-xs font-semibold">
+            <div className="flex items-center gap-2 bg-[#0052ff]/8 border border-[#0052ff]/20 rounded-xl p-3.5 text-[#0041cc] text-xs font-semibold">
               <CheckCircle2 className="w-4.5 h-4.5 flex-shrink-0" />
               <span>Check passed! Recruiter proof verification signature generated.</span>
             </div>

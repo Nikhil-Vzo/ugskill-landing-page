@@ -117,7 +117,7 @@ export const Magnet: React.FC<MagnetProps> = ({ children, strength = 1.2 }) => {
               repeat: Infinity,
               ease: "easeInOut"
             }}
-            className="absolute h-16 w-16 bg-[#58CC02]/15 border border-[#58CC02]/30 backdrop-blur-[1.5px] shadow-sm"
+            className="absolute h-16 w-16 bg-[#0052ff]/15 border border-[#0052ff]/30 backdrop-blur-[1.5px] shadow-sm"
           />
         </motion.div>
       )}

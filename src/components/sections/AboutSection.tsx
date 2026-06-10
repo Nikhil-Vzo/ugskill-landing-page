@@ -11,9 +11,9 @@ export const AboutSection: React.FC = () => {
       id="about-platform"
       style={{
         background: `
-          radial-gradient(ellipse 80% 60% at 15% 40%, rgba(88,204,2,0.09) 0%, transparent 60%),
+          radial-gradient(ellipse 80% 60% at 15% 40%, rgba(0, 82, 255,0.09) 0%, transparent 60%),
           radial-gradient(ellipse 60% 50% at 85% 70%, rgba(14,165,233,0.06) 0%, transparent 55%),
-          linear-gradient(160deg, #f0fdf4 0%, #ffffff 45%, #f8faff 100%)
+          linear-gradient(160deg, #eff6ff 0%, #ffffff 45%, #f8faff 100%)
         `,
       }}
     >
@@ -42,7 +42,7 @@ export const AboutSection: React.FC = () => {
         <img
           src="/assets/pointing_robo_green.png"
           alt="Pointing Green Robot Mascot"
-          className="mascot-float h-auto w-full object-contain drop-shadow-[0_18px_30px_rgba(88,204,2,0.14)]"
+          className="mascot-float h-auto w-full object-contain drop-shadow-[0_18px_30px_rgba(0, 82, 255,0.14)]"
         />
       </motion.div>
 
@@ -70,7 +70,7 @@ export const AboutSection: React.FC = () => {
             transition={{ duration: 0.55 }}
             className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-slate-600 shadow-sm"
           >
-            <Sparkles className="h-3.5 w-3.5 text-[#58CC02]" />
+            <Sparkles className="h-3.5 w-3.5 text-[#0052ff]" />
             The Platform
           </motion.div>
 
@@ -94,7 +94,7 @@ export const AboutSection: React.FC = () => {
                 whileInView={{ y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="shimmer-text block bg-gradient-to-r from-[#0F172A] via-[#58CC02] to-[#0F172A] bg-[length:220%_100%] bg-clip-text text-transparent"
+                className="shimmer-text block bg-gradient-to-r from-[#0F172A] via-[#0052ff] to-[#0F172A] bg-[length:220%_100%] bg-clip-text text-transparent"
               >
                 learning, proof, and
               </motion.span>
@@ -105,7 +105,7 @@ export const AboutSection: React.FC = () => {
                 whileInView={{ y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="block text-[#58CC02]"
+                className="block text-[#0052ff]"
               >
                 placement.
               </motion.span>
@@ -128,9 +128,9 @@ export const AboutSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, delay: 0.25 }}
-            className="mt-10 inline-flex items-center gap-3 rounded-full border border-[#58CC02]/20 bg-[#58CC02]/8 px-4 py-3 text-sm font-semibold text-[#0F172A]"
+            className="mt-10 inline-flex items-center gap-3 rounded-full border border-[#0052ff]/20 bg-[#0052ff]/8 px-4 py-3 text-sm font-semibold text-[#0F172A]"
           >
-            <Users className="h-4 w-4 text-[#58CC02]" />
+            <Users className="h-4 w-4 text-[#0052ff]" />
             Built for universities, students, and hiring teams
             <ArrowRight className="h-4 w-4 text-slate-400" />
           </motion.div>

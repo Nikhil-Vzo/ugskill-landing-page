@@ -139,7 +139,7 @@ function LoginContent() {
   if (submitted) {
     return (
       <div className="w-full max-w-md bg-white border border-zinc-200 shadow-xl rounded-[2.2rem] p-8 md:p-10 relative z-10 text-center">
-        <div className="w-16 h-16 rounded-full bg-[#58CC02]/10 flex items-center justify-center text-[#58CC02] mx-auto mb-6 animate-bounce">
+        <div className="w-16 h-16 rounded-full bg-[#0052ff]/10 flex items-center justify-center text-[#0052ff] mx-auto mb-6 animate-bounce">
           <CheckCircle2 className="w-10 h-10" />
         </div>
         
@@ -160,7 +160,7 @@ function LoginContent() {
               </div>
               <div>
                 <span className="text-xs font-bold text-zinc-400 uppercase block tracking-wider mb-1">Access Key / Password</span>
-                <span className="text-[#58CC02] font-black font-mono select-all bg-white border border-zinc-200 rounded-lg px-2.5 py-1.5 block tracking-widest">{generatedKey}</span>
+                <span className="text-[#0052ff] font-black font-mono select-all bg-white border border-zinc-200 rounded-lg px-2.5 py-1.5 block tracking-widest">{generatedKey}</span>
               </div>
             </div>
 
@@ -169,7 +169,7 @@ function LoginContent() {
             </p>
 
             <div className="w-full rounded-2xl bg-zinc-50 border border-zinc-150 p-4 text-left text-[11px] text-zinc-400 font-bold uppercase tracking-wider flex items-center gap-3">
-              <Terminal className="w-5 h-5 text-[#58CC02] shrink-0" />
+              <Terminal className="w-5 h-5 text-[#0052ff] shrink-0" />
               Recruiter sandbox dashboard instance configured.
             </div>
           </>
@@ -182,7 +182,7 @@ function LoginContent() {
               Welcome back to UG Skill. Redirecting you to your active learning modules and proctored dashboards...
             </p>
             <div className="w-full rounded-2xl bg-zinc-50 border border-zinc-150 p-4 text-left text-[11px] text-zinc-400 font-bold uppercase tracking-wider flex items-center gap-3">
-              <Award className="w-5 h-5 text-[#58CC02] shrink-0" />
+              <Award className="w-5 h-5 text-[#0052ff] shrink-0" />
               Loading verified credentials...
             </div>
           </>
@@ -196,7 +196,7 @@ function LoginContent() {
       
       {/* Sandbox Badge */}
       {isSandbox && (
-        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-[#58CC02] text-white text-[10px] font-black uppercase tracking-wider shadow-sm flex items-center gap-1.5 select-none">
+        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-[#0052ff] text-white text-[10px] font-black uppercase tracking-wider shadow-sm flex items-center gap-1.5 select-none">
           <Terminal className="w-3.5 h-3.5" />
           Interactive Demo Request
         </div>
@@ -235,7 +235,7 @@ function LoginContent() {
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               placeholder="Alex Johnson" 
-              className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#58CC02] focus:ring-2 focus:ring-[#58CC02]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
+              className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#0052ff] focus:ring-2 focus:ring-[#0052ff]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
             />
           </div>
 
@@ -249,7 +249,7 @@ function LoginContent() {
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               placeholder="alex@institution.edu" 
-              className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#58CC02] focus:ring-2 focus:ring-[#58CC02]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
+              className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#0052ff] focus:ring-2 focus:ring-[#0052ff]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
             />
           </div>
 
@@ -263,7 +263,7 @@ function LoginContent() {
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               placeholder="+1 (555) 000-0000" 
-              className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#58CC02] focus:ring-2 focus:ring-[#58CC02]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
+              className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#0052ff] focus:ring-2 focus:ring-[#0052ff]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
             />
           </div>
 
@@ -276,14 +276,14 @@ function LoginContent() {
               value={formData.institution}
               onChange={(e) => setFormData({ ...formData, institution: e.target.value })}
               placeholder="Stanford University" 
-              className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#58CC02] focus:ring-2 focus:ring-[#58CC02]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
+              className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#0052ff] focus:ring-2 focus:ring-[#0052ff]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
             />
           </div>
 
           <TactileButton 
             variant="primary" 
             disabled={loading}
-            className="py-4 text-base mt-4 shadow-[0_12px_24px_rgba(88,204,2,0.2)]"
+            className="py-4 text-base mt-4 shadow-[0_12px_24px_rgba(0, 82, 255,0.2)]"
           >
             {loading ? 'Initializing Sandbox...' : 'Launch Recruiter Demo'}
           </TactileButton>
@@ -301,7 +301,7 @@ function LoginContent() {
               value={loginData.email}
               onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
               placeholder="name@university.edu" 
-              className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#58CC02] focus:ring-2 focus:ring-[#58CC02]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
+              className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#0052ff] focus:ring-2 focus:ring-[#0052ff]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
             />
           </div>
 
@@ -315,22 +315,22 @@ function LoginContent() {
               value={loginData.password}
               onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
               placeholder="••••••••" 
-              className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#58CC02] focus:ring-2 focus:ring-[#58CC02]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
+              className="w-full px-4 py-2.5 text-sm rounded-xl border border-zinc-250 focus:border-[#0052ff] focus:ring-2 focus:ring-[#0052ff]/10 focus:outline-none bg-white text-zinc-800 transition-all font-semibold"
             />
           </div>
 
           <div className="flex items-center justify-between text-xs font-bold text-zinc-500 uppercase tracking-wider">
             <label className="flex items-center gap-1.5 cursor-pointer">
-              <input type="checkbox" className="rounded accent-[#58CC02] w-3.5 h-3.5" />
+              <input type="checkbox" className="rounded accent-[#0052ff] w-3.5 h-3.5" />
               Remember me
             </label>
-            <a href="#" className="text-[#58CC02] hover:underline">Forgot?</a>
+            <a href="#" className="text-[#0052ff] hover:underline">Forgot?</a>
           </div>
 
           <TactileButton 
             variant="primary" 
             disabled={loading}
-            className="py-4 text-base mt-4 shadow-[0_12px_24px_rgba(88,204,2,0.2)]"
+            className="py-4 text-base mt-4 shadow-[0_12px_24px_rgba(0, 82, 255,0.2)]"
           >
             {loading ? 'Authenticating...' : 'Sign In'}
           </TactileButton>
@@ -348,7 +348,7 @@ function LoginContent() {
             </div>
           </div>
           <div className="flex items-start gap-2.5">
-            <Award className="w-4 h-4 text-[#58CC02] shrink-0 mt-0.5" />
+            <Award className="w-4 h-4 text-[#0052ff] shrink-0 mt-0.5" />
             <div>
               <h4 className="text-xs font-extrabold text-zinc-900 uppercase tracking-wider leading-none mb-1">Vetted Skill Hashes</h4>
               <p className="text-[11px] font-semibold text-zinc-400 leading-normal">Try matching candidates using proctor averages and verifiable cryptographic hashes.</p>
@@ -376,7 +376,7 @@ export default function LoginPage() {
               WebkitMaskImage: 'radial-gradient(circle at center, black, transparent 80%)'
             }}
           />
-          <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#58CC02]/4 blur-[100px] rounded-full pointer-events-none z-0" />
+          <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#0052ff]/4 blur-[100px] rounded-full pointer-events-none z-0" />
           
           <Suspense fallback={
             <div className="w-full max-w-md bg-white border border-zinc-200 shadow-xl rounded-[2.2rem] p-8 text-center select-none font-bold text-zinc-400">

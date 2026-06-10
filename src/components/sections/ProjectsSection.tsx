@@ -25,9 +25,9 @@ const projectCards: ProjectCard[] = [
     description: 'A customized, modern workspace where student courses adapt based on real-time coding metrics. Tracks keyboard keystrokes, compilation success rates, and logic depth to guide learning pathways.',
     color: '#F8FAFC',
     borderColor: '#E2E8F0',
-    icon: <Layout className="w-6 h-6 text-[#58CC02]" />,
+    icon: <Layout className="w-6 h-6 text-[#0052ff]" />,
     imageUrl: '/assets/learning_path_clay.png',
-    shadowColor: 'rgba(88,204,2,0.12)',
+    shadowColor: 'rgba(0, 82, 255,0.12)',
   },
   {
     id: 2,
@@ -36,9 +36,9 @@ const projectCards: ProjectCard[] = [
     description: 'Ensure total academic integrity during assessments. Integrates local system monitoring, copy-paste block detectors, tab switches, and live audio-video AI analysis to flag anomalies.',
     color: '#F1F5F9',
     borderColor: '#E2E8F0',
-    icon: <ShieldAlert className="w-6 h-6 text-[#58CC02]" />,
+    icon: <ShieldAlert className="w-6 h-6 text-[#0052ff]" />,
     imageUrl: '/assets/integrity_clay.png',
-    shadowColor: 'rgba(88,204,2,0.12)',
+    shadowColor: 'rgba(0, 82, 255,0.12)',
   },
   {
     id: 3,
@@ -47,9 +47,9 @@ const projectCards: ProjectCard[] = [
     description: 'Vetted student portfolios synced instantly with hiring metrics. Recruiters search by verified skill tags, sandbox scorecards, and AI interview feedback to schedule high-volume drives.',
     color: '#FFFFFF',
     borderColor: '#CBD5E1',
-    icon: <Briefcase className="w-6 h-6 text-[#46A302]" />,
+    icon: <Briefcase className="w-6 h-6 text-[#0041cc]" />,
     imageUrl: '/assets/career_clay.png',
-    shadowColor: 'rgba(88,204,2,0.12)',
+    shadowColor: 'rgba(0, 82, 255,0.12)',
   },
 ];
 
@@ -80,7 +80,7 @@ const ProjectCardComponent: React.FC<ProjectCardComponentProps> = ({ card, index
     >
       {/* Left Side: Card Text Info */}
       <div className="flex-1 flex flex-col items-start z-10">
-        <span className="text-xs font-extrabold uppercase tracking-widest text-[#58CC02] mb-3">
+        <span className="text-xs font-extrabold uppercase tracking-widest text-[#0052ff] mb-3">
           {card.subtitle}
         </span>
         <div className="flex items-center gap-3.5 mb-6">
@@ -136,7 +136,7 @@ export const ProjectsSection: React.FC = () => {
       id="projects-stack"
       style={{
         background: `
-          radial-gradient(ellipse 70% 50% at 50% 0%, rgba(88,204,2,0.07) 0%, transparent 60%),
+          radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0, 82, 255,0.07) 0%, transparent 60%),
           radial-gradient(ellipse 50% 35% at 90% 100%, rgba(14,165,233,0.05) 0%, transparent 55%),
           linear-gradient(180deg, #f8fafc 0%, #ffffff 50%)
         `,
@@ -166,7 +166,7 @@ export const ProjectsSection: React.FC = () => {
           className="max-w-3xl mb-16 md:mb-24"
         >
           <span className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full bg-slate-50 border border-slate-200 text-slate-600 text-xs font-semibold tracking-widest uppercase mb-4 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#58CC02]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#0052ff]" />
             Career Pipeline Stacking
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0F172A] tracking-tighter leading-none mb-6">

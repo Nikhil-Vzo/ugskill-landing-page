@@ -191,7 +191,7 @@ export const HeroSection: React.FC = () => {
               {/* Mobile-only headline & subtext */}
               <h1 className="sm:hidden text-5xl font-black leading-[0.92] tracking-tight text-white mb-5 drop-shadow-[0_2px_16px_rgba(0,0,0,0.5)]">
                 From Campus
-                <span className="block text-[#58CC02] drop-shadow-[0_0_20px_rgba(88,204,2,0.6)]">To Corporate</span>
+                <span className="block text-[#0052ff] drop-shadow-[0_0_20px_rgba(0, 82, 255,0.6)]">To Corporate</span>
               </h1>
               <p className="sm:hidden text-white/80 font-semibold text-base max-w-sm mx-auto mb-8 leading-relaxed drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)]">
                 The all-in-one LMS, Exam &amp; Placement engine — connecting learning to corporate readiness.
@@ -223,7 +223,7 @@ export const HeroSection: React.FC = () => {
               <img
                 src="/assets/projects/scroll_down_robo.png"
                 alt="Scroll Down Indicator Mascot"
-                className="w-full h-auto drop-shadow-[0_12px_24px_rgba(88,204,2,0.15)]"
+                className="w-full h-auto drop-shadow-[0_12px_24px_rgba(0, 82, 255,0.15)]"
               />
             </div>
           </motion.div>
@@ -237,7 +237,7 @@ export const HeroSection: React.FC = () => {
           >
             <motion.div variants={rightActionsChildVariants}>
               <Link href="/auth/login?sandbox=true" className="no-underline">
-                <TactileButton variant="primary" className="px-7 py-4 text-sm font-bold shadow-[0_20px_40px_-15px_rgba(88,204,2,0.3)] flex items-center justify-center gap-2 group">
+                <TactileButton variant="primary" className="px-7 py-4 text-sm font-bold shadow-[0_20px_40px_-15px_rgba(0, 82, 255,0.3)] flex items-center justify-center gap-2 group">
                   Try Interactive Demo
                   <MousePointerClick className="w-4 h-4 text-white/90 transition-transform group-hover:scale-110" />
                 </TactileButton>
@@ -268,9 +268,9 @@ export const HeroSection: React.FC = () => {
             className="absolute inset-0 pointer-events-none opacity-90 gradient-drift"
             style={{
               backgroundImage: `
-                radial-gradient(circle at 20% 50%, rgba(88, 204, 2, 0.22), transparent 55%),
-                radial-gradient(circle at 80% 50%, rgba(88, 204, 2, 0.16), transparent 45%),
-                radial-gradient(circle at 50% 80%, rgba(88, 204, 2, 0.08), transparent 35%),
+                radial-gradient(circle at 20% 50%, rgba(0, 82, 255, 0.22), transparent 55%),
+                radial-gradient(circle at 80% 50%, rgba(0, 82, 255, 0.16), transparent 45%),
+                radial-gradient(circle at 50% 80%, rgba(0, 82, 255, 0.08), transparent 35%),
                 linear-gradient(to bottom, rgba(248, 250, 252, 0.95), rgba(255, 255, 255, 1))
               `,
             }}
@@ -281,7 +281,7 @@ export const HeroSection: React.FC = () => {
 
               {/* Video intro */}
               <div className="relative z-20 mx-auto w-full max-w-3xl lg:absolute lg:left-[6%] lg:top-1/2 lg:w-[46%] lg:-translate-y-1/2">
-                <div className="absolute -inset-8 z-0 rounded-[2.5rem] bg-gradient-to-tr from-[#58CC02]/24 to-[#58CC02]/8 blur-2xl opacity-85 pointer-events-none" />
+                <div className="absolute -inset-8 z-0 rounded-[2.5rem] bg-gradient-to-tr from-[#0052ff]/24 to-[#0052ff]/8 blur-2xl opacity-85 pointer-events-none" />
 
                 <motion.div
                   initial={{ opacity: 0, x: -60, rotate: -3 }}
@@ -306,7 +306,7 @@ export const HeroSection: React.FC = () => {
                   >
                     {isMuted
                       ? <VolumeX className="w-4 h-4 text-white/70" />
-                      : <Volume2 className="w-4 h-4 text-[#58CC02]" />}
+                      : <Volume2 className="w-4 h-4 text-[#0052ff]" />}
                     <span>{isMuted ? 'Unmute' : 'Mute'}</span>
                   </button>
                 </motion.div>
@@ -351,7 +351,7 @@ export const HeroSection: React.FC = () => {
                       <img
                         src="/assets/projects/student_mascot_clay.png"
                         alt="Robot Mascot Companion"
-                        className="float-anim w-full h-auto drop-shadow-[0_12px_24px_rgba(88,204,2,0.18)]"
+                        className="float-anim w-full h-auto drop-shadow-[0_12px_24px_rgba(0, 82, 255,0.18)]"
                       />
                     </motion.div>
 

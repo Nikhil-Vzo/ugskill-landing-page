@@ -75,12 +75,12 @@ export default function PricingPage() {
           description="All plans require a custom quote tailored to your batch size. Try the interactive demo to explore the platform before getting in touch."
           gradientFrom="from-slate-950"
           gradientTo="to-emerald-950"
-          accentColor="#58CC02"
+          accentColor="#0052ff"
         >
           {/* CTA buttons inside hero */}
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/auth/login" className="no-underline">
-              <button className="px-8 py-3.5 rounded-full bg-[#58CC02] text-white font-bold text-sm uppercase tracking-wide hover:bg-[#46A302] transition-colors shadow-lg shadow-[#58CC02]/30">
+              <button className="px-8 py-3.5 rounded-full bg-[#0052ff] text-white font-bold text-sm uppercase tracking-wide hover:bg-[#0041cc] transition-colors shadow-lg shadow-[#0052ff]/30">
                 Try Interactive Demo
               </button>
             </Link>
@@ -101,12 +101,12 @@ export default function PricingPage() {
                   key={idx} 
                   className={`rounded-[2.2rem] border p-8 bg-white flex flex-col justify-between relative transition-all duration-300 ${
                     plan.popular 
-                      ? 'border-[#58CC02] shadow-[0_20px_40px_-15px_rgba(88,204,2,0.12)] lg:scale-105 z-10' 
+                      ? 'border-[#0052ff] shadow-[0_20px_40px_-15px_rgba(0, 82, 255,0.12)] lg:scale-105 z-10' 
                       : 'border-zinc-200 hover:shadow-md'
                   }`}
                 >
                   {plan.popular && (
-                    <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-[#58CC02] text-white text-[10px] font-black uppercase tracking-wider shadow-sm select-none">
+                    <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-[#0052ff] text-white text-[10px] font-black uppercase tracking-wider shadow-sm select-none">
                       Most Popular
                     </span>
                   )}
@@ -126,7 +126,7 @@ export default function PricingPage() {
                     <div className="flex flex-col gap-4 border-t border-zinc-100 pt-6">
                       {plan.features.map((feature, fIdx) => (
                         <div key={fIdx} className="flex items-start gap-3 text-left">
-                          <Check className="w-4 h-4 text-[#58CC02] shrink-0 mt-1" />
+                          <Check className="w-4 h-4 text-[#0052ff] shrink-0 mt-1" />
                           <span className="text-sm font-semibold text-zinc-700 leading-normal">
                             {feature}
                           </span>
@@ -165,24 +165,24 @@ export default function PricingPage() {
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
                 <div className="flex flex-col gap-2">
-                  <div className="w-10 h-10 rounded-2xl bg-[#58CC02]/10 flex items-center justify-center">
-                    <span className="text-[#58CC02] text-xl">1</span>
+                  <div className="w-10 h-10 rounded-2xl bg-[#0052ff]/10 flex items-center justify-center">
+                    <span className="text-[#0052ff] text-xl">1</span>
                   </div>
                   <h3 className="font-black text-zinc-900 text-sm">Try the Demo</h3>
                   <p className="text-xs text-zinc-500 font-medium">Explore the full platform interactively. No credit card needed.</p>
-                  <Link href="/auth/login" className="text-[#58CC02] text-xs font-bold hover:underline">Login to Demo →</Link>
+                  <Link href="/auth/login" className="text-[#0052ff] text-xs font-bold hover:underline">Login to Demo →</Link>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <div className="w-10 h-10 rounded-2xl bg-[#58CC02]/10 flex items-center justify-center">
-                    <span className="text-[#58CC02] text-xl">2</span>
+                  <div className="w-10 h-10 rounded-2xl bg-[#0052ff]/10 flex items-center justify-center">
+                    <span className="text-[#0052ff] text-xl">2</span>
                   </div>
                   <h3 className="font-black text-zinc-900 text-sm">Get a Custom Quote</h3>
                   <p className="text-xs text-zinc-500 font-medium">Tell us your batch size and modules. We&apos;ll build a package for you.</p>
-                  <Link href="/company/contact" className="text-[#58CC02] text-xs font-bold hover:underline">Contact Sales →</Link>
+                  <Link href="/company/contact" className="text-[#0052ff] text-xs font-bold hover:underline">Contact Sales →</Link>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <div className="w-10 h-10 rounded-2xl bg-[#58CC02]/10 flex items-center justify-center">
-                    <span className="text-[#58CC02] text-xl">3</span>
+                  <div className="w-10 h-10 rounded-2xl bg-[#0052ff]/10 flex items-center justify-center">
+                    <span className="text-[#0052ff] text-xl">3</span>
                   </div>
                   <h3 className="font-black text-zinc-900 text-sm">Go Live</h3>
                   <p className="text-xs text-zinc-500 font-medium">Onboarding takes under a week. We handle the setup.</p>

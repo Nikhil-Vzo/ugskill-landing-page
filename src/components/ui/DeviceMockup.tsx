@@ -15,13 +15,13 @@ export interface MockupTab {
 interface DeviceMockupProps {
   tabs: MockupTab[];
   urlPath?: string;
-  glowColor?: string; // e.g. '#58CC02' or '#2b99cc'
+  glowColor?: string; // e.g. '#0052ff' or '#2b99cc'
 }
 
 export const DeviceMockup: React.FC<DeviceMockupProps> = ({ 
   tabs, 
   urlPath = 'ugskill.com/platform',
-  glowColor = '#58CC02'
+  glowColor = '#0052ff'
 }) => {
   const [activeTabId, setActiveTabId] = useState(tabs[0]?.id || '');
 
@@ -132,7 +132,7 @@ export const DeviceMockup: React.FC<DeviceMockupProps> = ({
             >
               {/* Highlight Kicker */}
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 border border-zinc-250 text-zinc-800 text-xs font-bold uppercase tracking-wider w-fit">
-                <Activity className="w-3.5 h-3.5 text-[#58CC02]" />
+                <Activity className="w-3.5 h-3.5 text-[#0052ff]" />
                 Interactive Tour
               </div>
 
@@ -151,7 +151,7 @@ export const DeviceMockup: React.FC<DeviceMockupProps> = ({
                 <div className="flex flex-col gap-3 pt-4 border-t border-zinc-100">
                   {activeTab.features.map((feature, idx) => (
                     <div key={idx} className="flex items-start gap-2.5">
-                      <CheckCircle2 className="w-4.5 h-4.5 text-[#58CC02] shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4.5 h-4.5 text-[#0052ff] shrink-0 mt-0.5" />
                       <span className="text-sm font-semibold text-zinc-700 leading-tight">
                         {feature}
                       </span>

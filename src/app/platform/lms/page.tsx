@@ -65,7 +65,7 @@ export default function PlatformLMSPage() {
           description="Turn syllabus-aligned courses into a rewarding daily challenge. Students build streaks, level up their XP, and prove their skills in real-time sandboxes."
           gradientFrom="from-emerald-950"
           gradientTo="to-slate-900"
-          accentColor="#58CC02"
+          accentColor="#0052ff"
         />
 
         {/* Platform Sub-Nav */}
@@ -84,7 +84,7 @@ export default function PlatformLMSPage() {
               </p>
             </div>
 
-            <DeviceMockup tabs={lmsTabs} urlPath="ugskill.com/platform/lms" glowColor="#58CC02" />
+            <DeviceMockup tabs={lmsTabs} urlPath="ugskill.com/platform/lms" glowColor="#0052ff" />
 
           </div>
         </section>
@@ -94,7 +94,7 @@ export default function PlatformLMSPage() {
           <div className="max-w-5xl mx-auto px-6">
             
             <div className="mb-16 text-left">
-              <span className="text-xs font-extrabold text-[#58CC02] uppercase tracking-widest bg-[#58CC02]/8 px-3 py-1.5 rounded-full">
+              <span className="text-xs font-extrabold text-[#0052ff] uppercase tracking-widest bg-[#0052ff]/8 px-3 py-1.5 rounded-full">
                 Features Overview
               </span>
               <h2 className="text-3xl md:text-4xl font-black text-zinc-950 mt-6 tracking-tight">

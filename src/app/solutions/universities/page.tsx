@@ -58,17 +58,17 @@ export default function SolutionsUniversitiesPage() {
               WebkitMaskImage: 'radial-gradient(circle at center, black, transparent 80%)'
             }}
           />
-          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[350px] w-[500px] bg-[#58CC02]/5 blur-[90px] rounded-full pointer-events-none -z-10" />
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[350px] w-[500px] bg-[#0052ff]/5 blur-[90px] rounded-full pointer-events-none -z-10" />
 
           <div className="w-full max-w-5xl px-6 flex flex-col items-center text-center relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#58CC02]/10 border border-[#58CC02]/20 text-[#46A302] text-xs font-bold uppercase tracking-wider mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0052ff]/10 border border-[#0052ff]/20 text-[#0041cc] text-xs font-bold uppercase tracking-wider mb-6">
               <Sparkles className="w-4 h-4" />
               University Solutions
             </div>
 
             <h1 className="text-5xl md:text-7xl font-black text-zinc-950 tracking-tighter leading-[0.95] mb-6">
               Empower Your Campus <br />
-              <span className="text-[#58CC02]">Placement Lifecycle</span>
+              <span className="text-[#0052ff]">Placement Lifecycle</span>
             </h1>
 
             <p className="text-zinc-550 font-medium text-lg md:text-xl max-w-2xl leading-relaxed mb-8">
@@ -105,7 +105,7 @@ export default function SolutionsUniversitiesPage() {
                     key={idx} 
                     className="rounded-3xl border border-zinc-200 bg-white p-8 hover:shadow-md transition-shadow duration-300 flex flex-col text-left justify-start"
                   >
-                    <div className="h-12 w-12 rounded-2xl bg-[#58CC02]/10 text-[#58CC02] flex items-center justify-center mb-6">
+                    <div className="h-12 w-12 rounded-2xl bg-[#0052ff]/10 text-[#0052ff] flex items-center justify-center mb-6">
                       <Icon className="h-6 w-6" />
                     </div>
                     <h3 className="text-xl font-bold text-zinc-950 mb-3">{card.title}</h3>
@@ -122,7 +122,7 @@ export default function SolutionsUniversitiesPage() {
           <div className="max-w-5xl mx-auto px-6">
             
             <div className="mb-16 text-left">
-              <span className="text-xs font-extrabold text-[#58CC02] uppercase tracking-widest bg-[#58CC02]/8 px-3 py-1.5 rounded-full">
+              <span className="text-xs font-extrabold text-[#0052ff] uppercase tracking-widest bg-[#0052ff]/8 px-3 py-1.5 rounded-full">
                 Features overview
               </span>
               <h2 className="text-3xl md:text-4xl font-black text-zinc-950 mt-6 tracking-tight">

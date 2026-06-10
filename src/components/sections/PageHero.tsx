@@ -10,7 +10,7 @@ interface PageHeroProps {
   description: string;
   gradientFrom: string; // e.g. 'from-emerald-950'
   gradientTo: string;   // e.g. 'to-slate-950'
-  accentColor: string;  // e.g. '#58CC02'
+  accentColor: string;  // e.g. '#0052ff'
   children?: React.ReactNode;
 }
 
